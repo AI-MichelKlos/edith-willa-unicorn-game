@@ -17,7 +17,7 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 .hill{position:absolute;bottom:-7vh;width:75vw;height:25vh;border-radius:50% 50% 0 0;background:#54bd62}
 #hill1{left:-18vw}#hill2{right:-22vw;background:#47aa58}
 #flowers{position:absolute;bottom:3vh;width:100%;font-size:28px;white-space:nowrap;opacity:.8}
-#names{position:absolute;left:50%;top:33%;transform:translate(-50%,-50%);width:100%;text-align:center;font-size:clamp(46px,14vw,96px);font-weight:bold;line-height:1.05;pointer-events:none}
+#names{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:96%;text-align:center;font-size:clamp(30px,8vw,60px);font-weight:bold;line-height:1.1;pointer-events:none}
 .letter{position:relative;display:inline-block;color:#ffffff30;text-shadow:0 2px 8px #7540cc33}
 .fill{position:absolute;inset:0;color:white;opacity:0;transform:scale(.6) translateY(18px);transition:.45s;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66}
 .fill.show{opacity:1;transform:scale(1) translateY(0)}
@@ -29,6 +29,7 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 #hint{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#ffffffaa;color:#7a40d8;border-radius:18px;padding:8px 14px;font-weight:bold;text-align:center;z-index:35}
 #start{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:60}
 #start button{font-size:clamp(25px,8vw,44px);border:0;border-radius:30px;padding:22px 28px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0003;cursor:pointer;touch-action:manipulation}
+#again{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);display:none;z-index:70;font-size:clamp(22px,7vw,38px);border:0;border-radius:30px;padding:18px 30px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0004;cursor:pointer;touch-action:manipulation}
 .firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:55;pointer-events:none;animation:boom .9s ease-out forwards}
 @keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}
 </style>
@@ -43,11 +44,12 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 <div class="hill" id="hill1"></div>
 <div class="hill" id="hill2"></div>
 <div id="flowers">🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸 🌻 🌷</div>
-<div id="ui">⭐ <span id="score">0</span> / 10</div>
+<div id="ui">⭐ <span id="score">0</span> / <span id="maxscore">0</span></div>
 <div id="msg">Styr med fingeren 🌈</div>
 <div id="player">🦄</div>
 <div id="dragon">🐉</div>
 <div id="hint">👇 Læg fingeren på skærmen og flyt enhjørningen</div>
+<button id="again">🌈 Spil igen</button>
 <div id="start"><button>🦄 Start eventyret<br><span style="font-size:.55em">Find Edith og Willa</span></button></div>
 </div>
 <script>
@@ -55,11 +57,14 @@ const game=document.getElementById("game");
 const player=document.getElementById("player");
 const dragon=document.getElementById("dragon");
 const scoreEl=document.getElementById("score");
+const maxEl=document.getElementById("maxscore");
 const msg=document.getElementById("msg");
 const start=document.getElementById("start");
 const names=document.getElementById("names");
-const text="Edith Willa";
-const maxScore=10;
+const again=document.getElementById("again");
+const text="Mor og far elsker Edith og Willa";
+const maxScore=text.replace(/ /g,"").length;
+maxEl.textContent=maxScore;
 let score=0,started=false,won=false,hitCooldown=false;
 function GW(){return game.clientWidth;}
 function GH(){return game.clientHeight;}
@@ -80,7 +85,13 @@ if(parseFloat(el.style.top)>GH()*.74)el.style.top=GH()*.74+"px";
 function buildNames(){
 names.innerHTML="";
 text.split("").forEach(ch=>{
-if(ch===" "){names.appendChild(document.createElement("br"));return;}
+if(ch===" "){
+const sp=document.createElement("span");
+sp.style.display="inline-block";
+sp.style.width=".4em";
+names.appendChild(sp);
+return;
+}
 const wrap=document.createElement("span");
 wrap.className="letter";
 wrap.textContent=ch;
@@ -93,7 +104,12 @@ names.appendChild(wrap);
 }
 function updateLetters(){
 document.querySelectorAll(".fill").forEach((el,i)=>el.classList.toggle("show",i<score));
-if(score>=maxScore&&!won){won=true;showMsg("Hurra for Edith og Willa! 🎆",3500);fireworks();}
+if(score>=maxScore&&!won){
+won=true;
+showMsg("Hurra for Edith og Willa! 🎆",4000);
+fireworks();
+setTimeout(()=>{again.style.display="block";},1200);
+}
 }
 function showMsg(t,ms=1400){
 msg.textContent=t;msg.style.display="block";
@@ -151,6 +167,22 @@ showMsg("Styr med fingeren ✨",2100);
 const startBtn=start.querySelector("button");
 startBtn.addEventListener("touchend",e=>{e.preventDefault();doStart();},{passive:false});
 startBtn.addEventListener("click",doStart);
+function resetGame(){
+score=0;won=false;hitCooldown=false;
+scoreEl.textContent=0;
+updateLetters();
+again.style.display="none";
+x=GW()*.18;y=GH()*.58;targetX=x;targetY=y;
+dragonX=GW()*.85;
+items.forEach(el=>{
+el.style.left=GW()+80+Math.random()*300+"px";
+el.style.top=GH()*(.26+Math.random()*.48)+"px";
+});
+showMsg("Find bogstaverne igen! 🌈",2000);
+sparkle();
+}
+again.addEventListener("touchend",e=>{e.preventDefault();resetGame();},{passive:false});
+again.addEventListener("click",resetGame);
 function collect(el){
 if(won)return;
 score=Math.min(maxScore,score+1);scoreEl.textContent=score;
@@ -158,20 +190,19 @@ updateLetters();sparkle();
 el.style.left=GW()+80+Math.random()*150+"px";
 el.style.top=GH()*(.26+Math.random()*.48)+"px";
 if(score===1)showMsg("Et bogstav kom frem! ✨");
-if(score===5)showMsg("Edith er fremme! 💖");
 }
 function hitDragon(){
 if(hitCooldown||!started||won)return;
 hitCooldown=true;
 score=Math.max(0,score-1);scoreEl.textContent=score;
 updateLetters();dragonSound();
-showMsg("Ups! Dragen gemte et bogstav 🐉",1500);
+showMsg("Ups! Dragen tog et bogstav 🐉",1500);
 player.style.filter="brightness(1.45)";
 setTimeout(()=>player.style.filter="",330);
 setTimeout(()=>hitCooldown=false,1700);
 }
 function fireworks(){
-for(let i=0;i<10;i++)setTimeout(()=>{fireSound();burst(Math.random()*GW(),GH()*(.10+Math.random()*.38));},i*420);
+for(let i=0;i<14;i++)setTimeout(()=>{fireSound();burst(Math.random()*GW(),GH()*(.10+Math.random()*.38));},i*380);
 }
 function burst(cx,cy){
 const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#ffffff"];
