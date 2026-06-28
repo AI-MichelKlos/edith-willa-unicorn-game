@@ -14,10 +14,13 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 #rainbow{position:absolute;left:-20vw;top:8vh;width:140vw;height:52vh;border-radius:50% 50% 0 0;opacity:.65;background:conic-gradient(from 270deg at 50% 100%,#ff5a7a 0 10deg,#ffb347 10deg 20deg,#fff45a 20deg 30deg,#77dd77 30deg 40deg,#6ec6ff 40deg 50deg,#b284ff 50deg 60deg,transparent 60deg 300deg,#ff5a7a 300deg 310deg,#ffb347 310deg 320deg,#fff45a 320deg 330deg,#77dd77 330deg 340deg,#6ec6ff 340deg 350deg,#b284ff 350deg 360deg)}
 #sun{position:absolute;right:8vw;top:6vh;font-size:62px;animation:bob 3s infinite alternate}
 .cloud{position:absolute;font-size:46px;opacity:.85;animation:drift 25s linear infinite}
-#cloud1{top:17vh;left:-30vw}#cloud2{top:27vh;left:-60vw;animation-duration:34s}
-@keyframes drift{to{transform:translateX(150vw)}}@keyframes bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
+#cloud1{top:17vh;left:-30vw}
+#cloud2{top:27vh;left:-60vw;animation-duration:34s}
+@keyframes drift{to{transform:translateX(150vw)}}
+@keyframes bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
 .hill{position:absolute;bottom:-7vh;width:75vw;height:25vh;border-radius:50% 50% 0 0;background:#54bd62}
-#hill1{left:-18vw}#hill2{right:-22vw;background:#47aa58}
+#hill1{left:-18vw}
+#hill2{right:-22vw;background:#47aa58}
 #flowers{position:absolute;bottom:3vh;width:100%;font-size:28px;white-space:nowrap;opacity:.8}
 #names{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:96%;text-align:center;font-size:clamp(29px,8vw,58px);font-weight:bold;line-height:1.1}
 .letter{position:relative;display:inline-block;color:#ffffff30}
@@ -31,12 +34,13 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 #msg{position:absolute;left:50%;top:13%;transform:translateX(-50%);display:none;background:#fff9;color:#8a3ffc;padding:12px 18px;border-radius:22px;font-size:clamp(21px,6vw,36px);font-weight:bold;text-align:center;z-index:40}
 #hint{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#ffffffaa;color:#7a40d8;border-radius:18px;padding:8px 14px;font-weight:bold;text-align:center;z-index:35}
 #start{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:60}
-#start button,#next,#again{font-size:clamp(22px,7vw,38px);border:0;border-radius:30px;padding:18px 30px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0004}
-#next,#again{position:absolute;left:50%;bottom:25%;transform:translateX(-50%);display:none;z-index:70}
+#start button,#next,#again{font-size:clamp(22px,7vw,38px);border:0;border-radius:30px;padding:18px 30px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0004;touch-action:manipulation;pointer-events:auto}
+#next,#again{position:absolute;left:50%;bottom:25%;transform:translateX(-50%);display:none;z-index:100}
 .firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:55;pointer-events:none;animation:boom .9s ease-out forwards}
 @keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}
 </style>
 </head>
+
 <body>
 <div id="game">
 <audio id="bgMusic" src="music.mp3" preload="auto"></audio>
@@ -242,17 +246,24 @@ function setTarget(cx,cy){
 }
 
 game.addEventListener("touchstart",e=>{
+  if(e.target===next || e.target===again)return;
   e.preventDefault();
   setTarget(e.touches[0].clientX,e.touches[0].clientY);
 },{passive:false});
 
 game.addEventListener("touchmove",e=>{
+  if(e.target===next || e.target===again)return;
   e.preventDefault();
   setTarget(e.touches[0].clientX,e.touches[0].clientY);
 },{passive:false});
 
-game.addEventListener("mousedown",e=>setTarget(e.clientX,e.clientY));
+game.addEventListener("mousedown",e=>{
+  if(e.target===next || e.target===again)return;
+  setTarget(e.clientX,e.clientY);
+});
+
 game.addEventListener("mousemove",e=>{
+  if(e.target===next || e.target===again)return;
   if(e.buttons)setTarget(e.clientX,e.clientY);
 });
 
@@ -323,6 +334,7 @@ async function startGame(){
 start.querySelector("button").addEventListener("click",startGame);
 start.querySelector("button").addEventListener("touchend",e=>{
   e.preventDefault();
+  e.stopPropagation();
   startGame();
 },{passive:false});
 
@@ -379,17 +391,33 @@ function burst(cx,cy){
   }
 }
 
-next.addEventListener("click",()=>{
-  level++;
-  applyLevel();
-  showMsg("Ny bane! ✨",2000);
-});
+function goNextLevel(){
+  if(level<levels.length-1){
+    level++;
+    applyLevel();
+    showMsg("Ny bane! ✨",2000);
+  }
+}
 
-again.addEventListener("click",()=>{
+function restartGame(){
   level=0;
   applyLevel();
   showMsg("Forfra igen! 🌈",2000);
-});
+}
+
+next.addEventListener("click",goNextLevel);
+next.addEventListener("touchend",e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  goNextLevel();
+},{passive:false});
+
+again.addEventListener("click",restartGame);
+again.addEventListener("touchend",e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  restartGame();
+},{passive:false});
 
 function loop(){
   if(started){
