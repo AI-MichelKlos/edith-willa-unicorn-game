@@ -39,7 +39,7 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 </head>
 <body>
 <div id="game">
-<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
+<audio id="bgMusic" src="music.mp3" preload="auto"></audio>
 
 <div id="rainbow"></div>
 <div id="sun">☀️</div>
@@ -121,6 +121,7 @@ const levels=[
 let level=0,score=0,maxScore=0,won=false,started=false,hitCooldown=false;
 let x=innerWidth*.18,y=innerHeight*.58,targetX=x,targetY=y;
 let badX=innerWidth*.85,badY=innerHeight*.45,badPhase=0;
+let musicLoopStarted=false;
 const items=[];
 
 function W(){return game.clientWidth}
@@ -186,6 +187,7 @@ function applyLevel(){
   player.textContent=L.player;
   bad.textContent=L.bad;
   next.textContent=L.next;
+
   document.getElementById("sun").textContent=level===1?"🌙":"☀️";
   document.getElementById("flowers").textContent=
     level===1 ? "🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿 🧶 🌿" :
@@ -254,14 +256,63 @@ game.addEventListener("mousemove",e=>{
   if(e.buttons)setTarget(e.clientX,e.clientY);
 });
 
+function fadeVolume(from,to,duration,done){
+  const steps=40;
+  let step=0;
+  clearInterval(fadeVolume.timer);
+
+  fadeVolume.timer=setInterval(()=>{
+    step++;
+    const t=step/steps;
+    bgMusic.volume=from+(to-from)*t;
+
+    if(step>=steps){
+      clearInterval(fadeVolume.timer);
+      bgMusic.volume=to;
+      if(done)done();
+    }
+  },duration/steps);
+}
+
+function smoothMusicLoop(){
+  if(musicLoopStarted)return;
+  musicLoopStarted=true;
+
+  const maxVolume=.35;
+  const fadeSeconds=3;
+
+  bgMusic.loop=false;
+  bgMusic.volume=0;
+
+  fadeVolume(0,maxVolume,2200);
+
+  bgMusic.addEventListener("timeupdate",()=>{
+    if(!bgMusic.duration)return;
+
+    const timeLeft=bgMusic.duration-bgMusic.currentTime;
+
+    if(timeLeft<fadeSeconds && !bgMusic.fadingOut){
+      bgMusic.fadingOut=true;
+
+      fadeVolume(bgMusic.volume,0,fadeSeconds*1000,()=>{
+        bgMusic.currentTime=0;
+        bgMusic.play();
+        bgMusic.fadingOut=false;
+        fadeVolume(0,maxVolume,2200);
+      });
+    }
+  });
+}
+
 async function startGame(){
   if(started)return;
   started=true;
   start.style.display="none";
 
   try{
-    bgMusic.volume=.35;
+    bgMusic.volume=0;
     await bgMusic.play();
+    smoothMusicLoop();
   }catch(e){
     showMsg("Tryk igen hvis musikken ikke starter 🎵",1800);
   }
