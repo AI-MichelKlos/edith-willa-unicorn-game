@@ -1,40 +1,38 @@
 <!DOCTYPE html>
 <html lang="da">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-<title>Edith & Willa - Tre magiske baner</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>Edith & Willa - Magisk spil</title>
 <style>
-*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none;-webkit-user-select:none}
-html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none;overscroll-behavior:none}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}
+html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none}
 body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 #game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}
-#game.level2{background:radial-gradient(circle at 80% 12%,#fff8c7 0 5%,transparent 5.6%),linear-gradient(#8d8bff 0%,#cbbcff 48%,#b7f0d4 49%,#58bd7b 100%)}
-#game.level3{background:radial-gradient(circle at 78% 13%,#ffeaa0 0 6%,transparent 6.5%),linear-gradient(#ffd27d 0%,#fff0b8 48%,#f2c96d 49%,#d49a3a 100%)}
+#game.level2{background:linear-gradient(#8d8bff 0%,#cbbcff 48%,#b7f0d4 49%,#58bd7b 100%)}
+#game.level3{background:linear-gradient(#ffd27d 0%,#fff0b8 48%,#f2c96d 49%,#d49a3a 100%)}
 #rainbow{position:absolute;left:-20vw;top:8vh;width:140vw;height:52vh;border-radius:50% 50% 0 0;opacity:.65;background:conic-gradient(from 270deg at 50% 100%,#ff5a7a 0 10deg,#ffb347 10deg 20deg,#fff45a 20deg 30deg,#77dd77 30deg 40deg,#6ec6ff 40deg 50deg,#b284ff 50deg 60deg,transparent 60deg 300deg,#ff5a7a 300deg 310deg,#ffb347 310deg 320deg,#fff45a 320deg 330deg,#77dd77 330deg 340deg,#6ec6ff 340deg 350deg,#b284ff 350deg 360deg)}
-.level2 #rainbow{opacity:.25}.level3 #rainbow{opacity:.15}
 #sun{position:absolute;right:8vw;top:6vh;font-size:62px;animation:bob 3s infinite alternate}
 .cloud{position:absolute;font-size:46px;opacity:.85;animation:drift 25s linear infinite}
 #cloud1{top:17vh;left:-30vw}#cloud2{top:27vh;left:-60vw;animation-duration:34s}
 @keyframes drift{to{transform:translateX(150vw)}}@keyframes bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
 .hill{position:absolute;bottom:-7vh;width:75vw;height:25vh;border-radius:50% 50% 0 0;background:#54bd62}
-#hill1{left:-18vw}#hill2{right:-22vw;background:#47aa58}.level3 .hill{background:#c58a36}.level3 #hill2{background:#b5742d}
+#hill1{left:-18vw}#hill2{right:-22vw;background:#47aa58}
 #flowers{position:absolute;bottom:3vh;width:100%;font-size:28px;white-space:nowrap;opacity:.8}
-#names{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:96%;text-align:center;font-size:clamp(29px,8vw,58px);font-weight:bold;line-height:1.1;pointer-events:none}
-.letter{position:relative;display:inline-block;color:#ffffff30;text-shadow:0 2px 8px #7540cc33}
+#names{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:96%;text-align:center;font-size:clamp(29px,8vw,58px);font-weight:bold;line-height:1.1}
+.letter{position:relative;display:inline-block;color:#ffffff30}
 .fill{position:absolute;inset:0;color:white;opacity:0;transform:scale(.6) translateY(18px);transition:.45s;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66}
 .fill.show{opacity:1;transform:scale(1) translateY(0)}
 #player{position:absolute;font-size:clamp(60px,17vw,98px);z-index:10;transform:translate(-50%,-50%)}
-#dragon{position:absolute;font-size:clamp(46px,13vw,82px);z-index:9;transform:scaleX(-1)}
+#bad{position:absolute;font-size:clamp(46px,13vw,82px);z-index:9;transform:scaleX(-1)}
 .item{position:absolute;font-size:clamp(36px,9vw,54px);z-index:8;animation:bob 1.6s infinite alternate}
-#ui{position:absolute;top:max(10px,env(safe-area-inset-top));left:max(10px,env(safe-area-inset-left));background:#ffffffcc;color:#6b3fa0;padding:9px 13px;border-radius:18px;font-weight:bold;font-size:18px;z-index:30}
+#ui{position:absolute;top:max(10px,env(safe-area-inset-top));left:10px;background:#ffffffcc;color:#6b3fa0;padding:9px 13px;border-radius:18px;font-weight:bold;font-size:18px;z-index:30}
 #levelLabel{display:block;font-size:14px;color:#8a3ffc}
 #msg{position:absolute;left:50%;top:13%;transform:translateX(-50%);display:none;background:#fff9;color:#8a3ffc;padding:12px 18px;border-radius:22px;font-size:clamp(21px,6vw,36px);font-weight:bold;text-align:center;z-index:40}
 #hint{position:absolute;bottom:max(18px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);background:#ffffffaa;color:#7a40d8;border-radius:18px;padding:8px 14px;font-weight:bold;text-align:center;z-index:35}
 #start{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:60}
-#start button,#nextLevel,#again{font-size:clamp(22px,7vw,38px);border:0;border-radius:30px;padding:18px 30px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0004;cursor:pointer;touch-action:manipulation}
-#again,#nextLevel{position:absolute;left:50%;bottom:18%;transform:translateX(-50%);display:none;z-index:70}
-#nextLevel{bottom:30%}
+#start button,#next,#again{font-size:clamp(22px,7vw,38px);border:0;border-radius:30px;padding:18px 30px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0004}
+#next,#again{position:absolute;left:50%;bottom:25%;transform:translateX(-50%);display:none;z-index:70}
 .firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:55;pointer-events:none;animation:boom .9s ease-out forwards}
 @keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}
 </style>
@@ -42,88 +40,353 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 <body>
 <div id="game">
 <audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
-<div id="rainbow"></div><div id="sun">☀️</div>
-<div class="cloud" id="cloud1">☁️ ☁️</div><div class="cloud" id="cloud2">☁️</div>
-<div id="names"></div><div class="hill" id="hill1"></div><div class="hill" id="hill2"></div>
+
+<div id="rainbow"></div>
+<div id="sun">☀️</div>
+<div class="cloud" id="cloud1">☁️ ☁️</div>
+<div class="cloud" id="cloud2">☁️</div>
+<div id="names"></div>
+<div class="hill" id="hill1"></div>
+<div class="hill" id="hill2"></div>
 <div id="flowers">🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸 🌻 🌷</div>
-<div id="ui"><span id="levelLabel">Bane 1</span>⭐ <span id="score">0</span> / <span id="maxscore">0</span></div>
-<div id="msg">Styr med fingeren 🌈</div>
-<div id="player">🦄</div><div id="dragon">🐉</div>
-<div id="hint">👇 Læg fingeren på skærmen og flyt figuren</div>
-<button id="nextLevel">Næste bane</button><button id="again">🌈 Spil igen</button>
-<div id="start"><button>🦄 Start eventyret<br><span style="font-size:.55em">Find Edith og Willa</span></button></div>
+
+<div id="ui">
+  <span id="levelLabel">Bane 1</span>
+  ⭐ <span id="score">0</span> / <span id="maxscore">0</span>
 </div>
+
+<div id="msg">Styr med fingeren 🌈</div>
+<div id="player">🦄</div>
+<div id="bad">🐉</div>
+<div id="hint">👇 Læg fingeren på skærmen og flyt figuren</div>
+
+<button id="next">Næste bane</button>
+<button id="again">🌈 Spil igen</button>
+
+<div id="start">
+  <button>🦄 Start eventyret<br><span style="font-size:.55em">Find Edith og Willa</span></button>
+</div>
+</div>
+
 <script>
-const game=document.getElementById("game"),player=document.getElementById("player"),dragon=document.getElementById("dragon"),scoreEl=document.getElementById("score"),maxEl=document.getElementById("maxscore"),msg=document.getElementById("msg"),start=document.getElementById("start"),names=document.getElementById("names"),again=document.getElementById("again"),nextLevel=document.getElementById("nextLevel"),levelLabel=document.getElementById("levelLabel");
-const levels=[
-{label:"Bane 1: Enhjørning",text:"Mor og far elsker Edith og Willa",player:"🦄",baddie:"🐉",items:["⭐","⭐","⭐","💖","🌸","🦋"],firstMsg:"Et bogstav kom frem! ✨",winMsg:"Hurra for Edith og Willa! 🎆",hitMsg:"Ups! Dragen tog et bogstav 🐉",startMsg:"Styr med fingeren ✨",className:"",next:"🐱 Næste bane"},
-{label:"Bane 2: Willas kat",text:"Willas kat finder mælk",player:"🐱",baddie:"🐶",items:["🐟","🐟","🥛","🧶","💖","⭐"],firstMsg:"Katten fandt noget! 🐟",winMsg:"Willas kat fandt mælk! 🎆",hitMsg:"Ups! Hunden gemte et bogstav 🐶",startMsg:"Hjælp Willas kat med at finde mælk 🐱",className:"level2",next:"🐆 Næste bane"},
-{label:"Bane 3: Ediths gepard",text:"Ediths gepard løber stærkt",player:"🐆",baddie:"🪨",items:["⚡","⚡","⭐","💎","🌟","💖"],firstMsg:"Geparden fandt fart! ⚡",winMsg:"Ediths gepard vandt løbet! 🎆",hitMsg:"Ups! Geparden ramte en sten 🪨",startMsg:"Hjælp Ediths gepard med at løbe stærkt 🐆",className:"level3",next:""}
-];
-let level=0,text="",maxScore=0,score=0,started=false,won=false,hitCooldown=false,audioCtx,dragonPhase=0;
+const game=document.getElementById("game");
 const bgMusic=document.getElementById("bgMusic");
-function GW(){return game.clientWidth} function GH(){return game.clientHeight}
-let x=GW()*.18,y=GH()*.58,targetX=x,targetY=y,dragonX=GW()*.85,dragonY=GH()*.45;
+const player=document.getElementById("player");
+const bad=document.getElementById("bad");
+const scoreEl=document.getElementById("score");
+const maxEl=document.getElementById("maxscore");
+const msg=document.getElementById("msg");
+const start=document.getElementById("start");
+const names=document.getElementById("names");
+const next=document.getElementById("next");
+const again=document.getElementById("again");
+const levelLabel=document.getElementById("levelLabel");
+
+const levels=[
+  {
+    label:"Bane 1: Enhjørning",
+    text:"Mor og far elsker Edith og Willa",
+    player:"🦄",
+    bad:"🐉",
+    items:["⭐","⭐","⭐","💖","🌸","🦋"],
+    win:"Hurra for Edith og Willa! 🎆",
+    hit:"Ups! Dragen tog et bogstav 🐉",
+    cls:"",
+    next:"🐱 Næste bane"
+  },
+  {
+    label:"Bane 2: Willas kat",
+    text:"Willas kat finder mælk",
+    player:"🐱",
+    bad:"🐶",
+    items:["🐟","🐟","🥛","🧶","💖","⭐"],
+    win:"Willas kat fandt mælk! 🎆",
+    hit:"Ups! Hunden gemte et bogstav 🐶",
+    cls:"level2",
+    next:"🐆 Næste bane"
+  },
+  {
+    label:"Bane 3: Ediths gepard",
+    text:"Ediths gepard løber stærkt",
+    player:"🐆",
+    bad:"🪨",
+    items:["⚡","⚡","⭐","💎","🌟","💖"],
+    win:"Ediths gepard vandt løbet! 🎆",
+    hit:"Ups! Geparden ramte en sten 🪨",
+    cls:"level3",
+    next:""
+  }
+];
+
+let level=0,score=0,maxScore=0,won=false,started=false,hitCooldown=false;
+let x=innerWidth*.18,y=innerHeight*.58,targetX=x,targetY=y;
+let badX=innerWidth*.85,badY=innerHeight*.45,badPhase=0;
 const items=[];
-function randomItem(){const a=levels[level].items;return a[Math.floor(Math.random()*a.length)]}
-function applyLevel(){
- const L=levels[level]; text=L.text; maxScore=text.replace(/ /g,"").length; maxEl.textContent=maxScore; levelLabel.textContent=L.label;
- player.textContent=L.player; dragon.textContent=L.baddie; game.className=L.className; nextLevel.textContent=L.next;
- document.getElementById("sun").textContent=level===1?"🌙":level===2?"☀️":"☀️";
- document.getElementById("flowers").textContent=level===1?"🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿 🧶 🌿":level===2?"🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾 🌵 🌾":"🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸 🌻 🌷";
- buildNames(); resetPositions(); updateLetters();
+
+function W(){return game.clientWidth}
+function H(){return game.clientHeight}
+
+function showMsg(t,ms=1500){
+  msg.textContent=t;
+  msg.style.display="block";
+  clearTimeout(showMsg.t);
+  showMsg.t=setTimeout(()=>msg.style.display="none",ms);
 }
-function resetPositions(){
- score=0;won=false;hitCooldown=false;scoreEl.textContent=0;nextLevel.style.display="none";again.style.display="none";
- x=GW()*.18;y=GH()*.58;targetX=x;targetY=y;dragonX=GW()*.85;dragonY=GH()*.45;
- items.forEach(el=>{el.textContent=randomItem();el.style.left=GW()+80+Math.random()*300+"px";el.style.top=GH()*(.26+Math.random()*.48)+"px"})
+
+function buildLetters(){
+  names.innerHTML="";
+  levels[level].text.split("").forEach(ch=>{
+    if(ch===" "){
+      const sp=document.createElement("span");
+      sp.style.display="inline-block";
+      sp.style.width=".35em";
+      names.appendChild(sp);
+      return;
+    }
+    const wrap=document.createElement("span");
+    wrap.className="letter";
+    wrap.textContent=ch;
+    const fill=document.createElement("span");
+    fill.className="fill";
+    fill.textContent=ch;
+    wrap.appendChild(fill);
+    names.appendChild(wrap);
+  });
 }
-function buildNames(){
- names.innerHTML="";
- text.split("").forEach(ch=>{
-  if(ch===" "){const sp=document.createElement("span");sp.style.display="inline-block";sp.style.width=".35em";names.appendChild(sp);return}
-  const wrap=document.createElement("span");wrap.className="letter";wrap.textContent=ch;
-  const fill=document.createElement("span");fill.className="fill";fill.textContent=ch;wrap.appendChild(fill);names.appendChild(wrap);
- })
-}
+
 function updateLetters(){
- document.querySelectorAll(".fill").forEach((el,i)=>el.classList.toggle("show",i<score));
- if(score>=maxScore&&!won){won=true;showMsg(levels[level].winMsg,4000);fireworks();setTimeout(()=>{if(level<levels.length-1)nextLevel.style.display="block";else again.style.display="block"},1200)}
+  document.querySelectorAll(".fill").forEach((el,i)=>{
+    el.classList.toggle("show",i<score);
+  });
+
+  if(score>=maxScore&&!won){
+    won=true;
+    showMsg(levels[level].win,4000);
+    fireworks();
+
+    setTimeout(()=>{
+      if(level<levels.length-1){
+        next.style.display="block";
+      }else{
+        again.style.display="block";
+      }
+    },1200);
+  }
 }
-function showMsg(t,ms=1400){msg.textContent=t;msg.style.display="block";clearTimeout(showMsg.timer);showMsg.timer=setTimeout(()=>msg.style.display="none",ms)}
-function tone(freq,dur=.12,vol=.05,type="sine"){if(!audioCtx)return;const o=audioCtx.createOscillator(),g=audioCtx.createGain();o.type=type;o.frequency.value=freq;g.gain.value=vol;o.connect(g);g.connect(audioCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,audioCtx.currentTime+dur);o.stop(audioCtx.currentTime+dur)}
-function sparkle(){[784,988,1318].forEach((f,i)=>setTimeout(()=>tone(f,.08,.06),i*70))}
-function badSound(){tone(120,.18,.09,"sawtooth");setTimeout(()=>tone(170,.12,.05),120)}
-function fireSound(){tone(110,.16,.10,"sawtooth");setTimeout(()=>tone(900,.08,.07),90);setTimeout(()=>tone(1300,.08,.06),150)}
-function startMusic(){setInterval(()=>{if(!started)return;tone([392,523,587,659,784,659,523][Math.floor(Math.random()*7)],.13,.018)},950)}
-function spawnItem(xPos){const el=document.createElement("div");el.className="item";el.textContent=randomItem();el.style.left=(xPos??GW()+80)+"px";el.style.top=GH()*(.26+Math.random()*.48)+"px";game.appendChild(el);items.push(el)}
-for(let i=0;i<6;i++)spawnItem(GW()*(.38+i*.22));
-function setTarget(cx,cy){if(!started)return;const r=game.getBoundingClientRect();targetX=Math.max(42,Math.min(GW()-42,cx-r.left));targetY=Math.max(GH()*.22,Math.min(GH()*.80,cy-r.top))}
-game.addEventListener("touchstart",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
-game.addEventListener("touchmove",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
-game.addEventListener("mousedown",e=>setTarget(e.clientX,e.clientY));game.addEventListener("mousemove",e=>{if(e.buttons)setTarget(e.clientX,e.clientY)});
-async function doStart(){if(started)return;started=true;start.style.display="none";try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==="suspended")await audioCtx.resume()}catch(e){audioCtx=null}startMusic();sparkle();
-  try{bgMusic.volume=.35;await bgMusic.play()}catch(e){}
-  showMsg(levels[level].startMsg,2100)}
-start.querySelector("button").addEventListener("click",doStart);start.querySelector("button").addEventListener("touchend",e=>{e.preventDefault();doStart()},{passive:false});
-function goNext(){nextLevel.style.display="none";level++;applyLevel();showMsg(levels[level].startMsg,2600);sparkle()}
-nextLevel.addEventListener("click",goNext);nextLevel.addEventListener("touchend",e=>{e.preventDefault();goNext()},{passive:false});
-function resetGame(){again.style.display="none";level=0;applyLevel();showMsg("Find bogstaverne igen! 🌈",2000);sparkle()}
-again.addEventListener("click",resetGame);again.addEventListener("touchend",e=>{e.preventDefault();resetGame()},{passive:false});
-function collect(el){if(won)return;score=Math.min(maxScore,score+1);scoreEl.textContent=score;updateLetters();sparkle();el.textContent=randomItem();el.style.left=GW()+80+Math.random()*150+"px";el.style.top=GH()*(.26+Math.random()*.48)+"px";if(score===1)showMsg(levels[level].firstMsg)}
-function hitBad(){if(hitCooldown||!started||won)return;hitCooldown=true;score=Math.max(0,score-1);scoreEl.textContent=score;updateLetters();badSound();showMsg(levels[level].hitMsg,1500);player.style.filter="brightness(1.45)";setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCooldown=false,1700)}
-function fireworks(){for(let i=0;i<14;i++)setTimeout(()=>{fireSound();burst(Math.random()*GW(),GH()*(.10+Math.random()*.38))},i*380)}
-function burst(cx,cy){const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#ffffff"];for(let i=0;i<36;i++){const p=document.createElement("div");p.className="firework";p.style.cssText="left:"+cx+"px;top:"+cy+"px;background:"+colors[i%colors.length];const a=Math.random()*Math.PI*2,d=55+Math.random()*100;p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");game.appendChild(p);setTimeout(()=>p.remove(),950)}}
+
+function randomItem(){
+  const arr=levels[level].items;
+  return arr[Math.floor(Math.random()*arr.length)];
+}
+
+function applyLevel(){
+  const L=levels[level];
+  game.className=L.cls;
+  levelLabel.textContent=L.label;
+  player.textContent=L.player;
+  bad.textContent=L.bad;
+  next.textContent=L.next;
+  document.getElementById("sun").textContent=level===1?"🌙":"☀️";
+  document.getElementById("flowers").textContent=
+    level===1 ? "🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿 🧶 🌿" :
+    level===2 ? "🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾 🌵 🌾" :
+    "🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸 🌻 🌷";
+
+  maxScore=L.text.replace(/ /g,"").length;
+  maxEl.textContent=maxScore;
+  score=0;
+  scoreEl.textContent=score;
+  won=false;
+  hitCooldown=false;
+  next.style.display="none";
+  again.style.display="none";
+
+  x=W()*.18;
+  y=H()*.58;
+  targetX=x;
+  targetY=y;
+  badX=W()*.85;
+  badY=H()*.45;
+
+  buildLetters();
+  updateLetters();
+
+  items.forEach(el=>{
+    el.textContent=randomItem();
+    el.style.left=W()+80+Math.random()*300+"px";
+    el.style.top=H()*(.26+Math.random()*.48)+"px";
+  });
+}
+
+function spawnItem(xPos){
+  const el=document.createElement("div");
+  el.className="item";
+  el.textContent=randomItem();
+  el.style.left=xPos+"px";
+  el.style.top=H()*(.26+Math.random()*.48)+"px";
+  game.appendChild(el);
+  items.push(el);
+}
+
+for(let i=0;i<6;i++){
+  spawnItem(innerWidth*(.38+i*.22));
+}
+
+function setTarget(cx,cy){
+  if(!started)return;
+  const r=game.getBoundingClientRect();
+  targetX=Math.max(42,Math.min(W()-42,cx-r.left));
+  targetY=Math.max(H()*.22,Math.min(H()*.80,cy-r.top));
+}
+
+game.addEventListener("touchstart",e=>{
+  e.preventDefault();
+  setTarget(e.touches[0].clientX,e.touches[0].clientY);
+},{passive:false});
+
+game.addEventListener("touchmove",e=>{
+  e.preventDefault();
+  setTarget(e.touches[0].clientX,e.touches[0].clientY);
+},{passive:false});
+
+game.addEventListener("mousedown",e=>setTarget(e.clientX,e.clientY));
+game.addEventListener("mousemove",e=>{
+  if(e.buttons)setTarget(e.clientX,e.clientY);
+});
+
+async function startGame(){
+  if(started)return;
+  started=true;
+  start.style.display="none";
+
+  try{
+    bgMusic.volume=.35;
+    await bgMusic.play();
+  }catch(e){
+    showMsg("Tryk igen hvis musikken ikke starter 🎵",1800);
+  }
+
+  showMsg("Styr med fingeren ✨",2100);
+}
+
+start.querySelector("button").addEventListener("click",startGame);
+start.querySelector("button").addEventListener("touchend",e=>{
+  e.preventDefault();
+  startGame();
+},{passive:false});
+
+function collect(el){
+  if(won)return;
+  score=Math.min(maxScore,score+1);
+  scoreEl.textContent=score;
+  updateLetters();
+
+  el.textContent=randomItem();
+  el.style.left=W()+80+Math.random()*150+"px";
+  el.style.top=H()*(.26+Math.random()*.48)+"px";
+
+  if(score===1)showMsg("Et bogstav kom frem! ✨");
+}
+
+function hitBad(){
+  if(hitCooldown||!started||won)return;
+  hitCooldown=true;
+  score=Math.max(0,score-1);
+  scoreEl.textContent=score;
+  updateLetters();
+  showMsg(levels[level].hit,1500);
+
+  player.style.filter="brightness(1.45)";
+  setTimeout(()=>player.style.filter="",330);
+  setTimeout(()=>hitCooldown=false,1700);
+}
+
+function fireworks(){
+  for(let i=0;i<14;i++){
+    setTimeout(()=>{
+      burst(Math.random()*W(),H()*(.10+Math.random()*.38));
+    },i*380);
+  }
+}
+
+function burst(cx,cy){
+  const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#ffffff"];
+  for(let i=0;i<36;i++){
+    const p=document.createElement("div");
+    p.className="firework";
+    p.style.left=cx+"px";
+    p.style.top=cy+"px";
+    p.style.background=colors[i%colors.length];
+
+    const a=Math.random()*Math.PI*2;
+    const d=55+Math.random()*100;
+    p.style.setProperty("--dx",Math.cos(a)*d+"px");
+    p.style.setProperty("--dy",Math.sin(a)*d+"px");
+
+    game.appendChild(p);
+    setTimeout(()=>p.remove(),950);
+  }
+}
+
+next.addEventListener("click",()=>{
+  level++;
+  applyLevel();
+  showMsg("Ny bane! ✨",2000);
+});
+
+again.addEventListener("click",()=>{
+  level=0;
+  applyLevel();
+  showMsg("Forfra igen! 🌈",2000);
+});
+
 function loop(){
- if(started){
-  x+=(targetX-x)*.09;y+=(targetY-y)*.09;dragonPhase+=.018;dragonX-=level===2?1.05:level===1?.68:.78;dragonY=GH()*(.34+.24*(Math.sin(dragonPhase)*.5+.5));if(dragonX<-90)dragonX=GW()+120;
-  items.forEach(el=>{const lx=el.offsetLeft-(level===2?1.75:level===1?1.25:1.45);el.style.left=lx+"px";if(lx<-70){el.textContent=randomItem();el.style.left=GW()+80+Math.random()*150+"px";el.style.top=GH()*(.26+Math.random()*.48)+"px"}if(Math.abs(el.offsetLeft+el.offsetWidth/2-x)<54&&Math.abs(el.offsetTop+el.offsetHeight/2-y)<54)collect(el)});
-  if(Math.abs(dragon.offsetLeft+dragon.offsetWidth/2-x)<58&&Math.abs(dragon.offsetTop+dragon.offsetHeight/2-y)<56)hitBad()
- }
- player.style.left=x+"px";player.style.top=y+"px";dragon.style.left=dragonX+"px";dragon.style.top=dragonY+"px";requestAnimationFrame(loop)
+  if(started){
+    x+=(targetX-x)*.09;
+    y+=(targetY-y)*.09;
+
+    badPhase+=.018;
+    badX-=level===2?1.05:level===1?.68:.78;
+    badY=H()*(.34+.24*(Math.sin(badPhase)*.5+.5));
+    if(badX<-90)badX=W()+120;
+
+    items.forEach(el=>{
+      const speed=level===2?1.75:level===1?1.25:1.45;
+      const lx=el.offsetLeft-speed;
+      el.style.left=lx+"px";
+
+      if(lx<-70){
+        el.textContent=randomItem();
+        el.style.left=W()+80+Math.random()*150+"px";
+        el.style.top=H()*(.26+Math.random()*.48)+"px";
+      }
+
+      const ix=el.offsetLeft+el.offsetWidth/2;
+      const iy=el.offsetTop+el.offsetHeight/2;
+
+      if(Math.abs(ix-x)<54&&Math.abs(iy-y)<54){
+        collect(el);
+      }
+    });
+
+    const bx=bad.offsetLeft+bad.offsetWidth/2;
+    const by=bad.offsetTop+bad.offsetHeight/2;
+
+    if(Math.abs(bx-x)<58&&Math.abs(by-y)<56){
+      hitBad();
+    }
+  }
+
+  player.style.left=x+"px";
+  player.style.top=y+"px";
+  bad.style.left=badX+"px";
+  bad.style.top=badY+"px";
+
+  requestAnimationFrame(loop);
 }
-window.addEventListener("resize",()=>{targetX=x=Math.max(42,Math.min(GW()-42,x));targetY=y=Math.max(GH()*.22,Math.min(GH()*.80,y))});
-applyLevel();loop();
+
+applyLevel();
+loop();
 </script>
 </body>
 </html>
