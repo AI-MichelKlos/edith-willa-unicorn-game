@@ -41,6 +41,7 @@ body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 </head>
 <body>
 <div id="game">
+<audio id="bgMusic" src="music.mp3" loop preload="auto"></audio>
 <div id="rainbow"></div><div id="sun">☀️</div>
 <div class="cloud" id="cloud1">☁️ ☁️</div><div class="cloud" id="cloud2">☁️</div>
 <div id="names"></div><div class="hill" id="hill1"></div><div class="hill" id="hill2"></div>
@@ -60,6 +61,7 @@ const levels=[
 {label:"Bane 3: Ediths gepard",text:"Ediths gepard løber stærkt",player:"🐆",baddie:"🪨",items:["⚡","⚡","⭐","💎","🌟","💖"],firstMsg:"Geparden fandt fart! ⚡",winMsg:"Ediths gepard vandt løbet! 🎆",hitMsg:"Ups! Geparden ramte en sten 🪨",startMsg:"Hjælp Ediths gepard med at løbe stærkt 🐆",className:"level3",next:""}
 ];
 let level=0,text="",maxScore=0,score=0,started=false,won=false,hitCooldown=false,audioCtx,dragonPhase=0;
+const bgMusic=document.getElementById("bgMusic");
 function GW(){return game.clientWidth} function GH(){return game.clientHeight}
 let x=GW()*.18,y=GH()*.58,targetX=x,targetY=y,dragonX=GW()*.85,dragonY=GH()*.45;
 const items=[];
@@ -100,7 +102,9 @@ function setTarget(cx,cy){if(!started)return;const r=game.getBoundingClientRect(
 game.addEventListener("touchstart",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
 game.addEventListener("touchmove",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
 game.addEventListener("mousedown",e=>setTarget(e.clientX,e.clientY));game.addEventListener("mousemove",e=>{if(e.buttons)setTarget(e.clientX,e.clientY)});
-async function doStart(){if(started)return;started=true;start.style.display="none";try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==="suspended")await audioCtx.resume()}catch(e){audioCtx=null}startMusic();sparkle();showMsg(levels[level].startMsg,2100)}
+async function doStart(){if(started)return;started=true;start.style.display="none";try{audioCtx=new(window.AudioContext||window.webkitAudioContext)();if(audioCtx.state==="suspended")await audioCtx.resume()}catch(e){audioCtx=null}startMusic();sparkle();
+  try{bgMusic.volume=.35;await bgMusic.play()}catch(e){}
+  showMsg(levels[level].startMsg,2100)}
 start.querySelector("button").addEventListener("click",doStart);start.querySelector("button").addEventListener("touchend",e=>{e.preventDefault();doStart()},{passive:false});
 function goNext(){nextLevel.style.display="none";level++;applyLevel();showMsg(levels[level].startMsg,2600);sparkle()}
 nextLevel.addEventListener("click",goNext);nextLevel.addEventListener("touchend",e=>{e.preventDefault();goNext()},{passive:false});
