@@ -3,10 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Edith & Willas Eventyr 2.7</title>
+<title>Edith & Willas Eventyr 2.8</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none}body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
-#game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}#game.cat{background:linear-gradient(#8d8bff 0%,#cbbcff 48%,#b7f0d4 49%,#58bd7b 100%)}#game.cheetah{background:linear-gradient(#ffd27d 0%,#fff0b8 48%,#f2c96d 49%,#d49a3a 100%)}#game.circus{background:radial-gradient(circle at 20% 16%,#fff8 0 3%,transparent 3.5%),radial-gradient(circle at 75% 12%,#fff8 0 4%,transparent 4.5%),linear-gradient(#5b3d98 0%,#b65bd9 45%,#f7b05b 46%,#c7663b 100%)}
+#game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}
 .rainbow{position:absolute;left:-20vw;top:8vh;width:140vw;height:52vh;border-radius:50% 50% 0 0;opacity:0;transition:opacity .5s ease;background:conic-gradient(from 270deg at 50% 100%,#ff5a7a 0 10deg,#ffb347 10deg 20deg,#fff45a 20deg 30deg,#77dd77 30deg 40deg,#6ec6ff 40deg 50deg,#b284ff 50deg 60deg,transparent 60deg 300deg,#ff5a7a 300deg 310deg,#ffb347 310deg 320deg,#fff45a 320deg 330deg,#77dd77 330deg 340deg,#6ec6ff 340deg 350deg,#b284ff 350deg 360deg)}
 .sun{position:absolute;right:8vw;top:6vh;font-size:62px;animation:bob 3s infinite alternate}.cloud{position:absolute;font-size:46px;opacity:.85;animation:drift 25s linear infinite}.c1{top:17vh;left:-30vw}.c2{top:27vh;left:-60vw;animation-duration:34s}@keyframes drift{to{transform:translateX(150vw)}}@keyframes bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
 .ground{position:absolute;left:-10vw;right:-10vw;bottom:-7vh;height:26vh;border-radius:50% 50% 0 0;background:#54bd62}.cheetah .ground{background:#c58a36}.flowers{position:absolute;bottom:3vh;width:100%;font-size:28px;white-space:nowrap;opacity:.85}
@@ -14,20 +14,12 @@
 #player{position:absolute;font-size:clamp(62px,17vw,104px);z-index:20;transform:translate(-50%,-50%);filter:drop-shadow(0 8px 8px #0003)}.thing,.bad{position:absolute;font-size:clamp(38px,9vw,58px);z-index:15;transform:translate(-50%,-50%);animation:bob 1.5s infinite alternate}.bad.car{font-size:clamp(42px,10vw,64px);animation:none}.bad.bee{animation:bee 1s infinite alternate}@keyframes bee{from{transform:translate(-50%,-50%) rotate(-8deg)}to{transform:translate(-50%,-50%) rotate(8deg)}}
 #hud{position:absolute;top:max(10px,env(safe-area-inset-top));left:10px;background:#ffffffcc;color:#6b3fa0;padding:9px 13px;border-radius:18px;font-weight:bold;font-size:18px;z-index:50;box-shadow:0 4px 10px #0002}#hud small{display:block;color:#8a3ffc}.msg{position:absolute;left:50%;top:13%;transform:translateX(-50%);background:#fff9;color:#8a3ffc;padding:12px 18px;border-radius:22px;font-size:clamp(21px,6vw,36px);font-weight:bold;text-align:center;z-index:80}
 .overlay{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:100}.card{width:min(92vw,520px);background:#ffffffdd;border-radius:32px;padding:24px;box-shadow:0 12px 35px #0004;color:#7438ca}.btn{border:0;border-radius:28px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0003;touch-action:manipulation;pointer-events:auto;font-size:clamp(22px,7vw,38px);padding:16px 24px;margin:8px;min-width:220px;position:relative;z-index:101}.small{font-size:20px;padding:12px 18px}.pink{background:#ffe6f6}.purple{background:#eee3ff}
-.firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:90;pointer-events:none;animation:boom .9s ease-out forwards}@keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}#castle{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:clamp(100px,28vw,190px);z-index:12;filter:drop-shadow(0 10px 12px #0003)}.book{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.book div{background:#fff;border-radius:18px;padding:12px;font-size:38px;box-shadow:0 4px 12px #0002}.book small{display:block;font-size:13px;color:#7a40d8}.hidden{display:none!important}
-#game.circus{background:radial-gradient(circle at 20% 16%,#fff8 0 3%,transparent 3.5%),radial-gradient(circle at 75% 12%,#fff8 0 4%,transparent 4.5%),linear-gradient(120deg,#39227d 0%,#7940c9 24%,#d75fc5 45%,#ffb347 70%,#ff6f61 100%);background-size:180% 180%;animation:circusFlow 8s ease-in-out infinite}#game.space{background:radial-gradient(circle at 20% 20%,#fff 0 1.2%,transparent 1.5%),radial-gradient(circle at 80% 14%,#fff 0 1%,transparent 1.3%),linear-gradient(#1a1b5d 0%,#59308d 48%,#27336d 49%,#14193f 100%)}@keyframes circusFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-#game.weather{background:linear-gradient(#5268c9 0%,#8eb7ff 36%,#5268c9 58%,#4aa86d 59%,#2d7d4c 100%)}
-#game.weather .rainbow{opacity:.22}
-#castle{font-size:clamp(180px,52vw,360px)!important;animation:castleGlow 1.4s infinite alternate ease-in-out;z-index:30!important}
-@keyframes castleGlow{from{filter:drop-shadow(0 0 12px #fff) drop-shadow(0 0 22px #ff7bdc)}to{filter:drop-shadow(0 0 25px #fff) drop-shadow(0 0 55px #fff45a) drop-shadow(0 0 70px #6ec6ff)}}
+.firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:90;pointer-events:none;animation:boom .9s ease-out forwards}@keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}.book{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;max-height:58dvh;overflow:auto;padding:2px}.book div{background:#fff;border-radius:18px;padding:12px;font-size:38px;box-shadow:0 4px 12px #0002}.book small{display:block;font-size:13px;color:#7a40d8}.hidden{display:none!important}
+@keyframes circusFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .lightBeam{position:absolute;left:50%;top:40%;width:9px;height:70vh;background:linear-gradient(#fff8,transparent);transform-origin:top;z-index:25;pointer-events:none;animation:beam 1.8s infinite alternate ease-in-out}
 @keyframes beam{from{opacity:.25;transform:rotate(var(--rot)) scaleY(.8)}to{opacity:.85;transform:rotate(calc(var(--rot) + 8deg)) scaleY(1.1)}}
 
 /* Version 2.1: skåle/kister og mobilvenlig svømmebane */
-#game.water{background:radial-gradient(circle at 20% 18%,#fff8 0 2%,transparent 2.5%),radial-gradient(circle at 72% 28%,#fff7 0 1.8%,transparent 2.2%),linear-gradient(#7ee8ff 0%,#46bff3 22%,#1688cf 64%,#0c5f9b 100%)}
-#game.water .ground{background:#d8b16a;height:18vh;bottom:-5vh}
-#game.water .rainbow{opacity:.16}
-#goal.collector{top:19%;z-index:45;pointer-events:none}
 .collectWrap{display:inline-flex;align-items:center;gap:10px;max-width:94vw;background:#ffffffb8;border:3px solid #fff;border-radius:28px;padding:9px 12px;box-shadow:0 8px 20px #0002;color:#7438ca;text-shadow:none}
 .collectVessel{font-size:clamp(38px,12vw,72px);filter:drop-shadow(0 4px 5px #0002);animation:bob 1.6s infinite alternate}
 .collectText{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
@@ -420,7 +412,7 @@
 .movieControls{
   position:absolute;
   right:10px;
-  bottom:10px;
+  top:10px;
   z-index:14;
 }
 .movieControls .btn{
@@ -502,13 +494,32 @@
   border-color:#ffffff88;
 }
 #movie.hasVideo .movieControls{z-index:30}
-
-
-/* Version 2.5: mørk lygtebane */
-#game.night{
-  background:
-    radial-gradient(circle at 50% 20%,#394787 0%,#24315e 28%,#132143 58%,#081126 100%);
+.moviePlayBtn{
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+  z-index:32;
+  min-width:min(78vw,360px);
+  background:linear-gradient(135deg,#fff,#ffe2f7);
+  color:#7438ca;
+  border:4px solid #ffffffcc;
 }
+#movie.hasVideo .moviePlayBtn{display:none}
+.movieStatus{
+  position:absolute;
+  left:50%;
+  bottom:17%;
+  transform:translateX(-50%);
+  z-index:31;
+  width:min(84%,520px);
+  color:white;
+  font-weight:bold;
+  text-shadow:0 3px 8px #0008;
+}
+
+
+/* Mørk lygtebane */
 #game.night .rainbow{opacity:.06}
 #game.night .sun{
   right:9vw;
@@ -638,7 +649,7 @@
   margin-top:6px;
   font-size:clamp(15px,4.2vw,23px);
 }
-#goal.collector{top:18%}
+#goal.collector{top:18%;z-index:45;pointer-events:none}
 .collectWrap{
   position:relative;
   overflow:hidden;
@@ -699,6 +710,8 @@
     radial-gradient(circle at 18% 14%,rgba(255,255,255,.48) 0 3%,transparent 3.5%),
     radial-gradient(circle at 78% 12%,rgba(255,255,255,.36) 0 4%,transparent 4.5%),
     linear-gradient(120deg,#351b70 0%,#7436c0 24%,#ce54bd 45%,#ffb347 70%,#ff695b 100%);
+  background-size:180% 180%;
+  animation:circusFlow 8s ease-in-out infinite;
 }
 #game.circus .ground{
   background:repeating-linear-gradient(90deg,#c93054 0 34px,#ffc85c 34px 68px);
@@ -712,6 +725,8 @@
 }
 #game.water .ground{
   background:linear-gradient(#ead08b,#c99343);
+  height:18vh;
+  bottom:-5vh;
 }
 #game.space{
   background:
@@ -734,6 +749,44 @@
 #game.night .ground{
   background:linear-gradient(#253b30,#132419);
 }
+#game.weather{
+  background:
+    radial-gradient(circle at 78% 13%,rgba(255,239,112,.78) 0 6%,rgba(255,239,112,.2) 6.5%,transparent 13%),
+    linear-gradient(120deg,#4257a7 0%,#8fc8ff 38%,#5067b9 58%,#4aa86d 59%,#286a45 100%);
+  background-size:140% 140%;
+  animation:weatherSky 8s ease-in-out infinite alternate;
+}
+#game.weather .ground{background:linear-gradient(#4f9c62,#29643f)}
+#game.finale{
+  background:
+    radial-gradient(circle at 50% 12%,rgba(255,255,255,.82) 0 5%,transparent 14%),
+    linear-gradient(#8edcff 0%,#dff8ff 52%,#a7eda0 53%,#62c875 100%);
+}
+#game.finale .ground{background:linear-gradient(#93e68d,#4dbb67)}
+#game.finale .flowers{font-size:clamp(26px,7vw,52px);opacity:1}
+.weatherDrop{
+  position:absolute;
+  top:-14vh;
+  width:4px;
+  height:28px;
+  border-radius:10px;
+  background:linear-gradient(transparent,#dff8ff);
+  opacity:.8;
+  animation:weatherRain 1.1s linear infinite;
+}
+.weatherDrop.d1{left:8%;animation-delay:-.2s}.weatherDrop.d2{left:23%;animation-delay:-.7s}.weatherDrop.d3{left:39%;animation-delay:-.4s}.weatherDrop.d4{left:57%;animation-delay:-.9s}.weatherDrop.d5{left:73%;animation-delay:-.1s}.weatherDrop.d6{left:89%;animation-delay:-.55s}
+.weatherFlash{
+  position:absolute;
+  right:17%;
+  top:19%;
+  font-size:clamp(40px,12vw,86px);
+  filter:drop-shadow(0 0 20px #fff7a8);
+  animation:weatherLightning 4.8s steps(1) infinite;
+}
+.circusWord{letter-spacing:.08em;font-weight:bold;color:#7730bd}
+@keyframes weatherSky{from{background-position:0% 50%}to{background-position:100% 50%}}
+@keyframes weatherRain{from{transform:translateY(0) rotate(12deg)}to{transform:translateY(118vh) rotate(12deg)}}
+@keyframes weatherLightning{0%,75%,79%,100%{opacity:0}76%,78%{opacity:1}}
 .completeBurst{
   position:absolute;
   left:50%;
@@ -789,7 +842,7 @@
 <div id="game">
 <audio id="music" preload="auto" loop><source src="music.mp3" type="audio/mpeg"><source src="musik.mp3" type="audio/mpeg"></audio>
 <div class="rainbow"></div><div class="sun" id="sun">☀️</div><div class="cloud c1">☁️ ☁️</div><div class="cloud c2">☁️</div><div id="sceneFx"></div><div id="goal"></div><div id="stageIntro" class="hidden"></div><div class="ground"></div><div class="flowers" id="flowers">🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸</div><div id="foreground"></div>
-<div id="items"></div><div id="bads"></div><div id="darkness" class="hidden"></div><div id="player">🦄</div><div id="castle" class="hidden" aria-label="Regnbueslot">
+<div id="items"></div><div id="bads"></div><div id="darkness" class="hidden"></div><div id="player" class="hidden">🦄</div><div id="castle" class="hidden" aria-label="Regnbueslot">
   <div class="castle-rainbow"></div>
   <div class="castle-stars">
     <span class="s1">✨</span>
@@ -825,12 +878,12 @@
   </div>
   <div class="castle-path"></div>
 </div><div id="hud" class="hidden"><small id="who">Willa</small><span id="levelName">Bane 1</span><br>⭐ <span id="score">0</span>/<span id="max">0</span></div><div id="msg" class="msg hidden"></div><div id="swimTip" class="swimTip hidden">Styr svømmeren med fingeren 🫧</div>
-<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.7</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button></div></div>
+<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.8</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button></div></div>
 <div id="complete" class="overlay hidden"><div class="card"><h2 id="doneTitle">Flot!</h2><p id="doneText"></p><button class="btn" id="next">Næste bane</button><button class="btn small" id="menuBtn">Menu</button></div></div>
 <div id="book" class="overlay hidden"><div class="card"><h2>📖 Magisk dyrebog</h2><div id="bookGrid" class="book"></div><button class="btn" id="back">Tilbage</button></div></div>
 <div id="movie" class="overlay hidden" aria-label="Præmie-tegnefilm">
   <div class="movieStage">
-    <video id="prizeVideo" class="prizeVideo" src="praemie-tegnefilm.mp4" playsinline webkit-playsinline preload="auto"></video>
+    <video id="prizeVideo" class="prizeVideo" src="praemie-tegnefilm.mp4" playsinline webkit-playsinline preload="metadata" controls></video>
     <div class="movieTitle">I klarede eventyret! ✨</div>
     <div class="movieCloud cA">☁️ ☁️</div>
     <div class="movieCloud cB">☁️</div>
@@ -848,6 +901,8 @@
     </div>
     <div class="movieHearts">💜 🩷 ❤️ 🩷 💜</div>
     <div class="movieLove">Mor og far elsker Edith og Willa ❤️</div>
+    <button class="btn moviePlayBtn" id="moviePlay">▶ Start præmietegnefilmen</button>
+    <div class="movieStatus hidden" id="movieStatus"></div>
     <div class="movieControls">
       <button class="btn small" id="movieAgain">Se igen</button>
       <button class="btn small" id="movieMenu">Menu</button>
@@ -857,24 +912,29 @@
 </div>
 <script>
 const levels=[
-{id:"cat",cls:"cat",mode:"fly",label:"Bane 1: Willas kat",goalName:"Katteskålen",vessel:"🥣",fullText:"Katteskålen er fuld!",goal:8,player:"🐱",items:["🐟","🐟","🥛","🧶","💖"],collectIcon:"🐟",unlock:"🐱",win:"Kattebanen er klaret! 🎆",hit:"AV!",hazards:[["🐶","fly",.7,.35,.75],["🐝","bee",1.05,.22,.72],["🐝","bee",.9,.18,.60]]},
-{id:"uni",cls:"rainbowLevel",mode:"fly",label:"Bane 2: Magiskålen",goalName:"Magiskålen",vessel:"🔮",fullText:"Magiskålen gløder!",goal:10,player:"🦄",items:["⭐","⭐","💖","🌸","🦋"],collectIcon:"⭐",unlock:"🦄",win:"Magien er samlet! 🎆",hit:"AV!",hazards:[["🐉","fly",.8,.25,.65],["🚗","car",1.35,.80,.80],["🚙","car",1.15,.86,.86]]},
-{id:"cheetah",cls:"cheetah",mode:"fly",label:"Bane 3: Ediths gepard",goalName:"Skattekisten",vessel:"🧰",fullText:"Skattekisten er fyldt!",goal:10,player:"🐆",items:["💎","💎","⚡","🌟","💖"],collectIcon:"💎",unlock:"🐆",win:"Ediths gepard fandt skatten! 🎆",hit:"AV!",hazards:[["🪨","ground",1.45,.78,.78],["🌵","ground",1.25,.76,.76],["🪨","ground",1.65,.84,.84]]},
-{id:"circus",cls:"circus",mode:"fly",label:"Bane 4: Cirkus Summarum",goalName:"Popcornbøtten",vessel:"🍿",fullText:"Popcornbøtten er fuld!",goal:12,player:"🐁",items:["🍿","🍿","🎟️","🍦","🍧"],collectIcon:"🍿",unlock:"🎪",win:"Cirkus Summarum er klaret! 🎆",hit:"AV!",hazards:[["🤡","fly",1.25,.24,.76],["🎭","bee",1.35,.18,.82],["🤹","fly",1.20,.28,.78],["🤡","fly",1.15,.20,.70],["🎭","bee",1.10,.22,.75]]},
-{id:"water",cls:"water",mode:"swim",label:"Bane 5: Havets hoppebane",goalName:"Perlekisten",vessel:"🧜‍♀️",fullText:"Perlekisten er fuld!",goal:12,player:"🏊‍♀️",items:["🫧","🐚","⭐","🦪","💖"],collectIcon:"🦪",unlock:"🐬",win:"Svømmebanen er klaret! 🫧",hit:"Plask!",hazards:[["🪼","fly",1.05,.25,.78],["🦀","ground",1.20,.78,.84],["🌊","bee",1.10,.20,.72],["🐙","fly",.95,.28,.70]]},
-{id:"space",cls:"space",mode:"fly",label:"Bane 6: Stjernerejsen",goalName:"Raketglasset",vessel:"🚀",fullText:"Raketglasset er fyldt!",goal:12,player:"🚀",items:["🌟","⭐","💫","🪐","💖"],collectIcon:"🌟",unlock:"🚀",win:"Stjernerejsen er klaret! 🎆",hit:"AV!",hazards:[["☄️","fly",1.30,.18,.82],["🛸","bee",1.18,.20,.72],["🪐","ground",1.10,.78,.78],["☄️","fly",1.42,.24,.76]]},
-{id:"night",cls:"night",mode:"fly",label:"Bane 7: Nattebanen",goalName:"Stjernelanternen",vessel:"🏮",fullText:"Lanternen lyser klart!",goal:12,player:"🧚",items:["✨","🌟","💖","🪲","⭐"],collectIcon:"✨",unlock:"🌙",win:"Nattebanen er klaret! 🎆",hit:"AV!",hazards:[["🦇","fly",1.10,.18,.66],["🦉","fly",.98,.22,.62],["🌲","ground",1.12,.79,.79],["☁️","fly",1.22,.20,.74]]}
+{id:"cat",cls:"cat",mode:"fly",label:"Bane 1: Willas kat",goalName:"Katteskålen",vessel:"🥣",fullText:"Katteskålen er fuld!",goal:8,player:"🐱",items:["🐟","🐟","🥛","🧶","💖"],collectIcon:"🐟",unlocks:["🐱","🐝"],win:"Kattebanen er klaret! 🎆",hit:"AV!",hazards:[["🐶","fly",.7,.35,.75],["🐝","bee",1.05,.22,.72],["🐝","bee",.9,.18,.60]]},
+{id:"uni",cls:"rainbowLevel",mode:"fly",label:"Bane 2: Magiskålen",goalName:"Magiskålen",vessel:"🔮",fullText:"Magiskålen gløder!",goal:10,player:"🦄",items:["⭐","⭐","💖","🌸","🦋"],collectIcon:"⭐",unlocks:["🦄","🐉","🦋"],win:"Magien er samlet! 🎆",hit:"AV!",hazards:[["🐉","fly",.8,.25,.65],["🚗","car",1.35,.80,.80],["🚙","car",1.15,.86,.86]]},
+{id:"cheetah",cls:"cheetah",mode:"fly",label:"Bane 3: Ediths gepard",goalName:"Skattekisten",vessel:"🧰",fullText:"Skattekisten er fyldt!",goal:10,player:"🐆",items:["💎","💎","⚡","🌟","💖"],collectIcon:"💎",unlocks:["🐆"],win:"Ediths gepard fandt skatten! 🎆",hit:"AV!",hazards:[["🪨","ground",1.45,.78,.78],["🌵","ground",1.25,.76,.76],["🪨","ground",1.65,.84,.84]]},
+{id:"circus",cls:"circus",mode:"fly",label:"Bane 4: Cirkus Summarum",goalName:"Popcornbøtten",vessel:"🍿",fullText:"Cirkus Summarum er afsløret!",goal:14,revealText:"CIRKUS SUMMARUM",player:"🐁",items:["🍿","🍿","🎟️","🍦","🍧"],collectIcon:"🍿",unlocks:["🎪","🐁","🍦"],win:"Cirkus Summarum er klaret! 🎆",hit:"AV!",hazards:[["🤡","fly",1.25,.24,.76],["🎭","bee",1.35,.18,.82],["🤹","fly",1.20,.28,.78],["🤡","fly",1.15,.20,.70],["🎭","bee",1.10,.22,.75]]},
+{id:"water",cls:"water",mode:"swim",label:"Bane 5: Havets hoppebane",goalName:"Perlekisten",vessel:"🧜‍♀️",fullText:"Perlekisten er fuld!",goal:12,player:"🏊‍♀️",items:["🫧","🐚","⭐","🦪","💖"],collectIcon:"🦪",unlocks:["🐬","🦪"],win:"Svømmebanen er klaret! 🫧",hit:"Plask!",hazards:[["🪼","fly",1.05,.25,.78],["🦀","ground",1.20,.78,.84],["🌊","bee",1.10,.20,.72],["🐙","fly",.95,.28,.70]]},
+{id:"space",cls:"space",mode:"fly",label:"Bane 6: Stjernerejsen",goalName:"Raketglasset",vessel:"🚀",fullText:"Raketglasset er fyldt!",goal:12,player:"🚀",items:["🌟","⭐","💫","🪐","💖"],collectIcon:"🌟",unlocks:["🚀"],win:"Stjernerejsen er klaret! 🎆",hit:"AV!",hazards:[["☄️","fly",1.30,.18,.82],["🛸","bee",1.18,.20,.72],["🪐","ground",1.10,.78,.78],["☄️","fly",1.42,.24,.76]]},
+{id:"night",cls:"night",mode:"fly",label:"Bane 7: Nattebanen",goalName:"Stjernelanternen",vessel:"🏮",fullText:"Lanternen lyser klart!",goal:12,player:"🧚",items:["✨","🌟","💖","🪲","⭐"],collectIcon:"✨",unlocks:["🌙"],win:"Nattebanen er klaret! 🎆",hit:"AV!",hazards:[["🦇","fly",1.10,.18,.66],["🦉","fly",.98,.22,.62],["🌲","ground",1.12,.79,.79],["☁️","fly",1.22,.20,.74]]},
+{id:"weather",cls:"weather",mode:"fly",label:"Bane 8: Vejrmagi",goalName:"Vejrkrukken",vessel:"☂️",fullText:"Vejrmagien er samlet!",goal:12,player:"🦆",items:["☀️","💧","❄️","🍃","⭐"],collectIcon:"💧",unlocks:["🦆","☂️","⚡"],win:"Vejrmagien er tæmmet! ⛈️",hit:"BANG!",hazards:[["⚡","bee",1.20,.18,.72],["🌪️","fly",1.08,.22,.78],["⛈️","fly",1.16,.18,.68],["🌩️","ground",1.05,.79,.79]]}
 ];
-const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7,swimLift:.34,swimGravity:.18},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5,swimLift:.27,swimGravity:.22}};
-const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🐬","Delfin"],["🦪","Perle"],["🚀","Raket"],["🌙","Nattebane"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"]];
-const game=document.getElementById("game"),music=document.getElementById("music"),goal=document.getElementById("goal"),sceneFx=document.getElementById("sceneFx"),foreground=document.getElementById("foreground"),stageIntro=document.getElementById("stageIntro"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),book=document.getElementById("book"),castle=document.getElementById("castle"),swimTip=document.getElementById("swimTip"),movie=document.getElementById("movie"),prizeVideo=document.getElementById("prizeVideo"),darkness=document.getElementById("darkness");
-let diff,li=0,lvl,playLevels=[],score=0,max=0,won=false,started=false,hitCd=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,facing=1,lastX=x,swimPress=false,vy=0,bubbleTimer=0;
+const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5}};
+const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🐬","Delfin"],["🦪","Perle"],["🚀","Raket"],["🌙","Nattebane"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"],["🦆","Vejrand"],["☂️","Paraply"],["⚡","Lyn"]];
+const game=document.getElementById("game"),music=document.getElementById("music"),goal=document.getElementById("goal"),sceneFx=document.getElementById("sceneFx"),foreground=document.getElementById("foreground"),stageIntro=document.getElementById("stageIntro"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),book=document.getElementById("book"),castle=document.getElementById("castle"),swimTip=document.getElementById("swimTip"),movie=document.getElementById("movie"),prizeVideo=document.getElementById("prizeVideo"),moviePlay=document.getElementById("moviePlay"),movieStatus=document.getElementById("movieStatus"),darkness=document.getElementById("darkness");
+let diff,li=0,lvl,playLevels=[],score=0,max=0,won=false,started=false,stageLocked=false,hitCd=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,facing=1,lastX=x,bubbleTimer=0,playerRadius=34,rafId=0,finaleTimer=0,videoAvailable=true,effectTimers=[];
 function W(){return game.clientWidth}function H(){return game.clientHeight}
-function saveCard(e){let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');if(!s.cards.includes(e))s.cards.push(e);localStorage.setItem("ew2",JSON.stringify(s))}
+function loadProgress(){try{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');return s&&Array.isArray(s.cards)?s:{cards:[]}}catch(e){return{cards:[]}}}
+function saveProgress(s){try{localStorage.setItem("ew2",JSON.stringify(s));return true}catch(e){return false}}
+function saveCards(list){let s=loadProgress();(list||[]).forEach(icon=>{if(!s.cards.includes(icon))s.cards.push(icon)});saveProgress(s)}
 function show(t,ms=1600){msgEl.textContent=t;msgEl.classList.remove("hidden");clearTimeout(show.t);show.t=setTimeout(()=>msgEl.classList.add("hidden"),ms)}
-let sfxCtx=null;function tone(f,d=.12,v=.08,type="sine"){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}
+let sfxCtx=null;
+async function unlockAudio(){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")await sfxCtx.resume();let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();g.gain.value=.0001;o.connect(g);g.connect(sfxCtx.destination);o.start();o.stop(sfxCtx.currentTime+.01)}catch(e){}}
+function tone(f,d=.12,v=.08,type="sine"){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")sfxCtx.resume().catch(()=>{});let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}
 function avSound(){tone(180,.12,.09,"sawtooth");setTimeout(()=>tone(95,.16,.07,"sawtooth"),90)}
-async function startMusic(){if(musicStarted)return;musicStarted=true;try{music.loop=true;music.volume=.18;music.load();await music.play()}catch(e){}}
+async function startMusic(){if(musicStarted&&!music.paused)return;try{music.loop=true;music.volume=.18;if(music.readyState===0)music.load();await music.play();musicStarted=!music.paused}catch(e){musicStarted=false}}
 function stopMusicForPrize(){try{if(music){music.pause();music.currentTime=0}musicStarted=false}catch(e){}}
 function rand(a){return a[Math.floor(Math.random()*a.length)]}
 function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
@@ -887,12 +947,14 @@ function sceneFor(id){
     circus:{tip:"Fyld popcornbøtten i manegen",fx:"<span class='sceneEmoji s1'>🎈</span><span class='sceneEmoji s2'>🎟️</span><span class='sceneEmoji s3'>✨</span><span class='sceneEmoji s4'>🍿</span><span class='sceneEmoji s5'>🎪</span>",fore:"<div class='foreLine back'>🎈 🎟️ 🎈 🎪 🎈 🎟️ 🎈</div><div class='foreLine'>🍿 🎪 🍦 🎟️ 🍿 🎪 🍧</div>"},
     water:{tip:"Svøm efter perler og bobler",fx:"<span class='sceneEmoji s1'>🐟</span><span class='sceneEmoji s2'>🫧</span><span class='sceneEmoji s3'>🐠</span><span class='sceneEmoji s4'>🪸</span><span class='sceneEmoji s5'>🐚</span>",fore:"<div class='foreLine back'>🫧 🪸 🐚 🫧 🪸 🐟 🫧</div><div class='foreLine'>🐚 🪸 🦪 🐚 🫧 🪸 🐚</div>"},
     space:{tip:"Saml stjernestøv til raketten",fx:"<span class='sceneEmoji s1'>🪐</span><span class='sceneEmoji s2'>💫</span><span class='sceneEmoji s3'>🌟</span><span class='sceneEmoji s4'>✨</span><span class='sceneEmoji s5'>🚀</span>",fore:"<div class='foreLine back'>✨ 🌟 🪐 ⭐ 💫 🌟 ✨</div><div class='foreLine'>🪨 ⭐ 🪨 💫 🪨 ⭐ 🪨</div>"},
-    night:{tip:"Lys i mørket med lygten",fx:"<span class='sceneEmoji s1'>🦇</span><span class='sceneEmoji s2'>🦉</span><span class='sceneEmoji s3'>✨</span><span class='sceneEmoji s4'>🪲</span><span class='sceneEmoji s5'>🌙</span>",fore:"<div class='foreLine back'>🌲 🌙 🌲 ✨ 🌲 🪲 🌲</div><div class='foreLine'>🍄 🌲 ✨ 🏮 🌲 🍄 ✨</div>"}
+    night:{tip:"Lys i mørket med lygten",fx:"<span class='sceneEmoji s1'>🦇</span><span class='sceneEmoji s2'>🦉</span><span class='sceneEmoji s3'>✨</span><span class='sceneEmoji s4'>🪲</span><span class='sceneEmoji s5'>🌙</span>",fore:"<div class='foreLine back'>🌲 🌙 🌲 ✨ 🌲 🪲 🌲</div><div class='foreLine'>🍄 🌲 ✨ 🏮 🌲 🍄 ✨</div>"},
+    weather:{tip:"Saml sol, regn, sne og vind",fx:"<span class='weatherDrop d1'></span><span class='weatherDrop d2'></span><span class='weatherDrop d3'></span><span class='weatherDrop d4'></span><span class='weatherDrop d5'></span><span class='weatherDrop d6'></span><span class='weatherFlash'>⚡</span><span class='sceneEmoji s1'>☀️</span><span class='sceneEmoji s2'>🌧️</span><span class='sceneEmoji s4'>🍃</span>",fore:"<div class='foreLine back'>🌿 💧 🌿 ☂️ 🌿 💧 🌿</div><div class='foreLine'>🌼 🍃 🌧️ 🌻 ☀️ 🍃 🌼</div>"}
   };
   return scenes[id]||scenes.uni;
 }
 function setScene(){
   const s=sceneFor(lvl.id);
+  stageLocked=true;
   sceneFx.innerHTML=s.fx;
   foreground.innerHTML=s.fore;
   stageIntro.className="";
@@ -900,7 +962,7 @@ function setScene(){
   void stageIntro.offsetWidth;
   stageIntro.classList.add("show");
   clearTimeout(window.stageIntroTimer);
-  window.stageIntroTimer=setTimeout(()=>stageIntro.className="hidden",1900);
+  window.stageIntroTimer=setTimeout(()=>{stageIntro.className="hidden";stageLocked=false;ensureLoop()},1900);
 }
 function completeSpark(){
   const s=sceneFor(lvl.id),b=document.createElement("div");
@@ -909,41 +971,189 @@ function completeSpark(){
   game.appendChild(b);
   setTimeout(()=>b.remove(),1500);
 }
-function buildCollector(){goal.className="collector";let slots="";for(let i=0;i<max;i++)slots+=`<span class="${i<score?"":"empty"}">${i<score?lvl.collectIcon:"○"}</span>`;goal.innerHTML=`<div class="collectWrap"><div class="collectVessel ${score>=max?"full":""}">${lvl.vessel}</div><div class="collectText"><div class="collectTitle">${lvl.goalName}: ${score}/${max}</div><div class="collectSlots">${slots}</div><div class="collectHint">${score>=max?lvl.fullText:"Saml ting og fyld den op!"}</div></div></div>`}
+function buildCollector(){
+  goal.className="collector";
+  let slots="";
+  if(lvl.revealText){
+    let found=0;
+    slots=[...lvl.revealText].map(ch=>{
+      if(ch===" ")return "<span>&nbsp;</span>";
+      const visible=found++<score;
+      return `<span class="${visible?"":"empty"}">${visible?ch:"_"}</span>`;
+    }).join("");
+  }else{
+    for(let i=0;i<max;i++)slots+=`<span class="${i<score?"":"empty"}">${i<score?lvl.collectIcon:"○"}</span>`;
+  }
+  goal.innerHTML=`<div class="collectWrap"><div class="collectVessel ${score>=max?"full":""}">${lvl.vessel}</div><div class="collectText"><div class="collectTitle">${lvl.goalName}: ${score}/${max}</div><div class="collectSlots ${lvl.revealText?"circusWord":""}">${slots}</div><div class="collectHint">${score>=max?lvl.fullText:lvl.revealText?"Find popcorn og afslør navnet!":"Saml ting og fyld den op!"}</div></div></div>`;
+}
 function updateGoal(){document.getElementById("score").textContent=score;buildCollector();if(score>=max&&!won)win()}
 function waterBubbles(){if(lvl.mode!=="swim")return;bubbleTimer++;if(bubbleTimer%18)return;let b=document.createElement("div"),s=12+Math.random()*24;b.className="bubble";b.style.width=s+"px";b.style.height=s+"px";b.style.left=(x-20+Math.random()*40)+"px";b.style.top=(y+20+Math.random()*20)+"px";game.appendChild(b);setTimeout(()=>b.remove(),3600)}
-function load(){lvl=playLevels[li]||levels[li];game.className=lvl.cls;setScene();document.getElementById("sun").textContent=lvl.id==="circus"?"🎪":lvl.id==="space"?"🌙":lvl.id==="night"?"🌙":lvl.id==="water"?"🐬":"☀️";document.getElementById("flowers").textContent=lvl.id==="cat"?"🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿":lvl.id==="uni"?"🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸":lvl.id==="cheetah"?"🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾":lvl.id==="circus"?"🎈 🎪 🎟️ 🍦 🎈 🤹 🎪 🍧 🎈":lvl.id==="water"?"🐚 🫧 🪸 🐟 🐚 🫧 🪸 🐠 🫧":lvl.id==="space"?"✨ 🌟 🪐 ⭐ 💫 🌟 ✨ 🪐 ⭐":"🌲 ✨ 🪲 🌙 ⭐ 🌲 ✨ 🏮 🌙";player.textContent=lvl.player;document.getElementById("levelName").textContent=`Bane ${li+1}: ${levelTitle(lvl)}`;document.getElementById("who").textContent=diff.name;max=lvl.goal;document.getElementById("max").textContent=max;score=0;won=false;hitCd=false;vy=0;swimPress=false;swimTip.classList.toggle("hidden",lvl.mode!=="swim");darkness.classList.toggle("hidden",lvl.id!=="night");player.classList.toggle("torchOn",lvl.id==="night");movie.classList.add("hidden");castle.classList.add("hidden");x=W()*.18;y=lvl.mode==="swim"?H()*.42:H()*.58;tx=x;ty=y;buildCollector();itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];for(let i=0;i<diff.count;i++)spawnItem(W()*(.48+i*.21));lvl.hazards.forEach((h,i)=>spawnBad(h,W()+160+i*210));if(diff.name==="Edith"){lvl.hazards.forEach((h,i)=>spawnBad(h,W()+420+i*180));}updateGoal()}
-function spawnItem(px){let e=document.createElement("div");e.className="thing";e.textContent=rand(lvl.items);itemsEl.appendChild(e);let min=lvl.mode==="swim"?.22:.24,maxy=lvl.mode==="swim"?.76:.52;items.push({e,x:px,y:H()*(min+Math.random()*maxy),s:(1.15+Math.random()*.5)*diff.speed})}
-function spawnBad(h,px){let e=document.createElement("div");e.className="bad "+(h[1]=="car"?"car":h[1]=="bee"?"bee":"");e.textContent=h[0];badsEl.appendChild(e);bads.push({e,h,x:px,y:H()*(h[3]+Math.random()*(h[4]-h[3])),p:Math.random()*6.28,s:h[2]*diff.hazard})}
-function choose(n){diff=diffs[n];playLevels=shuffle(levels);li=0;menu.classList.add("hidden");hud.classList.remove("hidden");started=true;startMusic();load();show("Styr med fingeren ✨",2200)}
+function clearEffectTimers(){effectTimers.forEach(clearTimeout);effectTimers=[];game.querySelectorAll(".firework,.bubble,.lightBeam,.completeBurst").forEach(el=>el.remove())}
+function randomItemY(){const min=lvl.mode==="swim"?.22:.24,maxY=lvl.mode==="swim"?.78:.74;return H()*(min+Math.random()*(maxY-min))}
+function load(){
+  clearTimeout(finaleTimer);
+  clearEffectTimers();
+  lvl=playLevels[li]||levels[li];
+  game.className=lvl.cls;
+  setScene();
+  document.getElementById("sun").textContent=lvl.id==="circus"?"🎪":lvl.id==="space"||lvl.id==="night"?"🌙":lvl.id==="water"?"🐬":lvl.id==="weather"?"🌦️":"☀️";
+  document.getElementById("flowers").textContent=lvl.id==="cat"?"🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿":lvl.id==="uni"?"🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸":lvl.id==="cheetah"?"🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾":lvl.id==="circus"?"🎈 🎪 🎟️ 🍦 🎈 🤹 🎪 🍧 🎈":lvl.id==="water"?"🐚 🫧 🪸 🐟 🐚 🫧 🪸 🐠 🫧":lvl.id==="space"?"✨ 🌟 🪐 ⭐ 💫 🌟 ✨ 🪐 ⭐":lvl.id==="weather"?"🌿 💧 ☂️ 🌼 🍃 🌧️ 🌻 ☀️":"🌲 ✨ 🪲 🌙 ⭐ 🌲 ✨ 🏮 🌙";
+  player.textContent=lvl.player;
+  player.classList.remove("hidden");
+  player.classList.toggle("torchOn",lvl.id==="night");
+  playerRadius=(parseFloat(getComputedStyle(player).fontSize)||80)*.34;
+  document.getElementById("levelName").textContent=`Bane ${li+1}: ${levelTitle(lvl)}`;
+  document.getElementById("who").textContent=diff.name;
+  max=lvl.goal;
+  document.getElementById("max").textContent=max;
+  score=0;won=false;hitCd=false;bubbleTimer=0;
+  swimTip.classList.toggle("hidden",lvl.mode!=="swim");
+  darkness.classList.toggle("hidden",lvl.id!=="night");
+  movie.classList.add("hidden");
+  castle.classList.add("hidden");
+  x=W()*.18;y=lvl.mode==="swim"?H()*.42:H()*.58;tx=x;ty=y;lastX=x;
+  buildCollector();
+  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];
+  for(let i=0;i<diff.count;i++)spawnItem(W()*(.48+i*.21));
+  lvl.hazards.forEach((h,i)=>spawnBad(h,W()+160+i*210));
+  if(diff.name==="Edith")lvl.hazards.forEach((h,i)=>spawnBad(h,W()+420+i*180));
+  updateGoal();
+  ensureLoop();
+}
+function spawnItem(px){let e=document.createElement("div");e.className="thing";e.textContent=rand(lvl.items);itemsEl.appendChild(e);let r=(parseFloat(getComputedStyle(e).fontSize)||48)*.34;items.push({e,x:px,y:randomItemY(),s:(1.15+Math.random()*.5)*diff.speed,r})}
+function spawnBad(h,px){let e=document.createElement("div");e.className="bad "+(h[1]=="car"?"car":h[1]=="bee"?"bee":"");e.textContent=h[0];badsEl.appendChild(e);let r=(parseFloat(getComputedStyle(e).fontSize)||50)*.34;bads.push({e,h,x:px,y:H()*(h[3]+Math.random()*(h[4]-h[3])),p:Math.random()*6.28,s:h[2]*diff.hazard,r})}
+function choose(n){diff=diffs[n];playLevels=shuffle(levels);li=0;menu.classList.add("hidden");hud.classList.remove("hidden");started=true;unlockAudio();startMusic();load();show("Styr med fingeren ✨",2200)}
 document.getElementById("willa").onclick=()=>choose("Willa");document.getElementById("edith").onclick=()=>choose("Edith");
 function isUiEvent(e){return e.target&&e.target.closest&&e.target.closest("button,.overlay")}
-function setTarget(cx,cy){if(!started||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect();let newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.16,Math.min(H()*.84,cy-r.top))}
-game.addEventListener("touchstart",e=>{if(isUiEvent(e))return;e.preventDefault();swimPress=true;setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
-game.addEventListener("touchmove",e=>{if(isUiEvent(e))return;e.preventDefault();swimPress=true;setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});
-game.addEventListener("touchend",e=>{swimPress=false},{passive:true});
-game.addEventListener("touchcancel",e=>{swimPress=false},{passive:true});
-game.addEventListener("mousedown",e=>{if(isUiEvent(e))return;swimPress=true;setTarget(e.clientX,e.clientY)});
-game.addEventListener("mousemove",e=>{if(isUiEvent(e))return;if(e.buttons)setTarget(e.clientX,e.clientY)});
-window.addEventListener("mouseup",()=>swimPress=false);
-function collect(o){if(won)return;score=Math.min(max,score+1);updateGoal();pop(o.x,o.y,o.e.textContent);o.x=W()+90+Math.random()*220;let min=lvl.mode==="swim"?.22:.24,span=lvl.mode==="swim"?.56:.52;o.y=H()*(min+Math.random()*span);o.e.textContent=rand(lvl.items);tone(620,.08,.05,"triangle");if(score==1)show(`${lvl.goalName} begynder at blive fyldt! ✨`)}
-function hit(){if(hitCd||won)return;hitCd=true;score=Math.max(0,score-diff.loss);updateGoal();avSound();show(lvl.hit||"AV!",900);player.style.filter="brightness(1.5)";if(lvl.mode==="swim"){vy=-2.2;x=Math.max(60,x-25)}setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500)}
+function setTarget(cx,cy){if(!started||won||stageLocked||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect();let newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.16,Math.min(H()*.84,cy-r.top))}
+game.addEventListener("pointerdown",e=>{if(isUiEvent(e)||!e.isPrimary)return;e.preventDefault();try{game.setPointerCapture(e.pointerId)}catch(err){}setTarget(e.clientX,e.clientY)});
+game.addEventListener("pointermove",e=>{if(isUiEvent(e)||!e.isPrimary)return;if(e.pointerType!=="mouse"||e.buttons)setTarget(e.clientX,e.clientY)});
+game.addEventListener("pointerup",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
+game.addEventListener("pointercancel",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
+function touching(o,bonus=0){const dx=o.x-x,dy=o.y-y,r=playerRadius+o.r+bonus;return dx*dx+dy*dy<r*r}
+function collect(o){if(won||stageLocked)return;score=Math.min(max,score+1);updateGoal();pop(o.x,o.y,o.e.textContent);o.x=W()+90+Math.random()*220;o.y=randomItemY();o.e.textContent=rand(lvl.items);tone(620,.08,.05,"triangle");if(score==1)show(lvl.revealText?"Det første bogstav er fundet! ✨":`${lvl.goalName} begynder at blive fyldt! ✨`)}
+function hit(){if(hitCd||won||stageLocked)return;hitCd=true;score=Math.max(0,score-diff.loss);updateGoal();avSound();show(lvl.hit||"AV!",900);player.style.filter="brightness(1.5)";if(lvl.mode==="swim")x=Math.max(60,x-25);setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500)}
 function pop(x,y,emoji){for(let i=0;i<8;i++){let p=document.createElement("div");p.style.cssText=`position:absolute;left:${x+Math.random()*50-25}px;top:${y+Math.random()*40-20}px;z-index:90;font-size:24px;animation:boom .8s ease-out forwards`;p.textContent=i%2?emoji:"✨";game.appendChild(p);setTimeout(()=>p.remove(),850)}}
-function fireworks(){let colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#fff"];for(let b=0;b<12;b++)setTimeout(()=>{let cx=Math.random()*W(),cy=H()*(.12+Math.random()*.38);for(let i=0;i<38;i++){let p=document.createElement("div");p.className="firework";p.style.left=cx+"px";p.style.top=cy+"px";p.style.background=colors[i%colors.length];let a=Math.random()*Math.PI*2,d=55+Math.random()*110;p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");game.appendChild(p);setTimeout(()=>p.remove(),950)}},b*330)}
-function win(){won=true;saveCard(lvl.unlock);completeSpark();fireworks();document.getElementById("doneTitle").textContent=lvl.win;document.getElementById("doneText").textContent=li<playLevels.length-1?"Du har låst noget op i dyrebogen.":"Du har klaret alle baner!";document.getElementById("next").textContent=li<playLevels.length-1?"Næste bane":"Se eventyrslottet";setTimeout(()=>complete.classList.remove("hidden"),1100)}
-document.getElementById("next").onclick=()=>{complete.classList.add("hidden");if(li<playLevels.length-1){li++;load();show(lvl.mode==="swim"?"Styr svømmeren med fingeren 🫧":"Ny bane! ✨",2200)}else{goal.className="";sceneFx.innerHTML="";foreground.innerHTML="";stageIntro.className="hidden";goal.innerHTML='<span class="letter" style="color:white;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66">❤️ Mor&nbsp;&nbsp;❤️ Far<br>💜 Edith&nbsp;&nbsp;🩷 Willa</span>';swimTip.classList.add("hidden");castle.classList.remove("hidden");for(let i=0;i<7;i++){let b=document.createElement("div");b.className="lightBeam";b.style.setProperty("--rot",(-45+i*15)+"deg");game.appendChild(b);setTimeout(()=>b.remove(),7000)}fireworks();setTimeout(fireworks,1200);setTimeout(fireworks,2400);show("Mor og far elsker Edith og Willa ❤️",4200);setTimeout(showMovie,5200)}};
-function playPrizeVideo(){stopMusicForPrize();if(!prizeVideo)return;try{prizeVideo.currentTime=0;prizeVideo.volume=.9;let p=prizeVideo.play();if(p&&p.catch)p.catch(()=>movie.classList.remove("hasVideo"))}catch(e){movie.classList.remove("hasVideo")}}
-if(prizeVideo){prizeVideo.addEventListener("canplay",()=>movie.classList.add("hasVideo"));prizeVideo.addEventListener("error",()=>movie.classList.remove("hasVideo"))}
-function showMovie(){stopMusicForPrize();movie.classList.remove("hidden");playPrizeVideo();fireworks();setTimeout(fireworks,1200)}
-document.getElementById("movieAgain").onclick=()=>{movie.classList.add("hidden");void movie.offsetWidth;movie.classList.remove("hidden");playPrizeVideo();fireworks()};
-document.getElementById("movieMenu").onclick=()=>{if(prizeVideo)prizeVideo.pause();movie.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");swimTip.classList.add("hidden");started=false};
-document.getElementById("menuBtn").onclick=()=>{if(prizeVideo)prizeVideo.pause();complete.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");swimTip.classList.add("hidden");started=false};
-document.getElementById("bookBtn").onclick=()=>{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}'),g=document.getElementById("bookGrid");g.innerHTML="";cards.forEach(c=>{let d=document.createElement("div");d.innerHTML=(s.cards.includes(c[0])?c[0]:"❔")+`<small>${s.cards.includes(c[0])?c[1]:"Ikke fundet"}</small>`;g.appendChild(d)});menu.classList.add("hidden");book.classList.remove("hidden")};
+function fireworks(bursts=7,particles=22){
+  const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#fff"];
+  for(let b=0;b<bursts;b++)effectTimers.push(setTimeout(()=>{
+    let cx=Math.random()*W(),cy=H()*(.12+Math.random()*.38);
+    for(let i=0;i<particles;i++){
+      let p=document.createElement("div");p.className="firework";p.style.left=cx+"px";p.style.top=cy+"px";p.style.background=colors[i%colors.length];
+      let a=Math.random()*Math.PI*2,d=55+Math.random()*110;p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");game.appendChild(p);setTimeout(()=>p.remove(),950);
+    }
+  },b*300));
+}
+function win(){
+  won=true;
+  saveCards(lvl.unlocks);
+  completeSpark();
+  fireworks();
+  document.getElementById("doneTitle").textContent=lvl.win;
+  document.getElementById("doneText").textContent=li<playLevels.length-1?"Du har låst nye ting op i dyrebogen.":"Du har klaret alle baner!";
+  document.getElementById("next").textContent=li<playLevels.length-1?"Næste bane":"Se eventyrslottet";
+  effectTimers.push(setTimeout(()=>complete.classList.remove("hidden"),1100));
+}
+function showFinale(){
+  clearEffectTimers();
+  started=false;won=true;stageLocked=true;
+  game.className="finale";
+  hud.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");player.classList.remove("torchOn");
+  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];sceneFx.innerHTML="";foreground.innerHTML="";stageIntro.className="hidden";
+  document.getElementById("sun").textContent="✨";
+  document.getElementById("flowers").textContent="🌸 💖 🌼 ⭐ 🌷 💜 🌸 🩷 🌼 💖";
+  goal.className="";
+  goal.innerHTML='<span class="letter" style="color:white;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66">❤️ Mor&nbsp;&nbsp;❤️ Far<br>💜 Edith&nbsp;&nbsp;🩷 Willa</span>';
+  castle.classList.remove("hidden");
+  for(let i=0;i<7;i++){let b=document.createElement("div");b.className="lightBeam";b.style.setProperty("--rot",(-45+i*15)+"deg");game.appendChild(b);setTimeout(()=>b.remove(),7000)}
+  fireworks(8,24);effectTimers.push(setTimeout(()=>fireworks(6,20),1200));effectTimers.push(setTimeout(()=>fireworks(6,20),2400));
+  show("Mor og far elsker Edith og Willa ❤️",4200);
+  finaleTimer=setTimeout(showMovie,5200);
+}
+document.getElementById("next").onclick=()=>{
+  complete.classList.add("hidden");
+  if(li<playLevels.length-1){li++;load();show(lvl.mode==="swim"?"Styr svømmeren med fingeren 🫧":"Ny bane! ✨",2200)}else showFinale();
+};
+async function playPrizeVideo(){
+  stopMusicForPrize();
+  if(!prizeVideo||!videoAvailable)return false;
+  try{
+    movieStatus.classList.add("hidden");
+    prizeVideo.currentTime=0;prizeVideo.volume=.9;
+    await prizeVideo.play();
+    movie.classList.add("hasVideo");
+    moviePlay.classList.add("hidden");
+    return true;
+  }catch(e){
+    movie.classList.remove("hasVideo");
+    movieStatus.textContent="Filmen kunne ikke starte. Den animerede præmie vises i stedet.";
+    movieStatus.classList.remove("hidden");
+    return false;
+  }
+}
+if(prizeVideo){
+  prizeVideo.addEventListener("loadedmetadata",()=>{videoAvailable=true});
+  prizeVideo.addEventListener("error",()=>{videoAvailable=false;movie.classList.remove("hasVideo");moviePlay.classList.add("hidden");movieStatus.textContent="Præmiefilmen blev ikke fundet. Den animerede præmie vises i stedet.";movieStatus.classList.remove("hidden")});
+}
+function showMovie(){
+  clearTimeout(finaleTimer);finaleTimer=0;stopMusicForPrize();
+  movie.classList.remove("hidden","hasVideo");
+  if(prizeVideo){prizeVideo.pause();try{prizeVideo.currentTime=0}catch(e){}}
+  moviePlay.classList.toggle("hidden",!videoAvailable);
+  movieStatus.classList.toggle("hidden",videoAvailable);
+  fireworks(5,18);
+}
+moviePlay.onclick=playPrizeVideo;
+document.getElementById("movieAgain").onclick=()=>{if(videoAvailable){playPrizeVideo()}else{movie.classList.add("hidden");void movie.offsetWidth;movie.classList.remove("hidden");fireworks(4,16)}};
+function goToMenu(){
+  clearTimeout(finaleTimer);finaleTimer=0;clearEffectTimers();
+  if(prizeVideo){prizeVideo.pause();try{prizeVideo.currentTime=0}catch(e){}}
+  stopMusicForPrize();started=false;won=true;stageLocked=false;
+  movie.classList.add("hidden");complete.classList.add("hidden");book.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");
+  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];
+}
+document.getElementById("movieMenu").onclick=goToMenu;
+document.getElementById("menuBtn").onclick=goToMenu;
+document.getElementById("bookBtn").onclick=()=>{let s=loadProgress(),g=document.getElementById("bookGrid");g.innerHTML="";cards.forEach(c=>{let d=document.createElement("div");d.innerHTML=(s.cards.includes(c[0])?c[0]:"❔")+`<small>${s.cards.includes(c[0])?c[1]:"Ikke fundet"}</small>`;g.appendChild(d)});menu.classList.add("hidden");book.classList.remove("hidden")};
 document.getElementById("back").onclick=()=>{book.classList.add("hidden");menu.classList.remove("hidden")};
 function updatePlayer(){if(started&&!won){let ease=lvl&&lvl.mode==="swim"?.14:.10;x+=(tx-x)*ease;y+=(ty-y)*ease;y=Math.max(H()*.16,Math.min(H()*.84,y))}}
-function loop(){if(started&&!won){updatePlayer();waterBubbles();items.forEach(o=>{o.x-=o.s;if(o.x<-60){o.x=W()+90+Math.random()*240;let min=lvl.mode==="swim"?.22:.24,span=lvl.mode==="swim"?.56:.52;o.y=H()*(min+Math.random()*span);o.e.textContent=rand(lvl.items)}o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";if(Math.abs(o.x-x)<55&&Math.abs(o.y-y)<55)collect(o)});bads.forEach(o=>{o.p+=.035;o.x-=o.s;if(o.h[1]=="bee"||o.h[1]=="fly")o.y+=Math.sin(o.p)*(lvl.id==="circus"?2.4:lvl.mode==="swim"?1.8:1.1);if(lvl.id==="circus")o.x+=Math.sin(o.p*0.7)*0.8;if(o.x<-90){o.x=W()+120+Math.random()*260;o.y=H()*(o.h[3]+Math.random()*(o.h[4]-o.h[3]))}o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";if(Math.abs(o.x-x)<58&&Math.abs(o.y-y)<58)hit()})}
-if(Math.abs(x-lastX)>.4)facing=x>lastX?1:-1;lastX=x;player.style.left=x+"px";player.style.top=y+"px";if(lvl&&lvl.id==="night"){darkness.style.setProperty("--lx",(x+(facing>0?24:-24))+"px");darkness.style.setProperty("--ly",(y-6)+"px")};let tilt=lvl&&lvl.mode==="swim"?" rotate("+Math.max(-18,Math.min(18,vy*3))+"deg)":"";player.style.transform="translate(-50%,-50%) scaleX("+facing+")"+tilt;requestAnimationFrame(loop)}
-loop();
+function ensureLoop(){if(!rafId&&started&&!won)rafId=requestAnimationFrame(loop)}
+function loop(){
+  rafId=0;
+  if(!started||won)return;
+  if(!stageLocked){
+    updatePlayer();waterBubbles();
+    items.forEach(o=>{
+      o.x-=o.s;
+      if(o.x<-60){o.x=W()+90+Math.random()*240;o.y=randomItemY();o.e.textContent=rand(lvl.items)}
+      o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";
+      if(touching(o))collect(o);
+    });
+    bads.forEach(o=>{
+      o.p+=.035;o.x-=o.s;
+      if(o.h[1]==="bee"||o.h[1]==="fly")o.y+=Math.sin(o.p)*(lvl.id==="circus"?2.4:lvl.mode==="swim"?1.8:1.1);
+      if(lvl.id==="circus")o.x+=Math.sin(o.p*.7)*.8;
+      if(o.x<-90){o.x=W()+120+Math.random()*260;o.y=H()*(o.h[3]+Math.random()*(o.h[4]-o.h[3]))}
+      o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";
+      if(touching(o,3))hit();
+    });
+  }
+  if(Math.abs(x-lastX)>.4)facing=x>lastX?1:-1;lastX=x;
+  player.style.left=x+"px";player.style.top=y+"px";
+  if(lvl&&lvl.id==="night"){darkness.style.setProperty("--lx",(x+(facing>0?24:-24))+"px");darkness.style.setProperty("--ly",(y-6)+"px")}
+  player.style.transform="translate(-50%,-50%) scaleX("+facing+")";
+  if(started&&!won)rafId=requestAnimationFrame(loop);
+}
+function clampWorld(){
+  const minX=42,maxX=Math.max(minX,W()-42),minY=H()*.16,maxY=H()*.84;
+  x=Math.max(minX,Math.min(maxX,x));tx=Math.max(minX,Math.min(maxX,tx));y=Math.max(minY,Math.min(maxY,y));ty=Math.max(minY,Math.min(maxY,ty));
+  if(!player.classList.contains("hidden"))playerRadius=(parseFloat(getComputedStyle(player).fontSize)||80)*.34;
+  items.forEach(o=>{o.y=Math.max(minY,Math.min(maxY,o.y));if(o.x>W()+600)o.x=W()+120+Math.random()*220});
+  bads.forEach(o=>{o.y=Math.max(minY,Math.min(maxY,o.y));if(o.x>W()+800)o.x=W()+180+Math.random()*240});
+  ensureLoop();
+}
+window.addEventListener("resize",clampWorld);
+window.addEventListener("orientationchange",()=>setTimeout(clampWorld,120));
 </script>
 </body>
 </html>
