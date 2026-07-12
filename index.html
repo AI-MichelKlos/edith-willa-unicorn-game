@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Edith & Willas Eventyr 2.8</title>
+<title>Edith & Willas Eventyr 2.9</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none}body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
 #game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}
@@ -14,6 +14,14 @@
 #player{position:absolute;font-size:clamp(62px,17vw,104px);z-index:20;transform:translate(-50%,-50%);filter:drop-shadow(0 8px 8px #0003)}.thing,.bad{position:absolute;font-size:clamp(38px,9vw,58px);z-index:15;transform:translate(-50%,-50%);animation:bob 1.5s infinite alternate}.bad.car{font-size:clamp(42px,10vw,64px);animation:none}.bad.bee{animation:bee 1s infinite alternate}@keyframes bee{from{transform:translate(-50%,-50%) rotate(-8deg)}to{transform:translate(-50%,-50%) rotate(8deg)}}
 #hud{position:absolute;top:max(10px,env(safe-area-inset-top));left:10px;background:#ffffffcc;color:#6b3fa0;padding:9px 13px;border-radius:18px;font-weight:bold;font-size:18px;z-index:50;box-shadow:0 4px 10px #0002}#hud small{display:block;color:#8a3ffc}.msg{position:absolute;left:50%;top:13%;transform:translateX(-50%);background:#fff9;color:#8a3ffc;padding:12px 18px;border-radius:22px;font-size:clamp(21px,6vw,36px);font-weight:bold;text-align:center;z-index:80}
 .overlay{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:100}.card{width:min(92vw,520px);background:#ffffffdd;border-radius:32px;padding:24px;box-shadow:0 12px 35px #0004;color:#7438ca}.btn{border:0;border-radius:28px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0003;touch-action:manipulation;pointer-events:auto;font-size:clamp(22px,7vw,38px);padding:16px 24px;margin:8px;min-width:220px;position:relative;z-index:101}.small{font-size:20px;padding:12px 18px}.pink{background:#ffe6f6}.purple{background:#eee3ff}
+#progress{position:absolute;top:max(11px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:61;background:#ffffffb8;padding:7px 9px;border-radius:18px;box-shadow:0 4px 10px #0002}.progressDot{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#ffffff99;color:#9252ce;font-size:11px;font-weight:bold;border:2px solid #d8b8ff}.progressDot.done{background:#8ee08f;border-color:#fff;color:#245d2e}.progressDot.active{background:#fff45a;border-color:#fff;transform:scale(1.18);box-shadow:0 0 10px #fff45a}
+#controls{position:absolute;right:8px;top:max(8px,env(safe-area-inset-top));display:flex;gap:5px;z-index:62}.iconBtn{width:39px;height:39px;border:0;border-radius:50%;background:#ffffffd8;color:#7438ca;font-size:19px;box-shadow:0 4px 10px #0003;display:grid;place-items:center;padding:0;touch-action:manipulation}.iconBtn.off{opacity:.58;filter:grayscale(1)}
+.modeButtons{display:grid;grid-template-columns:1fr;gap:8px}.modeButtons .btn{margin:4px auto}.parentBtn{min-width:0!important;width:42px;height:42px;padding:0!important;font-size:19px!important;opacity:.28;box-shadow:none!important;margin-top:14px!important}.parentBtn:focus,.parentBtn:hover{opacity:.75}
+.testGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-height:44dvh;overflow:auto;margin:12px 0}.testGrid .btn{min-width:0;margin:0;padding:10px 8px;font-size:15px;border-radius:16px}.testActions{display:flex;flex-wrap:wrap;justify-content:center}.testActions .btn{min-width:0;font-size:15px;padding:10px 12px}.testStatus{min-height:22px;font-weight:bold;color:#4e8a58}
+.shieldState{display:inline-block;margin-left:5px;filter:drop-shadow(0 0 7px #fff45a);animation:shieldPulse .8s ease-in-out infinite alternate}
+#game.paused *{animation-play-state:paused!important}
+@keyframes shieldPulse{from{transform:scale(.9)}to{transform:scale(1.16)}}
+@media(max-width:480px){#progress{top:max(58px,calc(env(safe-area-inset-top) + 55px))}.progressDot{width:15px;height:15px}.iconBtn{width:36px;height:36px;font-size:17px}}
 .firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:90;pointer-events:none;animation:boom .9s ease-out forwards}@keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}.book{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;max-height:58dvh;overflow:auto;padding:2px}.book div{background:#fff;border-radius:18px;padding:12px;font-size:38px;box-shadow:0 4px 12px #0002}.book small{display:block;font-size:13px;color:#7a40d8}.hidden{display:none!important}
 @keyframes circusFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
 .lightBeam{position:absolute;left:50%;top:40%;width:9px;height:70vh;background:linear-gradient(#fff8,transparent);transform-origin:top;z-index:25;pointer-events:none;animation:beam 1.8s infinite alternate ease-in-out}
@@ -877,8 +885,13 @@
     </div>
   </div>
   <div class="castle-path"></div>
-</div><div id="hud" class="hidden"><small id="who">Willa</small><span id="levelName">Bane 1</span><br>⭐ <span id="score">0</span>/<span id="max">0</span></div><div id="msg" class="msg hidden"></div><div id="swimTip" class="swimTip hidden">Styr svømmeren med fingeren 🫧</div>
-<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.8</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button></div></div>
+</div><div id="hud" class="hidden"><small id="who">Willa</small><span id="levelName">Bane 1</span><br>⭐ <span id="score">0</span>/<span id="max">0</span><span id="shieldState" class="shieldState hidden">🛡️</span></div><div id="msg" class="msg hidden"></div><div id="swimTip" class="swimTip hidden">Styr svømmeren med fingeren 🫧</div>
+<div id="progress" class="hidden" aria-label="Fremdrift gennem eventyret"></div>
+<div id="controls" class="hidden"><button class="iconBtn" id="pauseBtn" aria-label="Pause">⏸️</button><button class="iconBtn" id="musicBtn" aria-label="Musik til eller fra">🎵</button><button class="iconBtn" id="sfxBtn" aria-label="Lydeffekter til eller fra">🔊</button></div>
+<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.9</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button><br><button class="btn parentBtn" id="parentBtn" aria-label="Forældremenu">⚙️</button></div></div>
+<div id="modeMenu" class="overlay hidden"><div class="card"><h2>Hvor langt skal eventyret være?</h2><div class="modeButtons"><button class="btn pink" id="shortGame">✨ Kort eventyr<br><small>3 tilfældige baner</small></button><button class="btn purple" id="fullGame">🌈 Hele eventyret<br><small>Alle 8 baner</small></button></div><button class="btn small" id="modeBack">Tilbage</button></div></div>
+<div id="pauseMenu" class="overlay hidden"><div class="card"><h2>⏸️ Spillet er på pause</h2><button class="btn pink" id="resumeBtn">Fortsæt</button><button class="btn small" id="pauseMenuBtn">Til menuen</button></div></div>
+<div id="testMenu" class="overlay hidden"><div class="card"><h2>⚙️ Forældre og test</h2><div id="testGrid" class="testGrid"></div><div class="testActions"><button class="btn" id="testFinale">🏰 Test slottet</button><button class="btn" id="testMovie">🎬 Test filmen</button><button class="btn" id="unlockBook">📖 Lås dyrebogen op</button><button class="btn" id="resetBook">♻️ Nulstil dyrebogen</button></div><div id="testStatus" class="testStatus"></div><button class="btn small" id="testBack">Tilbage</button></div></div>
 <div id="complete" class="overlay hidden"><div class="card"><h2 id="doneTitle">Flot!</h2><p id="doneText"></p><button class="btn" id="next">Næste bane</button><button class="btn small" id="menuBtn">Menu</button></div></div>
 <div id="book" class="overlay hidden"><div class="card"><h2>📖 Magisk dyrebog</h2><div id="bookGrid" class="book"></div><button class="btn" id="back">Tilbage</button></div></div>
 <div id="movie" class="overlay hidden" aria-label="Præmie-tegnefilm">
@@ -921,21 +934,24 @@ const levels=[
 {id:"night",cls:"night",mode:"fly",label:"Bane 7: Nattebanen",goalName:"Stjernelanternen",vessel:"🏮",fullText:"Lanternen lyser klart!",goal:12,player:"🧚",items:["✨","🌟","💖","🪲","⭐"],collectIcon:"✨",unlocks:["🌙"],win:"Nattebanen er klaret! 🎆",hit:"AV!",hazards:[["🦇","fly",1.10,.18,.66],["🦉","fly",.98,.22,.62],["🌲","ground",1.12,.79,.79],["☁️","fly",1.22,.20,.74]]},
 {id:"weather",cls:"weather",mode:"fly",label:"Bane 8: Vejrmagi",goalName:"Vejrkrukken",vessel:"☂️",fullText:"Vejrmagien er samlet!",goal:12,player:"🦆",items:["☀️","💧","❄️","🍃","⭐"],collectIcon:"💧",unlocks:["🦆","☂️","⚡"],win:"Vejrmagien er tæmmet! ⛈️",hit:"BANG!",hazards:[["⚡","bee",1.20,.18,.72],["🌪️","fly",1.08,.22,.78],["⛈️","fly",1.16,.18,.68],["🌩️","ground",1.05,.79,.79]]}
 ];
-const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5}};
-const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🐬","Delfin"],["🦪","Perle"],["🚀","Raket"],["🌙","Nattebane"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"],["🦆","Vejrand"],["☂️","Paraply"],["⚡","Lyn"]];
-const game=document.getElementById("game"),music=document.getElementById("music"),goal=document.getElementById("goal"),sceneFx=document.getElementById("sceneFx"),foreground=document.getElementById("foreground"),stageIntro=document.getElementById("stageIntro"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),book=document.getElementById("book"),castle=document.getElementById("castle"),swimTip=document.getElementById("swimTip"),movie=document.getElementById("movie"),prizeVideo=document.getElementById("prizeVideo"),moviePlay=document.getElementById("moviePlay"),movieStatus=document.getElementById("movieStatus"),darkness=document.getElementById("darkness");
-let diff,li=0,lvl,playLevels=[],score=0,max=0,won=false,started=false,stageLocked=false,hitCd=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,facing=1,lastX=x,bubbleTimer=0,playerRadius=34,rafId=0,finaleTimer=0,videoAvailable=true,effectTimers=[];
+const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7,shieldChance:.12},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5,shieldChance:.07}};
+const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🐬","Delfin"],["🦪","Perle"],["🚀","Raket"],["🌙","Nattebane"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"],["🦆","Vejrand"],["☂️","Paraply"],["⚡","Lyn"],["🛡️","Magisk skjold"]];
+const game=document.getElementById("game"),music=document.getElementById("music"),goal=document.getElementById("goal"),sceneFx=document.getElementById("sceneFx"),foreground=document.getElementById("foreground"),stageIntro=document.getElementById("stageIntro"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),modeMenu=document.getElementById("modeMenu"),pauseMenu=document.getElementById("pauseMenu"),testMenu=document.getElementById("testMenu"),progressEl=document.getElementById("progress"),controls=document.getElementById("controls"),shieldState=document.getElementById("shieldState"),musicBtn=document.getElementById("musicBtn"),sfxBtn=document.getElementById("sfxBtn"),book=document.getElementById("book"),castle=document.getElementById("castle"),swimTip=document.getElementById("swimTip"),movie=document.getElementById("movie"),prizeVideo=document.getElementById("prizeVideo"),moviePlay=document.getElementById("moviePlay"),movieStatus=document.getElementById("movieStatus"),darkness=document.getElementById("darkness");
+let diff,selectedPlayer="Willa",gameLength="full",li=0,lvl,playLevels=[],score=0,max=0,won=false,started=false,paused=false,stageLocked=false,hitCd=false,shielded=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,musicEnabled=true,sfxEnabled=true,facing=1,lastX=x,bubbleTimer=0,playerRadius=34,rafId=0,finaleTimer=0,videoAvailable=true,effectTimers=[];
 function W(){return game.clientWidth}function H(){return game.clientHeight}
-function loadProgress(){try{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');return s&&Array.isArray(s.cards)?s:{cards:[]}}catch(e){return{cards:[]}}}
+function loadProgress(){try{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');if(!s||!Array.isArray(s.cards))s={cards:[]};return{...s,cards:s.cards,musicEnabled:s.musicEnabled!==false,sfxEnabled:s.sfxEnabled!==false}}catch(e){return{cards:[],musicEnabled:true,sfxEnabled:true}}}
 function saveProgress(s){try{localStorage.setItem("ew2",JSON.stringify(s));return true}catch(e){return false}}
 function saveCards(list){let s=loadProgress();(list||[]).forEach(icon=>{if(!s.cards.includes(icon))s.cards.push(icon)});saveProgress(s)}
+function saveSettings(){let s=loadProgress();s.musicEnabled=musicEnabled;s.sfxEnabled=sfxEnabled;saveProgress(s)}
+function updateSoundButtons(){musicBtn.textContent=musicEnabled?"🎵":"🔇";musicBtn.classList.toggle("off",!musicEnabled);sfxBtn.textContent=sfxEnabled?"🔊":"🔈";sfxBtn.classList.toggle("off",!sfxEnabled)}
 function show(t,ms=1600){msgEl.textContent=t;msgEl.classList.remove("hidden");clearTimeout(show.t);show.t=setTimeout(()=>msgEl.classList.add("hidden"),ms)}
 let sfxCtx=null;
 async function unlockAudio(){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")await sfxCtx.resume();let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();g.gain.value=.0001;o.connect(g);g.connect(sfxCtx.destination);o.start();o.stop(sfxCtx.currentTime+.01)}catch(e){}}
-function tone(f,d=.12,v=.08,type="sine"){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")sfxCtx.resume().catch(()=>{});let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}
+function tone(f,d=.12,v=.08,type="sine"){if(!sfxEnabled)return;try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")sfxCtx.resume().catch(()=>{});let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}
 function avSound(){tone(180,.12,.09,"sawtooth");setTimeout(()=>tone(95,.16,.07,"sawtooth"),90)}
-async function startMusic(){if(musicStarted&&!music.paused)return;try{music.loop=true;music.volume=.18;if(music.readyState===0)music.load();await music.play();musicStarted=!music.paused}catch(e){musicStarted=false}}
+async function startMusic(){if(!musicEnabled||paused)return;if(musicStarted&&!music.paused)return;try{music.loop=true;music.volume=.18;if(music.readyState===0)music.load();await music.play();musicStarted=!music.paused}catch(e){musicStarted=false}}
 function stopMusicForPrize(){try{if(music){music.pause();music.currentTime=0}musicStarted=false}catch(e){}}
+{const saved=loadProgress();musicEnabled=saved.musicEnabled;sfxEnabled=saved.sfxEnabled;updateSoundButtons()}
 function rand(a){return a[Math.floor(Math.random()*a.length)]}
 function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
 function levelTitle(l){return l.label.replace(/^Bane \d+:\s*/,"")}
@@ -990,6 +1006,8 @@ function updateGoal(){document.getElementById("score").textContent=score;buildCo
 function waterBubbles(){if(lvl.mode!=="swim")return;bubbleTimer++;if(bubbleTimer%18)return;let b=document.createElement("div"),s=12+Math.random()*24;b.className="bubble";b.style.width=s+"px";b.style.height=s+"px";b.style.left=(x-20+Math.random()*40)+"px";b.style.top=(y+20+Math.random()*20)+"px";game.appendChild(b);setTimeout(()=>b.remove(),3600)}
 function clearEffectTimers(){effectTimers.forEach(clearTimeout);effectTimers=[];game.querySelectorAll(".firework,.bubble,.lightBeam,.completeBurst").forEach(el=>el.remove())}
 function randomItemY(){const min=lvl.mode==="swim"?.22:.24,maxY=lvl.mode==="swim"?.78:.74;return H()*(min+Math.random()*(maxY-min))}
+function setItemContent(o){o.isShield=Math.random()<diff.shieldChance;o.e.textContent=o.isShield?"🛡️":rand(lvl.items);o.r=(parseFloat(getComputedStyle(o.e).fontSize)||48)*.34}
+function recycleItem(o){o.x=W()+90+Math.random()*240;o.y=randomItemY();setItemContent(o)}
 function load(){
   clearTimeout(finaleTimer);
   clearEffectTimers();
@@ -1006,7 +1024,8 @@ function load(){
   document.getElementById("who").textContent=diff.name;
   max=lvl.goal;
   document.getElementById("max").textContent=max;
-  score=0;won=false;hitCd=false;bubbleTimer=0;
+  score=0;won=false;hitCd=false;shielded=false;bubbleTimer=0;
+  shieldState.classList.add("hidden");
   swimTip.classList.toggle("hidden",lvl.mode!=="swim");
   darkness.classList.toggle("hidden",lvl.id!=="night");
   movie.classList.add("hidden");
@@ -1018,21 +1037,48 @@ function load(){
   lvl.hazards.forEach((h,i)=>spawnBad(h,W()+160+i*210));
   if(diff.name==="Edith")lvl.hazards.forEach((h,i)=>spawnBad(h,W()+420+i*180));
   updateGoal();
+  renderProgress();
   ensureLoop();
 }
-function spawnItem(px){let e=document.createElement("div");e.className="thing";e.textContent=rand(lvl.items);itemsEl.appendChild(e);let r=(parseFloat(getComputedStyle(e).fontSize)||48)*.34;items.push({e,x:px,y:randomItemY(),s:(1.15+Math.random()*.5)*diff.speed,r})}
+function spawnItem(px){let e=document.createElement("div");e.className="thing";itemsEl.appendChild(e);let o={e,x:px,y:randomItemY(),s:(1.15+Math.random()*.5)*diff.speed,r:16,isShield:false};setItemContent(o);items.push(o)}
 function spawnBad(h,px){let e=document.createElement("div");e.className="bad "+(h[1]=="car"?"car":h[1]=="bee"?"bee":"");e.textContent=h[0];badsEl.appendChild(e);let r=(parseFloat(getComputedStyle(e).fontSize)||50)*.34;bads.push({e,h,x:px,y:H()*(h[3]+Math.random()*(h[4]-h[3])),p:Math.random()*6.28,s:h[2]*diff.hazard,r})}
-function choose(n){diff=diffs[n];playLevels=shuffle(levels);li=0;menu.classList.add("hidden");hud.classList.remove("hidden");started=true;unlockAudio();startMusic();load();show("Styr med fingeren ✨",2200)}
-document.getElementById("willa").onclick=()=>choose("Willa");document.getElementById("edith").onclick=()=>choose("Edith");
+function renderProgress(currentDone=false){
+  progressEl.innerHTML="";
+  playLevels.forEach((level,index)=>{let d=document.createElement("span");d.className="progressDot"+(index<li||currentDone&&index===li?" done":index===li?" active":"");d.textContent=index<li||currentDone&&index===li?"✓":index===li?"★":"";d.title=levelTitle(level);progressEl.appendChild(d)});
+}
+function choosePlayer(n){selectedPlayer=n;menu.classList.add("hidden");modeMenu.classList.remove("hidden")}
+function beginGame(length){
+  gameLength=length;diff=diffs[selectedPlayer];playLevels=shuffle(levels);if(length==="short")playLevels=playLevels.slice(0,3);li=0;
+  modeMenu.classList.add("hidden");testMenu.classList.add("hidden");hud.classList.remove("hidden");progressEl.classList.remove("hidden");controls.classList.remove("hidden");
+  started=true;paused=false;game.classList.remove("paused");unlockAudio();startMusic();load();show(length==="short"?"Et kort eventyr med 3 baner ✨":"Hele eventyret med 8 baner 🌈",2200);
+}
+document.getElementById("willa").onclick=()=>choosePlayer("Willa");document.getElementById("edith").onclick=()=>choosePlayer("Edith");
+document.getElementById("shortGame").onclick=()=>beginGame("short");document.getElementById("fullGame").onclick=()=>beginGame("full");
+document.getElementById("modeBack").onclick=()=>{modeMenu.classList.add("hidden");menu.classList.remove("hidden")};
+function pauseGame(){if(!started||won||paused)return;paused=true;game.classList.add("paused");pauseMenu.classList.remove("hidden");if(rafId){cancelAnimationFrame(rafId);rafId=0}try{music.pause()}catch(e){}}
+function resumeGame(){if(!paused)return;paused=false;game.classList.remove("paused");pauseMenu.classList.add("hidden");startMusic();ensureLoop()}
+document.getElementById("pauseBtn").onclick=pauseGame;document.getElementById("resumeBtn").onclick=resumeGame;document.getElementById("pauseMenuBtn").onclick=goToMenu;
+musicBtn.onclick=()=>{musicEnabled=!musicEnabled;if(musicEnabled)startMusic();else{try{music.pause()}catch(e){}musicStarted=false}saveSettings();updateSoundButtons()};
+sfxBtn.onclick=()=>{sfxEnabled=!sfxEnabled;if(sfxEnabled)unlockAudio();saveSettings();updateSoundButtons();if(sfxEnabled)tone(740,.08,.05,"triangle")};
 function isUiEvent(e){return e.target&&e.target.closest&&e.target.closest("button,.overlay")}
-function setTarget(cx,cy){if(!started||won||stageLocked||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect();let newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.16,Math.min(H()*.84,cy-r.top))}
+function setTarget(cx,cy){if(!started||won||paused||stageLocked||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect();let newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.16,Math.min(H()*.84,cy-r.top))}
 game.addEventListener("pointerdown",e=>{if(isUiEvent(e)||!e.isPrimary)return;e.preventDefault();try{game.setPointerCapture(e.pointerId)}catch(err){}setTarget(e.clientX,e.clientY)});
 game.addEventListener("pointermove",e=>{if(isUiEvent(e)||!e.isPrimary)return;if(e.pointerType!=="mouse"||e.buttons)setTarget(e.clientX,e.clientY)});
 game.addEventListener("pointerup",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
 game.addEventListener("pointercancel",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
 function touching(o,bonus=0){const dx=o.x-x,dy=o.y-y,r=playerRadius+o.r+bonus;return dx*dx+dy*dy<r*r}
-function collect(o){if(won||stageLocked)return;score=Math.min(max,score+1);updateGoal();pop(o.x,o.y,o.e.textContent);o.x=W()+90+Math.random()*220;o.y=randomItemY();o.e.textContent=rand(lvl.items);tone(620,.08,.05,"triangle");if(score==1)show(lvl.revealText?"Det første bogstav er fundet! ✨":`${lvl.goalName} begynder at blive fyldt! ✨`)}
-function hit(){if(hitCd||won||stageLocked)return;hitCd=true;score=Math.max(0,score-diff.loss);updateGoal();avSound();show(lvl.hit||"AV!",900);player.style.filter="brightness(1.5)";if(lvl.mode==="swim")x=Math.max(60,x-25);setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500)}
+function collect(o){
+  if(won||stageLocked)return;
+  const emoji=o.e.textContent;pop(o.x,o.y,emoji);
+  if(o.isShield){shielded=true;shieldState.classList.remove("hidden");saveCards(["🛡️"]);tone(880,.18,.07,"triangle");show("Magisk skjold! Du er beskyttet 🛡️",1500);recycleItem(o);return}
+  score=Math.min(max,score+1);updateGoal();recycleItem(o);tone(620,.08,.05,"triangle");if(score==1)show(lvl.revealText?"Det første bogstav er fundet! ✨":`${lvl.goalName} begynder at blive fyldt! ✨`);
+}
+function hit(){
+  if(hitCd||won||stageLocked)return;
+  hitCd=true;
+  if(shielded){shielded=false;shieldState.classList.add("hidden");tone(1040,.12,.08,"triangle");setTimeout(()=>tone(1320,.14,.06,"triangle"),80);show("Skjoldet reddede dig! 🛡️",1100);player.style.filter="brightness(1.7)";setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,900);return}
+  score=Math.max(0,score-diff.loss);updateGoal();avSound();show(lvl.hit||"AV!",900);player.style.filter="brightness(1.5)";if(lvl.mode==="swim")x=Math.max(60,x-25);setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500);
+}
 function pop(x,y,emoji){for(let i=0;i<8;i++){let p=document.createElement("div");p.style.cssText=`position:absolute;left:${x+Math.random()*50-25}px;top:${y+Math.random()*40-20}px;z-index:90;font-size:24px;animation:boom .8s ease-out forwards`;p.textContent=i%2?emoji:"✨";game.appendChild(p);setTimeout(()=>p.remove(),850)}}
 function fireworks(bursts=7,particles=22){
   const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#fff"];
@@ -1046,11 +1092,12 @@ function fireworks(bursts=7,particles=22){
 }
 function win(){
   won=true;
+  renderProgress(true);
   saveCards(lvl.unlocks);
   completeSpark();
   fireworks();
   document.getElementById("doneTitle").textContent=lvl.win;
-  document.getElementById("doneText").textContent=li<playLevels.length-1?"Du har låst nye ting op i dyrebogen.":"Du har klaret alle baner!";
+  document.getElementById("doneText").textContent=li<playLevels.length-1?"Du har låst nye ting op i dyrebogen.":"Du har klaret eventyret!";
   document.getElementById("next").textContent=li<playLevels.length-1?"Næste bane":"Se eventyrslottet";
   effectTimers.push(setTimeout(()=>complete.classList.remove("hidden"),1100));
 }
@@ -1058,7 +1105,7 @@ function showFinale(){
   clearEffectTimers();
   started=false;won=true;stageLocked=true;
   game.className="finale";
-  hud.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");player.classList.remove("torchOn");
+  hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");player.classList.remove("torchOn");
   itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];sceneFx.innerHTML="";foreground.innerHTML="";stageIntro.className="hidden";
   document.getElementById("sun").textContent="✨";
   document.getElementById("flowers").textContent="🌸 💖 🌼 ⭐ 🌷 💜 🌸 🩷 🌼 💖";
@@ -1108,24 +1155,40 @@ document.getElementById("movieAgain").onclick=()=>{if(videoAvailable){playPrizeV
 function goToMenu(){
   clearTimeout(finaleTimer);finaleTimer=0;clearEffectTimers();
   if(prizeVideo){prizeVideo.pause();try{prizeVideo.currentTime=0}catch(e){}}
-  stopMusicForPrize();started=false;won=true;stageLocked=false;
-  movie.classList.add("hidden");complete.classList.add("hidden");book.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");
+  stopMusicForPrize();started=false;won=true;paused=false;stageLocked=false;game.classList.remove("paused");
+  movie.classList.add("hidden");complete.classList.add("hidden");book.classList.add("hidden");modeMenu.classList.add("hidden");pauseMenu.classList.add("hidden");testMenu.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");shieldState.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");
   itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];
 }
 document.getElementById("movieMenu").onclick=goToMenu;
 document.getElementById("menuBtn").onclick=goToMenu;
 document.getElementById("bookBtn").onclick=()=>{let s=loadProgress(),g=document.getElementById("bookGrid");g.innerHTML="";cards.forEach(c=>{let d=document.createElement("div");d.innerHTML=(s.cards.includes(c[0])?c[0]:"❔")+`<small>${s.cards.includes(c[0])?c[1]:"Ikke fundet"}</small>`;g.appendChild(d)});menu.classList.add("hidden");book.classList.remove("hidden")};
 document.getElementById("back").onclick=()=>{book.classList.add("hidden");menu.classList.remove("hidden")};
+function buildTestMenu(){
+  const grid=document.getElementById("testGrid");grid.innerHTML="";
+  levels.forEach(level=>{let b=document.createElement("button");b.className="btn";b.textContent=level.label;b.onclick=()=>startTestLevel(level.id);grid.appendChild(b)});
+}
+function startTestLevel(id){
+  const level=levels.find(l=>l.id===id);if(!level)return;
+  diff=diffs[selectedPlayer]||diffs.Willa;playLevels=[level];gameLength="test";li=0;
+  menu.classList.add("hidden");testMenu.classList.add("hidden");hud.classList.remove("hidden");progressEl.classList.remove("hidden");controls.classList.remove("hidden");
+  started=true;won=false;paused=false;game.classList.remove("paused");unlockAudio();startMusic();load();show(`Test: ${levelTitle(level)} ⚙️`,1800);
+}
+document.getElementById("parentBtn").onclick=()=>{buildTestMenu();document.getElementById("testStatus").textContent="";menu.classList.add("hidden");testMenu.classList.remove("hidden")};
+document.getElementById("testBack").onclick=()=>{testMenu.classList.add("hidden");menu.classList.remove("hidden")};
+document.getElementById("testFinale").onclick=()=>{testMenu.classList.add("hidden");menu.classList.add("hidden");showFinale()};
+document.getElementById("testMovie").onclick=()=>{testMenu.classList.add("hidden");menu.classList.add("hidden");hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");player.classList.add("hidden");game.className="finale";started=false;won=true;showMovie()};
+document.getElementById("unlockBook").onclick=()=>{saveCards(cards.map(c=>c[0]));document.getElementById("testStatus").textContent="Hele dyrebogen er låst op ✓"};
+document.getElementById("resetBook").onclick=()=>{let s=loadProgress();s.cards=[];saveProgress(s);document.getElementById("testStatus").textContent="Dyrebogen er nulstillet ✓"};
 function updatePlayer(){if(started&&!won){let ease=lvl&&lvl.mode==="swim"?.14:.10;x+=(tx-x)*ease;y+=(ty-y)*ease;y=Math.max(H()*.16,Math.min(H()*.84,y))}}
-function ensureLoop(){if(!rafId&&started&&!won)rafId=requestAnimationFrame(loop)}
+function ensureLoop(){if(!rafId&&started&&!won&&!paused)rafId=requestAnimationFrame(loop)}
 function loop(){
   rafId=0;
-  if(!started||won)return;
+  if(!started||won||paused)return;
   if(!stageLocked){
     updatePlayer();waterBubbles();
     items.forEach(o=>{
       o.x-=o.s;
-      if(o.x<-60){o.x=W()+90+Math.random()*240;o.y=randomItemY();o.e.textContent=rand(lvl.items)}
+      if(o.x<-60)recycleItem(o);
       o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";
       if(touching(o))collect(o);
     });
@@ -1142,7 +1205,7 @@ function loop(){
   player.style.left=x+"px";player.style.top=y+"px";
   if(lvl&&lvl.id==="night"){darkness.style.setProperty("--lx",(x+(facing>0?24:-24))+"px");darkness.style.setProperty("--ly",(y-6)+"px")}
   player.style.transform="translate(-50%,-50%) scaleX("+facing+")";
-  if(started&&!won)rafId=requestAnimationFrame(loop);
+  if(started&&!won&&!paused)rafId=requestAnimationFrame(loop);
 }
 function clampWorld(){
   const minX=42,maxX=Math.max(minX,W()-42),minY=H()*.16,maxY=H()*.84;
