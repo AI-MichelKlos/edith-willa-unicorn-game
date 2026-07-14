@@ -3,1220 +3,190 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
-<title>Edith & Willas Eventyr 2.9</title>
+<title>Edith & Willas Eventyr 2.0</title>
 <style>
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;user-select:none}html,body{margin:0;width:100%;height:100%;overflow:hidden;touch-action:none}body{font-family:"Comic Sans MS",Arial,sans-serif;background:#8edcff}
-#game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}
-.rainbow{position:absolute;left:-20vw;top:8vh;width:140vw;height:52vh;border-radius:50% 50% 0 0;opacity:0;transition:opacity .5s ease;background:conic-gradient(from 270deg at 50% 100%,#ff5a7a 0 10deg,#ffb347 10deg 20deg,#fff45a 20deg 30deg,#77dd77 30deg 40deg,#6ec6ff 40deg 50deg,#b284ff 50deg 60deg,transparent 60deg 300deg,#ff5a7a 300deg 310deg,#ffb347 310deg 320deg,#fff45a 320deg 330deg,#77dd77 330deg 340deg,#6ec6ff 340deg 350deg,#b284ff 350deg 360deg)}
+#game{position:relative;width:100vw;height:100dvh;overflow:hidden;background:linear-gradient(#84d9ff 0%,#d8f8ff 55%,#8ee08f 56%,#56bd60 100%)}#game.cat{background:linear-gradient(#8d8bff 0%,#cbbcff 48%,#b7f0d4 49%,#58bd7b 100%)}#game.cheetah{background:linear-gradient(#ffd27d 0%,#fff0b8 48%,#f2c96d 49%,#d49a3a 100%)}#game.circus{background:radial-gradient(circle at 20% 16%,#fff8 0 3%,transparent 3.5%),radial-gradient(circle at 75% 12%,#fff8 0 4%,transparent 4.5%),linear-gradient(#5b3d98 0%,#b65bd9 45%,#f7b05b 46%,#c7663b 100%)}
+.rainbow{position:absolute;left:-20vw;top:8vh;width:140vw;height:52vh;border-radius:50% 50% 0 0;opacity:.62;background:conic-gradient(from 270deg at 50% 100%,#ff5a7a 0 10deg,#ffb347 10deg 20deg,#fff45a 20deg 30deg,#77dd77 30deg 40deg,#6ec6ff 40deg 50deg,#b284ff 50deg 60deg,transparent 60deg 300deg,#ff5a7a 300deg 310deg,#ffb347 310deg 320deg,#fff45a 320deg 330deg,#77dd77 330deg 340deg,#6ec6ff 340deg 350deg,#b284ff 350deg 360deg)}
 .sun{position:absolute;right:8vw;top:6vh;font-size:62px;animation:bob 3s infinite alternate}.cloud{position:absolute;font-size:46px;opacity:.85;animation:drift 25s linear infinite}.c1{top:17vh;left:-30vw}.c2{top:27vh;left:-60vw;animation-duration:34s}@keyframes drift{to{transform:translateX(150vw)}}@keyframes bob{from{transform:translateY(-5px)}to{transform:translateY(5px)}}
 .ground{position:absolute;left:-10vw;right:-10vw;bottom:-7vh;height:26vh;border-radius:50% 50% 0 0;background:#54bd62}.cheetah .ground{background:#c58a36}.flowers{position:absolute;bottom:3vh;width:100%;font-size:28px;white-space:nowrap;opacity:.85}
 #goal{position:absolute;left:50%;top:30%;transform:translate(-50%,-50%);width:96%;text-align:center;font-size:clamp(27px,7.4vw,58px);font-weight:bold;line-height:1.1;z-index:3}.letter{position:relative;display:inline-block;color:#ffffff30}.fill{position:absolute;inset:0;color:white;opacity:0;transform:scale(.6) translateY(18px);transition:.45s;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66}.fill.show{opacity:1;transform:scale(1) translateY(0)}
 #player{position:absolute;font-size:clamp(62px,17vw,104px);z-index:20;transform:translate(-50%,-50%);filter:drop-shadow(0 8px 8px #0003)}.thing,.bad{position:absolute;font-size:clamp(38px,9vw,58px);z-index:15;transform:translate(-50%,-50%);animation:bob 1.5s infinite alternate}.bad.car{font-size:clamp(42px,10vw,64px);animation:none}.bad.bee{animation:bee 1s infinite alternate}@keyframes bee{from{transform:translate(-50%,-50%) rotate(-8deg)}to{transform:translate(-50%,-50%) rotate(8deg)}}
 #hud{position:absolute;top:max(10px,env(safe-area-inset-top));left:10px;background:#ffffffcc;color:#6b3fa0;padding:9px 13px;border-radius:18px;font-weight:bold;font-size:18px;z-index:50;box-shadow:0 4px 10px #0002}#hud small{display:block;color:#8a3ffc}.msg{position:absolute;left:50%;top:13%;transform:translateX(-50%);background:#fff9;color:#8a3ffc;padding:12px 18px;border-radius:22px;font-size:clamp(21px,6vw,36px);font-weight:bold;text-align:center;z-index:80}
-.overlay{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:100}.card{width:min(92vw,520px);background:#ffffffdd;border-radius:32px;padding:24px;box-shadow:0 12px 35px #0004;color:#7438ca}.btn{border:0;border-radius:28px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0003;touch-action:manipulation;pointer-events:auto;font-size:clamp(22px,7vw,38px);padding:16px 24px;margin:8px;min-width:220px;position:relative;z-index:101}.small{font-size:20px;padding:12px 18px}.pink{background:#ffe6f6}.purple{background:#eee3ff}
-#progress{position:absolute;top:max(11px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:5px;z-index:61;background:#ffffffb8;padding:7px 9px;border-radius:18px;box-shadow:0 4px 10px #0002}.progressDot{width:17px;height:17px;border-radius:50%;display:grid;place-items:center;background:#ffffff99;color:#9252ce;font-size:11px;font-weight:bold;border:2px solid #d8b8ff}.progressDot.done{background:#8ee08f;border-color:#fff;color:#245d2e}.progressDot.active{background:#fff45a;border-color:#fff;transform:scale(1.18);box-shadow:0 0 10px #fff45a}
-#controls{position:absolute;right:8px;top:max(8px,env(safe-area-inset-top));display:flex;gap:5px;z-index:62}.iconBtn{width:39px;height:39px;border:0;border-radius:50%;background:#ffffffd8;color:#7438ca;font-size:19px;box-shadow:0 4px 10px #0003;display:grid;place-items:center;padding:0;touch-action:manipulation}.iconBtn.off{opacity:.58;filter:grayscale(1)}
-.modeButtons{display:grid;grid-template-columns:1fr;gap:8px}.modeButtons .btn{margin:4px auto}.parentBtn{min-width:0!important;width:42px;height:42px;padding:0!important;font-size:19px!important;opacity:.28;box-shadow:none!important;margin-top:14px!important}.parentBtn:focus,.parentBtn:hover{opacity:.75}
-.testGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;max-height:44dvh;overflow:auto;margin:12px 0}.testGrid .btn{min-width:0;margin:0;padding:10px 8px;font-size:15px;border-radius:16px}.testActions{display:flex;flex-wrap:wrap;justify-content:center}.testActions .btn{min-width:0;font-size:15px;padding:10px 12px}.testStatus{min-height:22px;font-weight:bold;color:#4e8a58}
-.shieldState{display:inline-block;margin-left:5px;filter:drop-shadow(0 0 7px #fff45a);animation:shieldPulse .8s ease-in-out infinite alternate}
-#game.paused *{animation-play-state:paused!important}
-@keyframes shieldPulse{from{transform:scale(.9)}to{transform:scale(1.16)}}
-@media(max-width:480px){#progress{top:max(58px,calc(env(safe-area-inset-top) + 55px))}.progressDot{width:15px;height:15px}.iconBtn{width:36px;height:36px;font-size:17px}}
-.firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:90;pointer-events:none;animation:boom .9s ease-out forwards}@keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}.book{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0;max-height:58dvh;overflow:auto;padding:2px}.book div{background:#fff;border-radius:18px;padding:12px;font-size:38px;box-shadow:0 4px 12px #0002}.book small{display:block;font-size:13px;color:#7a40d8}.hidden{display:none!important}
-@keyframes circusFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+.overlay{position:absolute;inset:0;background:linear-gradient(#ffd6f5dd,#d8f7ffdd);display:flex;align-items:center;justify-content:center;text-align:center;z-index:100}.card{width:min(92vw,520px);background:#ffffffdd;border-radius:32px;padding:24px;box-shadow:0 12px 35px #0004;color:#7438ca}.btn{border:0;border-radius:28px;background:white;color:#9047ff;font-weight:bold;box-shadow:0 8px 24px #0003;touch-action:manipulation;pointer-events:auto;font-size:clamp(22px,7vw,38px);padding:16px 24px;margin:8px;min-width:220px}.small{font-size:20px;padding:12px 18px}.pink{background:#ffe6f6}.purple{background:#eee3ff}
+.firework{position:absolute;width:8px;height:8px;border-radius:50%;z-index:90;pointer-events:none;animation:boom .9s ease-out forwards}@keyframes boom{from{transform:translate(0,0);opacity:1}to{transform:translate(var(--dx),var(--dy)) scale(.35);opacity:0}}#castle{position:absolute;left:50%;top:43%;transform:translate(-50%,-50%);font-size:clamp(100px,28vw,190px);z-index:12;filter:drop-shadow(0 10px 12px #0003)}.book{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:16px 0}.book div{background:#fff;border-radius:18px;padding:12px;font-size:38px;box-shadow:0 4px 12px #0002}.book small{display:block;font-size:13px;color:#7a40d8}.hidden{display:none!important}
+#game.circus{background:radial-gradient(circle at 20% 16%,#fff8 0 3%,transparent 3.5%),radial-gradient(circle at 75% 12%,#fff8 0 4%,transparent 4.5%),linear-gradient(120deg,#39227d 0%,#7940c9 24%,#d75fc5 45%,#ffb347 70%,#ff6f61 100%);background-size:180% 180%;animation:circusFlow 8s ease-in-out infinite}#game.space{background:radial-gradient(circle at 20% 20%,#fff 0 1.2%,transparent 1.5%),radial-gradient(circle at 80% 14%,#fff 0 1%,transparent 1.3%),linear-gradient(#1a1b5d 0%,#59308d 48%,#27336d 49%,#14193f 100%)}@keyframes circusFlow{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#game.weather{background:linear-gradient(#5268c9 0%,#8eb7ff 36%,#5268c9 58%,#4aa86d 59%,#2d7d4c 100%)}
+#game.weather .rainbow{opacity:.22}
+#castle{font-size:clamp(180px,52vw,360px)!important;animation:castleGlow 1.4s infinite alternate ease-in-out;z-index:30!important}
+@keyframes castleGlow{from{filter:drop-shadow(0 0 12px #fff) drop-shadow(0 0 22px #ff7bdc)}to{filter:drop-shadow(0 0 25px #fff) drop-shadow(0 0 55px #fff45a) drop-shadow(0 0 70px #6ec6ff)}}
 .lightBeam{position:absolute;left:50%;top:40%;width:9px;height:70vh;background:linear-gradient(#fff8,transparent);transform-origin:top;z-index:25;pointer-events:none;animation:beam 1.8s infinite alternate ease-in-out}
 @keyframes beam{from{opacity:.25;transform:rotate(var(--rot)) scaleY(.8)}to{opacity:.85;transform:rotate(calc(var(--rot) + 8deg)) scaleY(1.1)}}
 
-/* Version 2.1: skåle/kister og mobilvenlig svømmebane */
-.collectWrap{display:inline-flex;align-items:center;gap:10px;max-width:94vw;background:#ffffffb8;border:3px solid #fff;border-radius:28px;padding:9px 12px;box-shadow:0 8px 20px #0002;color:#7438ca;text-shadow:none}
-.collectVessel{font-size:clamp(38px,12vw,72px);filter:drop-shadow(0 4px 5px #0002);animation:bob 1.6s infinite alternate}
-.collectText{display:flex;flex-direction:column;align-items:flex-start;gap:4px}
-.collectTitle{font-size:clamp(16px,4.6vw,28px);line-height:1;font-weight:bold}
-.collectSlots{letter-spacing:1px;font-size:clamp(17px,5vw,32px);line-height:1.05;max-width:68vw;overflow:hidden;white-space:nowrap}
-.collectSlots .empty{opacity:.25;filter:grayscale(1)}
-.collectHint{font-size:clamp(13px,3.8vw,20px);line-height:1;color:#6b3fa0}
-#hud{max-width:calc(100vw - 20px)}
-.swimTip{position:absolute;right:10px;bottom:max(12px,env(safe-area-inset-bottom));z-index:55;background:#ffffffc9;color:#1169a8;border-radius:22px;padding:10px 14px;font-weight:bold;font-size:clamp(14px,4.2vw,20px);box-shadow:0 6px 14px #0002}
-.bubble{position:absolute;border-radius:50%;background:#ffffff66;border:2px solid #ffffffaa;z-index:7;animation:bubbleUp 3.5s linear forwards;pointer-events:none}
-@keyframes bubbleUp{from{transform:translateY(0) scale(.7);opacity:.75}to{transform:translateY(-58vh) scale(1.25);opacity:0}}
-
-
-/* Version 2.2: flottere eventyrslot til slutningen */
-#castle{
-  position:absolute;
-  left:50%;
-  top:43%;
-  transform:translate(-50%,-50%);
-  width:min(60vw,310px);
-  height:min(50vw,250px);
-  font-size:initial!important;
-  z-index:30!important;
-  pointer-events:none;
-  filter:drop-shadow(0 14px 18px rgba(79,34,122,.28)) drop-shadow(0 0 28px rgba(255,255,255,.55));
-  animation:castleFloat 2.8s ease-in-out infinite alternate, castleGlowFancy 2s ease-in-out infinite alternate;
-}
-#castle .castle-rainbow{
-  position:absolute;
-  left:50%;
-  top:-2%;
-  transform:translateX(-50%);
-  width:88%;
-  height:42%;
-  border-radius:220px 220px 0 0;
-  background:linear-gradient(90deg,#ff8bcf 0%,#ffc95c 19%,#a6ee79 38%,#77ddff 58%,#a78cff 79%,#ff8bcf 100%);
-  opacity:.9;
-  overflow:hidden;
-}
-#castle .castle-rainbow::after{
-  content:"";
-  position:absolute;
-  left:50%;
-  bottom:-74%;
-  transform:translateX(-50%);
-  width:72%;
-  height:150%;
-  border-radius:50%;
-  background:rgba(255,255,255,.75);
-}
-#castle .castle-stars span{
-  position:absolute;
-  z-index:2;
-  filter:drop-shadow(0 0 10px rgba(255,255,255,.85));
-  animation:sparkleTwinkle 1.9s ease-in-out infinite;
-}
-#castle .s1{left:10%;top:7%;font-size:18px}
-#castle .s2{left:26%;top:1%;font-size:16px;animation-delay:-.6s}
-#castle .s3{right:24%;top:3%;font-size:17px;animation-delay:-1.1s}
-#castle .s4{right:9%;top:10%;font-size:15px;animation-delay:-.2s}
-#castle .s5{left:50%;top:-1%;font-size:17px;transform:translateX(-50%);animation-delay:-1.4s}
-#castle .castle-cloud{
-  position:absolute;
-  top:17%;
-  font-size:30px;
-  opacity:.92;
-  z-index:1;
-  animation:cloudDrift 3.6s ease-in-out infinite alternate;
-}
-#castle .cloud-left{left:-4%}
-#castle .cloud-right{right:-4%;animation-delay:-1.3s}
-#castle .castle-body{
-  position:absolute;
-  left:50%;
-  bottom:13%;
-  transform:translateX(-50%);
-  width:84%;
-  height:68%;
-}
-#castle .tower,
-#castle .main{
-  position:absolute;
-  bottom:0;
-  background:linear-gradient(#fff6ff 0%,#f7d5ff 58%,#e9c0ff 100%);
-  border:4px solid #c76cf0;
-  box-shadow:inset 0 4px 0 rgba(255,255,255,.8), inset 0 -8px 0 rgba(214,150,255,.55);
-}
-#castle .tower{
-  width:24%;
-  height:60%;
-  border-radius:22px 22px 10px 10px;
-}
-#castle .tower.left{left:0}
-#castle .tower.right{right:0}
-#castle .tower.center{
-  left:50%;
-  transform:translateX(-50%);
-  width:28%;
-  height:78%;
-  z-index:3;
-}
-#castle .main{
-  left:50%;
-  transform:translateX(-50%);
-  width:66%;
-  height:54%;
-  border-radius:28px 28px 14px 14px;
-}
-#castle .tower::before{
-  content:"";
-  position:absolute;
-  left:50%;
-  top:-28%;
-  transform:translateX(-50%);
-  width:5px;
-  height:28%;
-  border-radius:10px;
-  background:linear-gradient(#fff6b6,#ffd463);
-}
-#castle .roof{
-  position:absolute;
-  left:50%;
-  top:-22%;
-  transform:translateX(-50%);
-  width:0;height:0;
-  border-left:22px solid transparent;
-  border-right:22px solid transparent;
-  border-bottom:32px solid #ff7bc4;
-  filter:drop-shadow(0 4px 0 rgba(255,255,255,.35));
-}
-#castle .tower.center .roof{
-  border-left-width:26px;
-  border-right-width:26px;
-  border-bottom-width:38px;
-}
-#castle .flag{
-  position:absolute;
-  left:50%;
-  top:-42%;
-  transform:translateX(4px);
-  font-size:14px;
-  animation:flagWave 1.5s ease-in-out infinite;
-}
-#castle .tower.center .flag{font-size:16px}
-#castle .window{
-  position:absolute;
-  left:50%;
-  top:33%;
-  transform:translateX(-50%);
-  width:16px;
-  height:22px;
-  border-radius:10px 10px 5px 5px;
-  background:linear-gradient(#fffbe0,#ffd96e);
-  box-shadow:0 0 10px rgba(255,233,120,.95);
-}
-#castle .main .window{
-  top:26%;
-}
-#castle .main .win1{left:35%}
-#castle .main .win2{left:65%}
-#castle .door{
-  position:absolute;
-  left:50%;
-  bottom:0;
-  transform:translateX(-50%);
-  width:26%;
-  height:48%;
-  border-radius:18px 18px 8px 8px;
-  background:linear-gradient(#8f6040,#6b3b22);
-  border:3px solid #ddb36d;
-}
-#castle .door::after{
-  content:"";
-  position:absolute;
-  right:18%;
-  top:58%;
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#ffe58c;
-  box-shadow:0 0 8px rgba(255,229,140,.95);
-}
-#castle .gem{
-  position:absolute;
-  left:50%;
-  top:6%;
-  transform:translateX(-50%);
-  font-size:18px;
-  filter:drop-shadow(0 0 8px rgba(255,255,255,.95));
-}
-#castle .castle-path{
-  position:absolute;
-  left:50%;
-  bottom:4%;
-  transform:translateX(-50%);
-  width:34%;
-  height:14%;
-  background:linear-gradient(#fff1c2,#ffd473);
-  border-radius:70% 70% 12px 12px;
-  opacity:.94;
-  box-shadow:0 6px 18px rgba(255,215,120,.35);
-}
-@keyframes castleFloat{
-  from{transform:translate(-50%,-50%) translateY(-4px)}
-  to{transform:translate(-50%,-50%) translateY(7px)}
-}
-@keyframes castleGlowFancy{
-  from{filter:drop-shadow(0 14px 18px rgba(79,34,122,.28)) drop-shadow(0 0 22px rgba(255,255,255,.5))}
-  to{filter:drop-shadow(0 18px 22px rgba(79,34,122,.38)) drop-shadow(0 0 42px rgba(255,255,255,.9)) drop-shadow(0 0 55px rgba(130,214,255,.55))}
-}
-@keyframes sparkleTwinkle{
-  0%,100%{transform:scale(.9) rotate(-8deg);opacity:.7}
-  50%{transform:scale(1.18) rotate(8deg);opacity:1}
-}
-@keyframes cloudDrift{
-  from{transform:translateX(-4px) translateY(0)}
-  to{transform:translateX(8px) translateY(4px)}
-}
-@keyframes flagWave{
-  0%,100%{transform:translateX(4px) rotate(0deg)}
-  50%{transform:translateX(6px) rotate(10deg)}
-}
-@media (max-width:480px){
-  #castle{width:min(72vw,290px);height:min(58vw,240px)}
-  #castle .castle-cloud{font-size:26px}
-}
-
-
-/* Version 2.3: præmie-tegnefilm til slutningen */
-#movie.overlay{
-  background:linear-gradient(#19083fdd,#5526aadd 48%,#f9ccffdd);
-  z-index:120;
-  padding:0;
-}
-.movieStage{
-  position:relative;
-  width:min(94vw,760px);
-  height:min(76dvh,560px);
-  overflow:hidden;
-  border-radius:34px;
-  background:
-    radial-gradient(circle at 20% 14%,#fff9 0 1.4%,transparent 1.7%),
-    radial-gradient(circle at 75% 10%,#fff8 0 1.1%,transparent 1.4%),
-    radial-gradient(circle at 48% 22%,#fff7 0 1.2%,transparent 1.5%),
-    linear-gradient(#322184 0%,#744bd7 48%,#ffd5f0 49%,#ffc4e8 100%);
-  box-shadow:0 18px 45px #0005;
-  border:4px solid #fff7;
-}
-.movieStage::before{
-  content:"";
-  position:absolute;
-  left:-8%;
-  top:4%;
-  width:116%;
-  height:42%;
-  border-radius:50% 50% 0 0;
-  background:conic-gradient(from 270deg at 50% 100%,#ff7dbc 0 10deg,#ffca68 10deg 20deg,#fff47d 20deg 30deg,#9af084 30deg 40deg,#83e3ff 40deg 50deg,#b491ff 50deg 60deg,transparent 60deg 300deg,#ff7dbc 300deg 310deg,#ffca68 310deg 320deg,#fff47d 320deg 330deg,#9af084 330deg 340deg,#83e3ff 340deg 350deg,#b491ff 350deg 360deg);
-  opacity:.82;
-  animation:movieRainbow 7.5s ease-in-out infinite;
-}
-.movieTitle{
-  position:absolute;
-  left:50%;
-  top:5%;
-  transform:translateX(-50%);
-  width:92%;
-  color:white;
-  font-weight:bold;
-  font-size:clamp(22px,6.5vw,46px);
-  line-height:1.05;
-  text-shadow:0 3px 0 #db6ce0,0 8px 18px #0005;
-  z-index:8;
-  animation:titlePop 8s ease-in-out infinite;
-}
-.movieLove{
-  position:absolute;
-  left:50%;
-  bottom:7%;
-  transform:translateX(-50%);
-  width:90%;
-  color:#8735c6;
-  background:#ffffffe5;
-  border-radius:26px;
-  padding:10px 14px;
-  font-weight:bold;
-  font-size:clamp(18px,5.4vw,34px);
-  box-shadow:0 8px 25px #0003;
-  z-index:10;
-  opacity:0;
-  animation:loveText 8s ease-in-out infinite;
-}
-.movieCastle{
-  position:absolute;
-  left:50%;
-  bottom:22%;
-  transform:translateX(-50%);
-  font-size:clamp(92px,25vw,178px);
-  z-index:3;
-  filter:drop-shadow(0 10px 15px #0004) drop-shadow(0 0 25px #fff8);
-  animation:movieCastleGlow 8s ease-in-out infinite;
-}
-.movieDoor{
-  position:absolute;
-  left:50%;
-  bottom:25%;
-  transform:translateX(-50%);
-  width:11%;
-  height:14%;
-  border-radius:22px 22px 7px 7px;
-  background:linear-gradient(#ffe9a8,#ffb745);
-  box-shadow:0 0 32px #ffeaa8;
-  z-index:4;
-  opacity:0;
-  animation:movieDoor 8s ease-in-out infinite;
-}
-.movieGround{
-  position:absolute;
-  left:-8%;
-  right:-8%;
-  bottom:-13%;
-  height:33%;
-  border-radius:50% 50% 0 0;
-  background:linear-gradient(#c2ffb4,#6edb75);
-  z-index:2;
-}
-.movieCloud{
-  position:absolute;
-  font-size:clamp(32px,8vw,56px);
-  z-index:5;
-  opacity:.92;
-  animation:movieCloud 8s linear infinite;
-}
-.movieCloud.cA{left:-14%;top:19%}
-.movieCloud.cB{left:-28%;top:31%;animation-delay:-3s}
-.movieStars span{
-  position:absolute;
-  z-index:7;
-  font-size:clamp(18px,5vw,34px);
-  filter:drop-shadow(0 0 12px #fff);
-  animation:movieSparkle 1.4s ease-in-out infinite;
-}
-.movieStars .m1{left:16%;top:18%}
-.movieStars .m2{left:79%;top:18%;animation-delay:-.4s}
-.movieStars .m3{left:68%;top:34%;animation-delay:-.9s}
-.movieStars .m4{left:24%;top:38%;animation-delay:-1.1s}
-.movieFamily{
-  position:absolute;
-  left:50%;
-  bottom:24%;
-  transform:translateX(-50%);
-  width:88%;
-  height:26%;
-  z-index:9;
-}
-.movieChar{
-  position:absolute;
-  bottom:0;
-  transform:translateX(-50%);
-  text-align:center;
-  font-size:clamp(36px,10vw,68px);
-  filter:drop-shadow(0 7px 8px #0003);
-  animation:charRunIn 8s ease-in-out infinite;
-}
-.movieChar small{
-  display:block;
-  margin-top:-5px;
-  font-size:clamp(11px,3vw,17px);
-  color:#6831b0;
-  background:#ffffffd8;
-  border-radius:14px;
-  padding:2px 8px;
-  font-weight:bold;
-}
-.movieChar.willa{left:-12%;animation-delay:.05s}
-.movieChar.edith{left:112%;animation-delay:.13s}
-.movieChar.cat{left:-22%;bottom:1%;font-size:clamp(30px,8vw,54px);animation-delay:.3s}
-.movieChar.uni{left:122%;bottom:2%;font-size:clamp(32px,9vw,60px);animation-delay:.45s}
-.movieChar.cheetah{left:-28%;bottom:3%;font-size:clamp(31px,8vw,58px);animation-delay:.58s}
-.movieChar.mouse{left:128%;bottom:0;font-size:clamp(28px,7vw,48px);animation-delay:.7s}
-.movieHearts{
-  position:absolute;
-  left:50%;
-  top:38%;
-  transform:translateX(-50%);
-  z-index:10;
-  font-size:clamp(22px,6vw,42px);
-  opacity:0;
-  animation:movieHearts 8s ease-in-out infinite;
-}
-.movieControls{
-  position:absolute;
-  right:10px;
-  top:10px;
-  z-index:14;
-}
-.movieControls .btn{
-  min-width:0;
-  margin:4px;
-  padding:10px 13px;
-  font-size:clamp(15px,4vw,22px);
-  border-radius:20px;
-}
-@keyframes movieRainbow{
-  0%,100%{transform:translateY(0) scale(1)}
-  50%{transform:translateY(8px) scale(1.02)}
-}
-@keyframes titlePop{
-  0%{opacity:0;transform:translateX(-50%) scale(.85)}
-  12%,70%{opacity:1;transform:translateX(-50%) scale(1)}
-  88%,100%{opacity:0;transform:translateX(-50%) scale(1.05)}
-}
-@keyframes loveText{
-  0%,58%{opacity:0;transform:translateX(-50%) translateY(20px) scale(.9)}
-  70%,92%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(10px) scale(.98)}
-}
-@keyframes movieCastleGlow{
-  0%,20%{transform:translateX(-50%) scale(.92);filter:drop-shadow(0 10px 15px #0004) drop-shadow(0 0 12px #fff5)}
-  42%,100%{transform:translateX(-50%) scale(1);filter:drop-shadow(0 10px 15px #0004) drop-shadow(0 0 45px #fff)}
-}
-@keyframes movieDoor{
-  0%,45%{opacity:0;transform:translateX(-50%) scaleX(.25)}
-  55%,90%{opacity:1;transform:translateX(-50%) scaleX(1)}
-  100%{opacity:0}
-}
-@keyframes movieCloud{
-  from{transform:translateX(0)}
-  to{transform:translateX(130vw)}
-}
-@keyframes movieSparkle{
-  0%,100%{opacity:.45;transform:scale(.75) rotate(-10deg)}
-  50%{opacity:1;transform:scale(1.2) rotate(10deg)}
-}
-@keyframes charRunIn{
-  0%{opacity:0;transform:translateX(-50%) translateY(12px) scale(.88)}
-  22%{opacity:1}
-  44%,76%{opacity:1;transform:translateX(-50%) translateY(0) scale(1)}
-  86%,100%{opacity:0;transform:translateX(-50%) translateY(-4px) scale(1.02)}
-}
-@keyframes movieHearts{
-  0%,46%{opacity:0;transform:translateX(-50%) translateY(12px) scale(.6)}
-  58%,85%{opacity:1;transform:translateX(-50%) translateY(-8px) scale(1)}
-  100%{opacity:0;transform:translateX(-50%) translateY(-24px) scale(1.15)}
-}
-
-
-/* Version 2.4: valgfri rigtig præmie-video */
-.prizeVideo{
-  display:none;
+#prizeVideoOverlay{
   position:absolute;
   inset:0;
+  z-index:200;
+  background:#000;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+#prizeVideo{
   width:100%;
   height:100%;
-  object-fit:cover;
-  border-radius:30px;
+  object-fit:contain;
   background:#000;
-  z-index:20;
 }
-#movie.hasVideo .prizeVideo{display:block}
-#movie.hasVideo .movieStage::before,
-#movie.hasVideo .movieTitle,
-#movie.hasVideo .movieLove,
-#movie.hasVideo .movieCastle,
-#movie.hasVideo .movieDoor,
-#movie.hasVideo .movieGround,
-#movie.hasVideo .movieCloud,
-#movie.hasVideo .movieStars,
-#movie.hasVideo .movieFamily,
-#movie.hasVideo .movieHearts{display:none}
-#movie.hasVideo .movieStage{
-  background:#000;
-  border-color:#ffffff88;
-}
-#movie.hasVideo .movieControls{z-index:30}
-.moviePlayBtn{
+#closeVideo{
   position:absolute;
-  left:50%;
-  top:50%;
-  transform:translate(-50%,-50%);
-  z-index:32;
-  min-width:min(78vw,360px);
-  background:linear-gradient(135deg,#fff,#ffe2f7);
-  color:#7438ca;
-  border:4px solid #ffffffcc;
-}
-#movie.hasVideo .moviePlayBtn{display:none}
-.movieStatus{
-  position:absolute;
-  left:50%;
-  bottom:17%;
-  transform:translateX(-50%);
-  z-index:31;
-  width:min(84%,520px);
-  color:white;
+  top:max(12px,env(safe-area-inset-top));
+  right:12px;
+  z-index:210;
+  border:0;
+  border-radius:22px;
+  padding:12px 18px;
+  font-size:20px;
   font-weight:bold;
-  text-shadow:0 3px 8px #0008;
+  background:#ffffffdd;
+  color:#7a40d8;
+  box-shadow:0 5px 16px #0006;
+  touch-action:manipulation;
 }
 
 
-/* Mørk lygtebane */
-#game.night .rainbow{opacity:.06}
-#game.night .sun{
-  right:9vw;
-  top:8vh;
-  font-size:54px;
-  opacity:.95;
-  filter:drop-shadow(0 0 18px rgba(255,245,167,.7));
+/* Kompakt topbjælke */
+#hud{
+position:absolute;top:max(8px,env(safe-area-inset-top));left:8px;right:8px;z-index:90;
+display:flex;align-items:center;gap:8px;min-height:48px;padding:7px 10px;border-radius:18px;
+background:rgba(255,255,255,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+box-shadow:0 4px 14px rgba(0,0,0,.18)
 }
-#game.night .flowers{
-  opacity:.55;
-  filter:brightness(.85);
-}
-#darkness{
-  position:absolute;
-  inset:0;
-  z-index:13;
-  pointer-events:none;
-  --lx:50vw;
-  --ly:50vh;
-  background:
-    radial-gradient(circle at var(--lx) var(--ly),
-      rgba(255,247,188,.06) 0 34px,
-      rgba(255,247,188,.12) 35px 86px,
-      rgba(8,10,26,.38) 110px,
-      rgba(4,7,20,.72) 180px,
-      rgba(2,4,12,.92) 280px);
-}
-#player.torchOn{
-  filter:drop-shadow(0 0 16px rgba(255,247,173,.75));
-}
-#player.torchOn::after{
-  content:"🔦";
-  position:absolute;
-  right:-12px;
-  bottom:6px;
-  font-size:clamp(24px,6vw,34px);
-  transform:scaleX(-1) rotate(-12deg);
-  filter:drop-shadow(0 0 8px rgba(255,245,180,.95));
-  animation:torchWiggle 1.1s ease-in-out infinite alternate;
-}
-@keyframes torchWiggle{
-  from{transform:scaleX(-1) rotate(-16deg) translateY(-1px)}
-  to{transform:scaleX(-1) rotate(-6deg) translateY(2px)}
-}
+#hud.hidden{display:none!important}
+#hud .box{background:transparent!important;box-shadow:none!important;border:0!important;padding:0!important;margin:0!important}
+#levelName,#playerName,#instruction{display:none!important}
+#goal{flex:1;min-width:0;text-align:left!important;font-size:clamp(17px,4.5vw,24px)!important;line-height:1.05;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#scoreBox{flex:0 0 auto;min-width:auto!important;font-size:16px!important;white-space:nowrap}
+#musicBtn,#bookBtn,#homeBtn{width:38px!important;height:38px!important;min-width:38px!important;border-radius:50%!important;padding:0!important;font-size:19px!important}
+#msg{top:72px!important}
 
-
-/* Version 2.6: regnbuen vises kun på magiskålsbanen */
-#game:not(.rainbowLevel) .rainbow{opacity:0!important}
-#game.rainbowLevel .rainbow{opacity:.62!important}
-
-
-/* Version 2.7: flottere banedesign med lag, intro og belønninger */
-#sceneFx{
-  position:absolute;
-  inset:0;
-  z-index:4;
-  pointer-events:none;
-  overflow:hidden;
-}
-#foreground{
-  position:absolute;
-  left:0;
-  right:0;
-  bottom:0;
-  height:28vh;
-  z-index:12;
-  pointer-events:none;
-  overflow:hidden;
-}
-.foreLine{
-  position:absolute;
-  left:-8vw;
-  right:-8vw;
-  bottom:2vh;
-  text-align:center;
-  font-size:clamp(25px,6.8vw,48px);
-  letter-spacing:.18em;
-  white-space:nowrap;
-  opacity:.9;
-  filter:drop-shadow(0 4px 5px rgba(0,0,0,.16));
-  animation:foreBob 3.2s ease-in-out infinite alternate;
-}
-.foreLine.back{
-  bottom:9vh;
-  font-size:clamp(18px,5.2vw,36px);
-  opacity:.52;
-  animation-duration:4.2s;
-}
-.sceneEmoji{
-  position:absolute;
-  font-size:clamp(20px,5vw,42px);
-  filter:drop-shadow(0 5px 8px rgba(0,0,0,.18));
-  animation:floatScene 4.5s ease-in-out infinite alternate;
-}
-.sceneEmoji.s1{left:10%;top:23%}
-.sceneEmoji.s2{left:76%;top:20%;animation-delay:-1.2s}
-.sceneEmoji.s3{left:53%;top:34%;animation-delay:-2.1s}
-.sceneEmoji.s4{left:25%;top:49%;animation-delay:-.7s}
-.sceneEmoji.s5{left:84%;top:52%;animation-delay:-3s}
-.sceneEmoji.s6{left:39%;top:15%;animation-delay:-1.8s}
-#stageIntro{
-  position:absolute;
-  left:50%;
-  top:48%;
-  transform:translate(-50%,-50%) scale(.86);
-  width:min(88vw,560px);
-  z-index:72;
-  pointer-events:none;
-  text-align:center;
-  padding:18px 22px;
-  border-radius:30px;
-  background:linear-gradient(145deg,rgba(255,255,255,.92),rgba(255,238,255,.84));
-  border:4px solid rgba(255,255,255,.85);
-  box-shadow:0 16px 38px rgba(0,0,0,.25);
-  color:#7438ca;
-  text-shadow:none;
-  opacity:0;
-}
-#stageIntro.show{animation:stageIntro 1.85s ease-out forwards}
-#stageIntro b{
-  display:block;
-  font-size:clamp(24px,7vw,44px);
-  line-height:1.05;
-}
-#stageIntro small{
-  display:block;
-  margin-top:6px;
-  font-size:clamp(15px,4.2vw,23px);
-}
-#goal.collector{top:18%;z-index:45;pointer-events:none}
-.collectWrap{
-  position:relative;
-  overflow:hidden;
-  background:linear-gradient(135deg,rgba(255,255,255,.92),rgba(255,240,255,.78));
-  border:4px solid rgba(255,255,255,.96);
-  box-shadow:0 10px 24px rgba(0,0,0,.18), inset 0 2px 0 rgba(255,255,255,.9);
-}
-.collectWrap::after{
-  content:"";
-  position:absolute;
-  left:-35%;
-  top:-60%;
-  width:48%;
-  height:220%;
-  transform:rotate(25deg);
-  background:linear-gradient(90deg,transparent,rgba(255,255,255,.65),transparent);
-  animation:collectorShine 3.2s ease-in-out infinite;
-}
-.collectVessel{
-  position:relative;
-  z-index:1;
-  transform-origin:center bottom;
-}
-.collectVessel.full{
-  animation:fullBounce .55s ease-in-out infinite alternate;
-  filter:drop-shadow(0 0 12px rgba(255,240,125,.9)) drop-shadow(0 4px 5px rgba(0,0,0,.18));
-}
-.collectSlots span{
-  display:inline-block;
-  transition:transform .22s ease, opacity .22s ease;
-}
-.collectSlots span:not(.empty){
-  animation:slotPop .42s ease-out;
-  filter:drop-shadow(0 0 6px rgba(255,255,255,.78));
-}
-#game.cat{
-  background:
-    radial-gradient(circle at 12% 18%,rgba(255,255,255,.42) 0 3%,transparent 3.4%),
-    radial-gradient(circle at 77% 13%,rgba(255,255,255,.35) 0 4%,transparent 4.5%),
-    linear-gradient(#8d8bff 0%,#cbbcff 45%,#b7f0d4 46%,#58bd7b 100%);
-}
-#game.cat .ground{
-  background:
-    radial-gradient(ellipse at 18% 40%,rgba(255,255,255,.22) 0 8%,transparent 9%),
-    radial-gradient(ellipse at 56% 58%,rgba(255,255,255,.18) 0 7%,transparent 8%),
-    #58bd7b;
-}
-#game.cheetah{
-  background:
-    radial-gradient(circle at 83% 15%,#fff4 0 7%,transparent 7.5%),
-    linear-gradient(#ffc86f 0%,#ffe7a6 42%,#f5cd6e 43%,#d29235 100%);
-}
-#game.cheetah .ground{
-  background:linear-gradient(#d7a14a,#a96f24);
-}
-#game.circus{
-  background:
-    radial-gradient(circle at 18% 14%,rgba(255,255,255,.48) 0 3%,transparent 3.5%),
-    radial-gradient(circle at 78% 12%,rgba(255,255,255,.36) 0 4%,transparent 4.5%),
-    linear-gradient(120deg,#351b70 0%,#7436c0 24%,#ce54bd 45%,#ffb347 70%,#ff695b 100%);
-  background-size:180% 180%;
-  animation:circusFlow 8s ease-in-out infinite;
-}
-#game.circus .ground{
-  background:repeating-linear-gradient(90deg,#c93054 0 34px,#ffc85c 34px 68px);
-  box-shadow:inset 0 12px 0 rgba(255,255,255,.25);
-}
-#game.water{
-  background:
-    radial-gradient(circle at 20% 18%,#fff8 0 2%,transparent 2.5%),
-    radial-gradient(circle at 72% 28%,#fff7 0 1.8%,transparent 2.2%),
-    linear-gradient(#83efff 0%,#41c6f4 24%,#1184cd 62%,#074e88 100%);
-}
-#game.water .ground{
-  background:linear-gradient(#ead08b,#c99343);
-  height:18vh;
-  bottom:-5vh;
-}
+/* Forbedret Stjernerejse */
 #game.space{
   background:
-    radial-gradient(circle at 15% 18%,#fff 0 .9%,transparent 1.2%),
-    radial-gradient(circle at 70% 14%,#fff 0 .8%,transparent 1.1%),
-    radial-gradient(circle at 86% 36%,#fff9 0 .7%,transparent 1%),
-    radial-gradient(circle at 40% 30%,#fff8 0 .6%,transparent .9%),
-    linear-gradient(#11184f 0%,#422077 48%,#1b245a 49%,#090d28 100%);
+    radial-gradient(circle at 12% 18%,rgba(255,255,255,.95) 0 2px,transparent 3px),
+    radial-gradient(circle at 28% 42%,rgba(255,255,255,.8) 0 1.5px,transparent 2.5px),
+    radial-gradient(circle at 52% 14%,rgba(255,255,255,.9) 0 2px,transparent 3px),
+    radial-gradient(circle at 76% 30%,rgba(255,255,255,.75) 0 1.5px,transparent 2.5px),
+    radial-gradient(circle at 88% 12%,rgba(255,255,255,.95) 0 2px,transparent 3px),
+    linear-gradient(160deg,#090b35 0%,#29205f 38%,#673c91 68%,#14183f 100%)!important;
+  background-size:260px 220px,320px 280px,380px 250px,300px 300px,420px 270px,100% 100%;
+  animation:spaceDrift 15s linear infinite;
 }
-#game.space .ground{
-  background:radial-gradient(circle at 28% 40%,rgba(255,255,255,.12) 0 9%,transparent 10%),linear-gradient(#414b82,#22294f);
+@keyframes spaceDrift{
+  from{background-position:0 0,0 0,0 0,0 0,0 0,0 0}
+  to{background-position:-260px 80px,-320px 120px,-380px 90px,-300px 110px,-420px 70px,0 0}
 }
-#game.night{
-  background:
-    radial-gradient(circle at 78% 12%,rgba(255,247,177,.7) 0 5%,rgba(255,247,177,.18) 5.6%,transparent 12%),
-    radial-gradient(circle at 23% 22%,rgba(255,255,255,.5) 0 .8%,transparent 1.2%),
-    radial-gradient(circle at 45% 16%,rgba(255,255,255,.55) 0 .7%,transparent 1%),
-    linear-gradient(#1c2859 0%,#121d42 52%,#071020 100%);
+#game.space #sun{
+  filter:drop-shadow(0 0 18px #fff) drop-shadow(0 0 32px #8ab8ff);
+  animation:spaceMoonPulse 2.2s ease-in-out infinite alternate;
 }
-#game.night .ground{
-  background:linear-gradient(#253b30,#132419);
+@keyframes spaceMoonPulse{
+  from{transform:scale(.94);opacity:.8}
+  to{transform:scale(1.08);opacity:1}
 }
-#game.weather{
-  background:
-    radial-gradient(circle at 78% 13%,rgba(255,239,112,.78) 0 6%,rgba(255,239,112,.2) 6.5%,transparent 13%),
-    linear-gradient(120deg,#4257a7 0%,#8fc8ff 38%,#5067b9 58%,#4aa86d 59%,#286a45 100%);
-  background-size:140% 140%;
-  animation:weatherSky 8s ease-in-out infinite alternate;
+#game.space .item{
+  filter:drop-shadow(0 0 10px #fff) drop-shadow(0 0 18px #9dd6ff);
 }
-#game.weather .ground{background:linear-gradient(#4f9c62,#29643f)}
-#game.finale{
-  background:
-    radial-gradient(circle at 50% 12%,rgba(255,255,255,.82) 0 5%,transparent 14%),
-    linear-gradient(#8edcff 0%,#dff8ff 52%,#a7eda0 53%,#62c875 100%);
-}
-#game.finale .ground{background:linear-gradient(#93e68d,#4dbb67)}
-#game.finale .flowers{font-size:clamp(26px,7vw,52px);opacity:1}
-.weatherDrop{
-  position:absolute;
-  top:-14vh;
-  width:4px;
-  height:28px;
-  border-radius:10px;
-  background:linear-gradient(transparent,#dff8ff);
-  opacity:.8;
-  animation:weatherRain 1.1s linear infinite;
-}
-.weatherDrop.d1{left:8%;animation-delay:-.2s}.weatherDrop.d2{left:23%;animation-delay:-.7s}.weatherDrop.d3{left:39%;animation-delay:-.4s}.weatherDrop.d4{left:57%;animation-delay:-.9s}.weatherDrop.d5{left:73%;animation-delay:-.1s}.weatherDrop.d6{left:89%;animation-delay:-.55s}
-.weatherFlash{
-  position:absolute;
-  right:17%;
-  top:19%;
-  font-size:clamp(40px,12vw,86px);
-  filter:drop-shadow(0 0 20px #fff7a8);
-  animation:weatherLightning 4.8s steps(1) infinite;
-}
-.circusWord{letter-spacing:.08em;font-weight:bold;color:#7730bd}
-@keyframes weatherSky{from{background-position:0% 50%}to{background-position:100% 50%}}
-@keyframes weatherRain{from{transform:translateY(0) rotate(12deg)}to{transform:translateY(118vh) rotate(12deg)}}
-@keyframes weatherLightning{0%,75%,79%,100%{opacity:0}76%,78%{opacity:1}}
-.completeBurst{
-  position:absolute;
-  left:50%;
-  top:48%;
-  transform:translate(-50%,-50%);
-  z-index:88;
-  pointer-events:none;
-  font-size:clamp(42px,14vw,100px);
-  text-align:center;
-  filter:drop-shadow(0 10px 18px rgba(0,0,0,.22));
-  animation:completeBurst 1.45s ease-out forwards;
-}
-@keyframes foreBob{
-  from{transform:translateY(0)}
-  to{transform:translateY(7px)}
-}
-@keyframes floatScene{
-  from{transform:translateY(-4px) rotate(-4deg);opacity:.72}
-  to{transform:translateY(9px) rotate(5deg);opacity:1}
-}
-@keyframes stageIntro{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.72)}
-  16%,72%{opacity:1;transform:translate(-50%,-50%) scale(1)}
-  100%{opacity:0;transform:translate(-50%,-60%) scale(1.04)}
-}
-@keyframes collectorShine{
-  0%,42%{left:-45%;opacity:0}
-  55%{opacity:1}
-  80%,100%{left:120%;opacity:0}
-}
-@keyframes fullBounce{
-  from{transform:scale(1)}
-  to{transform:scale(1.12) rotate(-3deg)}
-}
-@keyframes slotPop{
-  0%{transform:scale(.4) translateY(10px);opacity:.2}
-  70%{transform:scale(1.18) translateY(-2px);opacity:1}
-  100%{transform:scale(1) translateY(0);opacity:1}
-}
-@keyframes completeBurst{
-  0%{opacity:0;transform:translate(-50%,-50%) scale(.45) rotate(-8deg)}
-  25%{opacity:1;transform:translate(-50%,-50%) scale(1.1) rotate(4deg)}
-  100%{opacity:0;transform:translate(-50%,-82%) scale(1.25) rotate(0deg)}
-}
-@media (max-height:650px){
-  #stageIntro{top:52%;padding:12px 16px}
-  .foreLine.back{bottom:7vh}
+#game.space .bad{
+  filter:drop-shadow(0 0 8px #ff7a7a);
 }
 
 </style>
 </head>
 <body>
 <div id="game">
-<audio id="music" preload="auto" loop><source src="music.mp3" type="audio/mpeg"><source src="musik.mp3" type="audio/mpeg"></audio>
-<div class="rainbow"></div><div class="sun" id="sun">☀️</div><div class="cloud c1">☁️ ☁️</div><div class="cloud c2">☁️</div><div id="sceneFx"></div><div id="goal"></div><div id="stageIntro" class="hidden"></div><div class="ground"></div><div class="flowers" id="flowers">🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸</div><div id="foreground"></div>
-<div id="items"></div><div id="bads"></div><div id="darkness" class="hidden"></div><div id="player" class="hidden">🦄</div><div id="castle" class="hidden" aria-label="Regnbueslot">
-  <div class="castle-rainbow"></div>
-  <div class="castle-stars">
-    <span class="s1">✨</span>
-    <span class="s2">⭐</span>
-    <span class="s3">✨</span>
-    <span class="s4">💖</span>
-    <span class="s5">✨</span>
-  </div>
-  <div class="castle-cloud cloud-left">☁️</div>
-  <div class="castle-cloud cloud-right">☁️</div>
-  <div class="castle-body">
-    <div class="tower left">
-      <div class="roof"></div>
-      <div class="flag">💖</div>
-      <div class="window"></div>
-    </div>
-    <div class="tower center">
-      <div class="roof"></div>
-      <div class="flag">⭐</div>
-      <div class="window"></div>
-    </div>
-    <div class="tower right">
-      <div class="roof"></div>
-      <div class="flag">✨</div>
-      <div class="window"></div>
-    </div>
-    <div class="main">
-      <div class="gem">💎</div>
-      <div class="window win1"></div>
-      <div class="window win2"></div>
-      <div class="door"></div>
-    </div>
-  </div>
-  <div class="castle-path"></div>
-</div><div id="hud" class="hidden"><small id="who">Willa</small><span id="levelName">Bane 1</span><br>⭐ <span id="score">0</span>/<span id="max">0</span><span id="shieldState" class="shieldState hidden">🛡️</span></div><div id="msg" class="msg hidden"></div><div id="swimTip" class="swimTip hidden">Styr svømmeren med fingeren 🫧</div>
-<div id="progress" class="hidden" aria-label="Fremdrift gennem eventyret"></div>
-<div id="controls" class="hidden"><button class="iconBtn" id="pauseBtn" aria-label="Pause">⏸️</button><button class="iconBtn" id="musicBtn" aria-label="Musik til eller fra">🎵</button><button class="iconBtn" id="sfxBtn" aria-label="Lydeffekter til eller fra">🔊</button></div>
-<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.9</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button><br><button class="btn parentBtn" id="parentBtn" aria-label="Forældremenu">⚙️</button></div></div>
-<div id="modeMenu" class="overlay hidden"><div class="card"><h2>Hvor langt skal eventyret være?</h2><div class="modeButtons"><button class="btn pink" id="shortGame">✨ Kort eventyr<br><small>3 tilfældige baner</small></button><button class="btn purple" id="fullGame">🌈 Hele eventyret<br><small>Alle 8 baner</small></button></div><button class="btn small" id="modeBack">Tilbage</button></div></div>
-<div id="pauseMenu" class="overlay hidden"><div class="card"><h2>⏸️ Spillet er på pause</h2><button class="btn pink" id="resumeBtn">Fortsæt</button><button class="btn small" id="pauseMenuBtn">Til menuen</button></div></div>
-<div id="testMenu" class="overlay hidden"><div class="card"><h2>⚙️ Forældre og test</h2><div id="testGrid" class="testGrid"></div><div class="testActions"><button class="btn" id="testFinale">🏰 Test slottet</button><button class="btn" id="testMovie">🎬 Test filmen</button><button class="btn" id="unlockBook">📖 Lås dyrebogen op</button><button class="btn" id="resetBook">♻️ Nulstil dyrebogen</button></div><div id="testStatus" class="testStatus"></div><button class="btn small" id="testBack">Tilbage</button></div></div>
+<audio id="music" src="music.mp3" preload="auto"></audio>
+<div class="rainbow"></div><div class="sun" id="sun">☀️</div><div class="cloud c1">☁️ ☁️</div><div class="cloud c2">☁️</div><div id="goal"></div><div class="ground"></div><div class="flowers" id="flowers">🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸</div>
+<div id="items"></div><div id="bads"></div><div id="player">🦄</div><div id="castle" class="hidden">🏰</div><div id="hud" class="hidden"><small id="who">Willa</small><span id="levelName">Bane 1</span><br>⭐ <span id="score">0</span>/<span id="max">0</span></div><div id="msg" class="msg hidden"></div>
+<div id="menu" class="overlay"><div class="card"><h1>🌈 Edith & Willas Eventyr 2.0</h1><p>Vælg hvem der spiller</p><button class="btn pink" id="willa">🩷 Willa<br><small>4 år · let</small></button><button class="btn purple" id="edith">💜 Edith<br><small>8 år · sværere</small></button><button class="btn small" id="bookBtn">📖 Magisk dyrebog</button></div></div>
 <div id="complete" class="overlay hidden"><div class="card"><h2 id="doneTitle">Flot!</h2><p id="doneText"></p><button class="btn" id="next">Næste bane</button><button class="btn small" id="menuBtn">Menu</button></div></div>
 <div id="book" class="overlay hidden"><div class="card"><h2>📖 Magisk dyrebog</h2><div id="bookGrid" class="book"></div><button class="btn" id="back">Tilbage</button></div></div>
-<div id="movie" class="overlay hidden" aria-label="Præmie-tegnefilm">
-  <div class="movieStage">
-    <video id="prizeVideo" class="prizeVideo" src="praemie-tegnefilm.mp4" playsinline webkit-playsinline preload="metadata" controls></video>
-    <div class="movieTitle">I klarede eventyret! ✨</div>
-    <div class="movieCloud cA">☁️ ☁️</div>
-    <div class="movieCloud cB">☁️</div>
-    <div class="movieStars"><span class="m1">✨</span><span class="m2">⭐</span><span class="m3">💖</span><span class="m4">✨</span></div>
-    <div class="movieCastle">🏰</div>
-    <div class="movieDoor"></div>
-    <div class="movieGround"></div>
-    <div class="movieFamily">
-      <div class="movieChar willa">👧<small>Willa</small></div>
-      <div class="movieChar edith">👧🏻<small>Edith</small></div>
-      <div class="movieChar cat">🐱</div>
-      <div class="movieChar uni">🦄</div>
-      <div class="movieChar cheetah">🐆</div>
-      <div class="movieChar mouse">🐭</div>
-    </div>
-    <div class="movieHearts">💜 🩷 ❤️ 🩷 💜</div>
-    <div class="movieLove">Mor og far elsker Edith og Willa ❤️</div>
-    <button class="btn moviePlayBtn" id="moviePlay">▶ Start præmietegnefilmen</button>
-    <div class="movieStatus hidden" id="movieStatus"></div>
-    <div class="movieControls">
-      <button class="btn small" id="movieAgain">Se igen</button>
-      <button class="btn small" id="movieMenu">Menu</button>
-    </div>
-  </div>
+
+<div id="prizeVideoOverlay" class="hidden">
+  <video id="prizeVideo" src="praemie-tegnefilm.mp4" playsinline preload="metadata"></video>
+  <button id="closeVideo">Luk filmen</button>
 </div>
+
 </div>
 <script>
 const levels=[
-{id:"cat",cls:"cat",mode:"fly",label:"Bane 1: Willas kat",goalName:"Katteskålen",vessel:"🥣",fullText:"Katteskålen er fuld!",goal:8,player:"🐱",items:["🐟","🐟","🥛","🧶","💖"],collectIcon:"🐟",unlocks:["🐱","🐝"],win:"Kattebanen er klaret! 🎆",hit:"AV!",hazards:[["🐶","fly",.7,.35,.75],["🐝","bee",1.05,.22,.72],["🐝","bee",.9,.18,.60]]},
-{id:"uni",cls:"rainbowLevel",mode:"fly",label:"Bane 2: Magiskålen",goalName:"Magiskålen",vessel:"🔮",fullText:"Magiskålen gløder!",goal:10,player:"🦄",items:["⭐","⭐","💖","🌸","🦋"],collectIcon:"⭐",unlocks:["🦄","🐉","🦋"],win:"Magien er samlet! 🎆",hit:"AV!",hazards:[["🐉","fly",.8,.25,.65],["🚗","car",1.35,.80,.80],["🚙","car",1.15,.86,.86]]},
-{id:"cheetah",cls:"cheetah",mode:"fly",label:"Bane 3: Ediths gepard",goalName:"Skattekisten",vessel:"🧰",fullText:"Skattekisten er fyldt!",goal:10,player:"🐆",items:["💎","💎","⚡","🌟","💖"],collectIcon:"💎",unlocks:["🐆"],win:"Ediths gepard fandt skatten! 🎆",hit:"AV!",hazards:[["🪨","ground",1.45,.78,.78],["🌵","ground",1.25,.76,.76],["🪨","ground",1.65,.84,.84]]},
-{id:"circus",cls:"circus",mode:"fly",label:"Bane 4: Cirkus Summarum",goalName:"Popcornbøtten",vessel:"🍿",fullText:"Cirkus Summarum er afsløret!",goal:14,revealText:"CIRKUS SUMMARUM",player:"🐁",items:["🍿","🍿","🎟️","🍦","🍧"],collectIcon:"🍿",unlocks:["🎪","🐁","🍦"],win:"Cirkus Summarum er klaret! 🎆",hit:"AV!",hazards:[["🤡","fly",1.25,.24,.76],["🎭","bee",1.35,.18,.82],["🤹","fly",1.20,.28,.78],["🤡","fly",1.15,.20,.70],["🎭","bee",1.10,.22,.75]]},
-{id:"water",cls:"water",mode:"swim",label:"Bane 5: Havets hoppebane",goalName:"Perlekisten",vessel:"🧜‍♀️",fullText:"Perlekisten er fuld!",goal:12,player:"🏊‍♀️",items:["🫧","🐚","⭐","🦪","💖"],collectIcon:"🦪",unlocks:["🐬","🦪"],win:"Svømmebanen er klaret! 🫧",hit:"Plask!",hazards:[["🪼","fly",1.05,.25,.78],["🦀","ground",1.20,.78,.84],["🌊","bee",1.10,.20,.72],["🐙","fly",.95,.28,.70]]},
-{id:"space",cls:"space",mode:"fly",label:"Bane 6: Stjernerejsen",goalName:"Raketglasset",vessel:"🚀",fullText:"Raketglasset er fyldt!",goal:12,player:"🚀",items:["🌟","⭐","💫","🪐","💖"],collectIcon:"🌟",unlocks:["🚀"],win:"Stjernerejsen er klaret! 🎆",hit:"AV!",hazards:[["☄️","fly",1.30,.18,.82],["🛸","bee",1.18,.20,.72],["🪐","ground",1.10,.78,.78],["☄️","fly",1.42,.24,.76]]},
-{id:"night",cls:"night",mode:"fly",label:"Bane 7: Nattebanen",goalName:"Stjernelanternen",vessel:"🏮",fullText:"Lanternen lyser klart!",goal:12,player:"🧚",items:["✨","🌟","💖","🪲","⭐"],collectIcon:"✨",unlocks:["🌙"],win:"Nattebanen er klaret! 🎆",hit:"AV!",hazards:[["🦇","fly",1.10,.18,.66],["🦉","fly",.98,.22,.62],["🌲","ground",1.12,.79,.79],["☁️","fly",1.22,.20,.74]]},
-{id:"weather",cls:"weather",mode:"fly",label:"Bane 8: Vejrmagi",goalName:"Vejrkrukken",vessel:"☂️",fullText:"Vejrmagien er samlet!",goal:12,player:"🦆",items:["☀️","💧","❄️","🍃","⭐"],collectIcon:"💧",unlocks:["🦆","☂️","⚡"],win:"Vejrmagien er tæmmet! ⛈️",hit:"BANG!",hazards:[["⚡","bee",1.20,.18,.72],["🌪️","fly",1.08,.22,.78],["⛈️","fly",1.16,.18,.68],["🌩️","ground",1.05,.79,.79]]}
+{id:"cat",cls:"cat",label:"Bane 1: Willas kat",text:"Mor og far elsker Edith og Willa",player:"🐱",items:["🥛","🐟","🧶","💖","⭐"],unlock:"🐱",win:"Kattebanen er klaret! 🎆",hit:"AV!",hazards:[["🐶","fly",.7,.35,.75],["🐝","bee",1.05,.22,.72],["🐝","bee",.9,.18,.60]]},
+{id:"uni",cls:"",label:"Bane 2: Enhjørningen",text:"Willas kat finder mælk",player:"🦄",items:["⭐","⭐","💖","🌸","🦋"],unlock:"🦄",win:"Enhjørningen fandt magien! 🎆",hit:"AV!",hazards:[["🐉","fly",.8,.25,.65],["🚗","car",1.35,.80,.80],["🚙","car",1.15,.86,.86]]},
+{id:"cheetah",cls:"cheetah",label:"Bane 3: Ediths gepard",text:"Ediths gepard løber stærkt",player:"🐆",items:["⚡","⚡","💎","🌟","💖"],unlock:"🐆",win:"Ediths gepard vandt løbet! 🎆",hit:"AV!",hazards:[["🪨","ground",1.45,.78,.78],["🌵","ground",1.25,.76,.76],["🪨","ground",1.65,.84,.84]]},
+{id:"circus",cls:"circus",label:"Bane 4: Cirkus Summarum",text:"Cirkus Summarum",player:"🐁",items:["🍦","🍧","🍨","🍦","🍧"],unlock:"🎪",win:"Cirkus Summarum er klaret! 🎆",hit:"AV!",hazards:[["🤡","fly",1.25,.24,.76],["🎭","bee",1.35,.18,.82],["🤹","fly",1.20,.28,.78],["🤡","fly",1.15,.20,.70],["🎭","bee",1.10,.22,.75]]},
+{id:"space",cls:"space",label:"Bane 5: Edith og Willas Stjernerejse",text:"Edith og Willa flyver til stjernerne",player:"🚀",items:["🌟","⭐","💫","🌈","💖","🪐"],unlock:"🚀",win:"Edith og Willa nåede stjernerne! 🎆",hit:"AV!",hazards:[["☄️","fly",1.38,.16,.82],["🛸","bee",1.16,.20,.74],["🌑","ground",1.08,.76,.80],["☄️","fly",1.48,.22,.78],["🛰️","bee",1.12,.18,.70]]},
+{id:"weather",cls:"weather",label:"Bane 6: Vejrmagien",text:"Sol lyn torden og regn",player:"🦋",items:["☀️","🌈","💧","⭐","💖"],unlock:"⛈️",win:"Vejrmagien er klaret! 🎆",hit:"AV!",hazards:[["⚡","bee",1.55,.18,.78],["🌩️","fly",1.25,.18,.70],["🌧️","fly",1.35,.22,.82],["🌪️","bee",1.20,.24,.76]]}
 ];
-const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7,shieldChance:.12},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5,shieldChance:.07}};
-const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🐬","Delfin"],["🦪","Perle"],["🚀","Raket"],["🌙","Nattebane"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"],["🦆","Vejrand"],["☂️","Paraply"],["⚡","Lyn"],["🛡️","Magisk skjold"]];
-const game=document.getElementById("game"),music=document.getElementById("music"),goal=document.getElementById("goal"),sceneFx=document.getElementById("sceneFx"),foreground=document.getElementById("foreground"),stageIntro=document.getElementById("stageIntro"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),modeMenu=document.getElementById("modeMenu"),pauseMenu=document.getElementById("pauseMenu"),testMenu=document.getElementById("testMenu"),progressEl=document.getElementById("progress"),controls=document.getElementById("controls"),shieldState=document.getElementById("shieldState"),musicBtn=document.getElementById("musicBtn"),sfxBtn=document.getElementById("sfxBtn"),book=document.getElementById("book"),castle=document.getElementById("castle"),swimTip=document.getElementById("swimTip"),movie=document.getElementById("movie"),prizeVideo=document.getElementById("prizeVideo"),moviePlay=document.getElementById("moviePlay"),movieStatus=document.getElementById("movieStatus"),darkness=document.getElementById("darkness");
-let diff,selectedPlayer="Willa",gameLength="full",li=0,lvl,playLevels=[],score=0,max=0,won=false,started=false,paused=false,stageLocked=false,hitCd=false,shielded=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,musicEnabled=true,sfxEnabled=true,facing=1,lastX=x,bubbleTimer=0,playerRadius=34,rafId=0,finaleTimer=0,videoAvailable=true,effectTimers=[];
+const diffs={Willa:{name:"Willa",speed:.82,hazard:.75,loss:1,count:7},Edith:{name:"Edith",speed:1.75,hazard:1.85,loss:2,count:5}};
+const cards=[["🦄","Enhjørning"],["🐱","Kat"],["🐆","Gepard"],["🎪","Cirkus"],["🐁","Mus"],["🍦","Is"],["🚀","Raket"],["⛈️","Vejrmagi"],["🐉","Drage"],["🐝","Bi"],["🦋","Sommerfugl"]];
+const game=document.getElementById("game"),music=document.getElementById("music"),prizeVideo=document.getElementById("prizeVideo"),prizeVideoOverlay=document.getElementById("prizeVideoOverlay"),closeVideo=document.getElementById("closeVideo"),goal=document.getElementById("goal"),player=document.getElementById("player"),itemsEl=document.getElementById("items"),badsEl=document.getElementById("bads"),hud=document.getElementById("hud"),msgEl=document.getElementById("msg"),complete=document.getElementById("complete"),menu=document.getElementById("menu"),book=document.getElementById("book"),castle=document.getElementById("castle");
+let diff,li=0,lvl,score=0,max=0,won=false,started=false,hitCd=false,x=innerWidth*.18,y=innerHeight*.58,tx=x,ty=y,items=[],bads=[],musicStarted=false,facing=1,lastX=x;
 function W(){return game.clientWidth}function H(){return game.clientHeight}
-function loadProgress(){try{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');if(!s||!Array.isArray(s.cards))s={cards:[]};return{...s,cards:s.cards,musicEnabled:s.musicEnabled!==false,sfxEnabled:s.sfxEnabled!==false}}catch(e){return{cards:[],musicEnabled:true,sfxEnabled:true}}}
-function saveProgress(s){try{localStorage.setItem("ew2",JSON.stringify(s));return true}catch(e){return false}}
-function saveCards(list){let s=loadProgress();(list||[]).forEach(icon=>{if(!s.cards.includes(icon))s.cards.push(icon)});saveProgress(s)}
-function saveSettings(){let s=loadProgress();s.musicEnabled=musicEnabled;s.sfxEnabled=sfxEnabled;saveProgress(s)}
-function updateSoundButtons(){musicBtn.textContent=musicEnabled?"🎵":"🔇";musicBtn.classList.toggle("off",!musicEnabled);sfxBtn.textContent=sfxEnabled?"🔊":"🔈";sfxBtn.classList.toggle("off",!sfxEnabled)}
-function show(t,ms=1600){msgEl.textContent=t;msgEl.classList.remove("hidden");clearTimeout(show.t);show.t=setTimeout(()=>msgEl.classList.add("hidden"),ms)}
-let sfxCtx=null;
-async function unlockAudio(){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")await sfxCtx.resume();let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();g.gain.value=.0001;o.connect(g);g.connect(sfxCtx.destination);o.start();o.stop(sfxCtx.currentTime+.01)}catch(e){}}
-function tone(f,d=.12,v=.08,type="sine"){if(!sfxEnabled)return;try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();if(sfxCtx.state==="suspended")sfxCtx.resume().catch(()=>{});let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}
-function avSound(){tone(180,.12,.09,"sawtooth");setTimeout(()=>tone(95,.16,.07,"sawtooth"),90)}
-async function startMusic(){if(!musicEnabled||paused)return;if(musicStarted&&!music.paused)return;try{music.loop=true;music.volume=.18;if(music.readyState===0)music.load();await music.play();musicStarted=!music.paused}catch(e){musicStarted=false}}
-function stopMusicForPrize(){try{if(music){music.pause();music.currentTime=0}musicStarted=false}catch(e){}}
-{const saved=loadProgress();musicEnabled=saved.musicEnabled;sfxEnabled=saved.sfxEnabled;updateSoundButtons()}
+function saveCard(e){let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}');if(!s.cards.includes(e))s.cards.push(e);localStorage.setItem("ew2",JSON.stringify(s))}
+function show(t,ms=1600){msgEl.textContent=t;msgEl.classList.remove("hidden");clearTimeout(show.t);show.t=setTimeout(()=>msgEl.classList.add("hidden"),ms)}let sfxCtx=null;function tone(f,d=.12,v=.08,type="sine"){try{sfxCtx=sfxCtx||new(window.AudioContext||window.webkitAudioContext)();let o=sfxCtx.createOscillator(),g=sfxCtx.createGain();o.type=type;o.frequency.value=f;g.gain.value=v;o.connect(g);g.connect(sfxCtx.destination);o.start();g.gain.exponentialRampToValueAtTime(.001,sfxCtx.currentTime+d);o.stop(sfxCtx.currentTime+d)}catch(e){}}function avSound(){tone(180,.12,.09,"sawtooth");setTimeout(()=>tone(95,.16,.07,"sawtooth"),90)}
+async function startMusic(){if(musicStarted)return;musicStarted=true;try{music.loop=true;music.volume=.18;await music.play()}catch(e){}}
+function buildLetters(){goal.innerHTML="";lvl.text.split("").forEach(ch=>{if(ch===" "){let sp=document.createElement("span");sp.style.display="inline-block";sp.style.width=".35em";goal.appendChild(sp);return}let w=document.createElement("span");w.className="letter";w.textContent=ch;let f=document.createElement("span");f.className="fill";f.textContent=ch;w.appendChild(f);goal.appendChild(w)})}
+function updateLetters(){document.querySelectorAll(".fill").forEach((e,i)=>e.classList.toggle("show",i<score));if(score>=max&&!won)win()}
 function rand(a){return a[Math.floor(Math.random()*a.length)]}
-function shuffle(a){let b=a.slice();for(let i=b.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]]}return b}
-function levelTitle(l){return l.label.replace(/^Bane \d+:\s*/,"")}
-function sceneFor(id){
-  const scenes={
-    cat:{tip:"Fyld katteskålen med fisk og hygge",fx:"<span class='sceneEmoji s1'>🐾</span><span class='sceneEmoji s2'>🧶</span><span class='sceneEmoji s3'>🌿</span><span class='sceneEmoji s4'>🐾</span><span class='sceneEmoji s5'>💖</span>",fore:"<div class='foreLine back'>🌿 🌿 🐾 🌿 🧶 🌿 🐾 🌿</div><div class='foreLine'>🌸 🐾 🌼 🧶 🌸 🐾 🌼</div>"},
-    uni:{tip:"Saml stjerner til magiskålen",fx:"<span class='sceneEmoji s1'>🦋</span><span class='sceneEmoji s2'>✨</span><span class='sceneEmoji s3'>💖</span><span class='sceneEmoji s4'>🌸</span><span class='sceneEmoji s5'>⭐</span><span class='sceneEmoji s6'>✨</span>",fore:"<div class='foreLine back'>🌸 🌼 ✨ 🌷 🦋 🌸 ✨</div><div class='foreLine'>🌷 🌸 🌼 💖 🌻 🌸 🌼</div>"},
-    cheetah:{tip:"Find diamanter på savannen",fx:"<span class='sceneEmoji s1'>☀️</span><span class='sceneEmoji s2'>🌾</span><span class='sceneEmoji s3'>💎</span><span class='sceneEmoji s4'>🌵</span><span class='sceneEmoji s5'>🌾</span>",fore:"<div class='foreLine back'>🌾 🌾 🌵 🌾 🪨 🌾 🌵</div><div class='foreLine'>🌾 🐾 🌾 🪨 🌾 🐾 🌾</div>"},
-    circus:{tip:"Fyld popcornbøtten i manegen",fx:"<span class='sceneEmoji s1'>🎈</span><span class='sceneEmoji s2'>🎟️</span><span class='sceneEmoji s3'>✨</span><span class='sceneEmoji s4'>🍿</span><span class='sceneEmoji s5'>🎪</span>",fore:"<div class='foreLine back'>🎈 🎟️ 🎈 🎪 🎈 🎟️ 🎈</div><div class='foreLine'>🍿 🎪 🍦 🎟️ 🍿 🎪 🍧</div>"},
-    water:{tip:"Svøm efter perler og bobler",fx:"<span class='sceneEmoji s1'>🐟</span><span class='sceneEmoji s2'>🫧</span><span class='sceneEmoji s3'>🐠</span><span class='sceneEmoji s4'>🪸</span><span class='sceneEmoji s5'>🐚</span>",fore:"<div class='foreLine back'>🫧 🪸 🐚 🫧 🪸 🐟 🫧</div><div class='foreLine'>🐚 🪸 🦪 🐚 🫧 🪸 🐚</div>"},
-    space:{tip:"Saml stjernestøv til raketten",fx:"<span class='sceneEmoji s1'>🪐</span><span class='sceneEmoji s2'>💫</span><span class='sceneEmoji s3'>🌟</span><span class='sceneEmoji s4'>✨</span><span class='sceneEmoji s5'>🚀</span>",fore:"<div class='foreLine back'>✨ 🌟 🪐 ⭐ 💫 🌟 ✨</div><div class='foreLine'>🪨 ⭐ 🪨 💫 🪨 ⭐ 🪨</div>"},
-    night:{tip:"Lys i mørket med lygten",fx:"<span class='sceneEmoji s1'>🦇</span><span class='sceneEmoji s2'>🦉</span><span class='sceneEmoji s3'>✨</span><span class='sceneEmoji s4'>🪲</span><span class='sceneEmoji s5'>🌙</span>",fore:"<div class='foreLine back'>🌲 🌙 🌲 ✨ 🌲 🪲 🌲</div><div class='foreLine'>🍄 🌲 ✨ 🏮 🌲 🍄 ✨</div>"},
-    weather:{tip:"Saml sol, regn, sne og vind",fx:"<span class='weatherDrop d1'></span><span class='weatherDrop d2'></span><span class='weatherDrop d3'></span><span class='weatherDrop d4'></span><span class='weatherDrop d5'></span><span class='weatherDrop d6'></span><span class='weatherFlash'>⚡</span><span class='sceneEmoji s1'>☀️</span><span class='sceneEmoji s2'>🌧️</span><span class='sceneEmoji s4'>🍃</span>",fore:"<div class='foreLine back'>🌿 💧 🌿 ☂️ 🌿 💧 🌿</div><div class='foreLine'>🌼 🍃 🌧️ 🌻 ☀️ 🍃 🌼</div>"}
-  };
-  return scenes[id]||scenes.uni;
-}
-function setScene(){
-  const s=sceneFor(lvl.id);
-  stageLocked=true;
-  sceneFx.innerHTML=s.fx;
-  foreground.innerHTML=s.fore;
-  stageIntro.className="";
-  stageIntro.innerHTML=`<b>${levelTitle(lvl)}</b><small>${s.tip}</small>`;
-  void stageIntro.offsetWidth;
-  stageIntro.classList.add("show");
-  clearTimeout(window.stageIntroTimer);
-  window.stageIntroTimer=setTimeout(()=>{stageIntro.className="hidden";stageLocked=false;ensureLoop()},1900);
-}
-function completeSpark(){
-  const s=sceneFor(lvl.id),b=document.createElement("div");
-  b.className="completeBurst";
-  b.innerHTML=`${lvl.vessel}<br><span style="font-size:.52em">${lvl.fullText}</span>`;
-  game.appendChild(b);
-  setTimeout(()=>b.remove(),1500);
-}
-function buildCollector(){
-  goal.className="collector";
-  let slots="";
-  if(lvl.revealText){
-    let found=0;
-    slots=[...lvl.revealText].map(ch=>{
-      if(ch===" ")return "<span>&nbsp;</span>";
-      const visible=found++<score;
-      return `<span class="${visible?"":"empty"}">${visible?ch:"_"}</span>`;
-    }).join("");
-  }else{
-    for(let i=0;i<max;i++)slots+=`<span class="${i<score?"":"empty"}">${i<score?lvl.collectIcon:"○"}</span>`;
-  }
-  goal.innerHTML=`<div class="collectWrap"><div class="collectVessel ${score>=max?"full":""}">${lvl.vessel}</div><div class="collectText"><div class="collectTitle">${lvl.goalName}: ${score}/${max}</div><div class="collectSlots ${lvl.revealText?"circusWord":""}">${slots}</div><div class="collectHint">${score>=max?lvl.fullText:lvl.revealText?"Find popcorn og afslør navnet!":"Saml ting og fyld den op!"}</div></div></div>`;
-}
-function updateGoal(){document.getElementById("score").textContent=score;buildCollector();if(score>=max&&!won)win()}
-function waterBubbles(){if(lvl.mode!=="swim")return;bubbleTimer++;if(bubbleTimer%18)return;let b=document.createElement("div"),s=12+Math.random()*24;b.className="bubble";b.style.width=s+"px";b.style.height=s+"px";b.style.left=(x-20+Math.random()*40)+"px";b.style.top=(y+20+Math.random()*20)+"px";game.appendChild(b);setTimeout(()=>b.remove(),3600)}
-function clearEffectTimers(){effectTimers.forEach(clearTimeout);effectTimers=[];game.querySelectorAll(".firework,.bubble,.lightBeam,.completeBurst").forEach(el=>el.remove())}
-function randomItemY(){const min=lvl.mode==="swim"?.22:.24,maxY=lvl.mode==="swim"?.78:.74;return H()*(min+Math.random()*(maxY-min))}
-function setItemContent(o){o.isShield=Math.random()<diff.shieldChance;o.e.textContent=o.isShield?"🛡️":rand(lvl.items);o.r=(parseFloat(getComputedStyle(o.e).fontSize)||48)*.34}
-function recycleItem(o){o.x=W()+90+Math.random()*240;o.y=randomItemY();setItemContent(o)}
-function load(){
-  clearTimeout(finaleTimer);
-  clearEffectTimers();
-  lvl=playLevels[li]||levels[li];
-  game.className=lvl.cls;
-  setScene();
-  document.getElementById("sun").textContent=lvl.id==="circus"?"🎪":lvl.id==="space"||lvl.id==="night"?"🌙":lvl.id==="water"?"🐬":lvl.id==="weather"?"🌦️":"☀️";
-  document.getElementById("flowers").textContent=lvl.id==="cat"?"🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿":lvl.id==="uni"?"🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸":lvl.id==="cheetah"?"🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾":lvl.id==="circus"?"🎈 🎪 🎟️ 🍦 🎈 🤹 🎪 🍧 🎈":lvl.id==="water"?"🐚 🫧 🪸 🐟 🐚 🫧 🪸 🐠 🫧":lvl.id==="space"?"✨ 🌟 🪐 ⭐ 💫 🌟 ✨ 🪐 ⭐":lvl.id==="weather"?"🌿 💧 ☂️ 🌼 🍃 🌧️ 🌻 ☀️":"🌲 ✨ 🪲 🌙 ⭐ 🌲 ✨ 🏮 🌙";
-  player.textContent=lvl.player;
-  player.classList.remove("hidden");
-  player.classList.toggle("torchOn",lvl.id==="night");
-  playerRadius=(parseFloat(getComputedStyle(player).fontSize)||80)*.34;
-  document.getElementById("levelName").textContent=`Bane ${li+1}: ${levelTitle(lvl)}`;
-  document.getElementById("who").textContent=diff.name;
-  max=lvl.goal;
-  document.getElementById("max").textContent=max;
-  score=0;won=false;hitCd=false;shielded=false;bubbleTimer=0;
-  shieldState.classList.add("hidden");
-  swimTip.classList.toggle("hidden",lvl.mode!=="swim");
-  darkness.classList.toggle("hidden",lvl.id!=="night");
-  movie.classList.add("hidden");
-  castle.classList.add("hidden");
-  x=W()*.18;y=lvl.mode==="swim"?H()*.42:H()*.58;tx=x;ty=y;lastX=x;
-  buildCollector();
-  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];
-  for(let i=0;i<diff.count;i++)spawnItem(W()*(.48+i*.21));
-  lvl.hazards.forEach((h,i)=>spawnBad(h,W()+160+i*210));
-  if(diff.name==="Edith")lvl.hazards.forEach((h,i)=>spawnBad(h,W()+420+i*180));
-  updateGoal();
-  renderProgress();
-  ensureLoop();
-}
-function spawnItem(px){let e=document.createElement("div");e.className="thing";itemsEl.appendChild(e);let o={e,x:px,y:randomItemY(),s:(1.15+Math.random()*.5)*diff.speed,r:16,isShield:false};setItemContent(o);items.push(o)}
-function spawnBad(h,px){let e=document.createElement("div");e.className="bad "+(h[1]=="car"?"car":h[1]=="bee"?"bee":"");e.textContent=h[0];badsEl.appendChild(e);let r=(parseFloat(getComputedStyle(e).fontSize)||50)*.34;bads.push({e,h,x:px,y:H()*(h[3]+Math.random()*(h[4]-h[3])),p:Math.random()*6.28,s:h[2]*diff.hazard,r})}
-function renderProgress(currentDone=false){
-  progressEl.innerHTML="";
-  playLevels.forEach((level,index)=>{let d=document.createElement("span");d.className="progressDot"+(index<li||currentDone&&index===li?" done":index===li?" active":"");d.textContent=index<li||currentDone&&index===li?"✓":index===li?"★":"";d.title=levelTitle(level);progressEl.appendChild(d)});
-}
-function choosePlayer(n){selectedPlayer=n;menu.classList.add("hidden");modeMenu.classList.remove("hidden")}
-function beginGame(length){
-  gameLength=length;diff=diffs[selectedPlayer];playLevels=shuffle(levels);if(length==="short")playLevels=playLevels.slice(0,3);li=0;
-  modeMenu.classList.add("hidden");testMenu.classList.add("hidden");hud.classList.remove("hidden");progressEl.classList.remove("hidden");controls.classList.remove("hidden");
-  started=true;paused=false;game.classList.remove("paused");unlockAudio();startMusic();load();show(length==="short"?"Et kort eventyr med 3 baner ✨":"Hele eventyret med 8 baner 🌈",2200);
-}
-document.getElementById("willa").onclick=()=>choosePlayer("Willa");document.getElementById("edith").onclick=()=>choosePlayer("Edith");
-document.getElementById("shortGame").onclick=()=>beginGame("short");document.getElementById("fullGame").onclick=()=>beginGame("full");
-document.getElementById("modeBack").onclick=()=>{modeMenu.classList.add("hidden");menu.classList.remove("hidden")};
-function pauseGame(){if(!started||won||paused)return;paused=true;game.classList.add("paused");pauseMenu.classList.remove("hidden");if(rafId){cancelAnimationFrame(rafId);rafId=0}try{music.pause()}catch(e){}}
-function resumeGame(){if(!paused)return;paused=false;game.classList.remove("paused");pauseMenu.classList.add("hidden");startMusic();ensureLoop()}
-document.getElementById("pauseBtn").onclick=pauseGame;document.getElementById("resumeBtn").onclick=resumeGame;document.getElementById("pauseMenuBtn").onclick=goToMenu;
-musicBtn.onclick=()=>{musicEnabled=!musicEnabled;if(musicEnabled)startMusic();else{try{music.pause()}catch(e){}musicStarted=false}saveSettings();updateSoundButtons()};
-sfxBtn.onclick=()=>{sfxEnabled=!sfxEnabled;if(sfxEnabled)unlockAudio();saveSettings();updateSoundButtons();if(sfxEnabled)tone(740,.08,.05,"triangle")};
-function isUiEvent(e){return e.target&&e.target.closest&&e.target.closest("button,.overlay")}
-function setTarget(cx,cy){if(!started||won||paused||stageLocked||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect();let newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.16,Math.min(H()*.84,cy-r.top))}
-game.addEventListener("pointerdown",e=>{if(isUiEvent(e)||!e.isPrimary)return;e.preventDefault();try{game.setPointerCapture(e.pointerId)}catch(err){}setTarget(e.clientX,e.clientY)});
-game.addEventListener("pointermove",e=>{if(isUiEvent(e)||!e.isPrimary)return;if(e.pointerType!=="mouse"||e.buttons)setTarget(e.clientX,e.clientY)});
-game.addEventListener("pointerup",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
-game.addEventListener("pointercancel",e=>{try{game.releasePointerCapture(e.pointerId)}catch(err){}});
-function touching(o,bonus=0){const dx=o.x-x,dy=o.y-y,r=playerRadius+o.r+bonus;return dx*dx+dy*dy<r*r}
-function collect(o){
-  if(won||stageLocked)return;
-  const emoji=o.e.textContent;pop(o.x,o.y,emoji);
-  if(o.isShield){shielded=true;shieldState.classList.remove("hidden");saveCards(["🛡️"]);tone(880,.18,.07,"triangle");show("Magisk skjold! Du er beskyttet 🛡️",1500);recycleItem(o);return}
-  score=Math.min(max,score+1);updateGoal();recycleItem(o);tone(620,.08,.05,"triangle");if(score==1)show(lvl.revealText?"Det første bogstav er fundet! ✨":`${lvl.goalName} begynder at blive fyldt! ✨`);
-}
-function hit(){
-  if(hitCd||won||stageLocked)return;
-  hitCd=true;
-  if(shielded){shielded=false;shieldState.classList.add("hidden");tone(1040,.12,.08,"triangle");setTimeout(()=>tone(1320,.14,.06,"triangle"),80);show("Skjoldet reddede dig! 🛡️",1100);player.style.filter="brightness(1.7)";setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,900);return}
-  score=Math.max(0,score-diff.loss);updateGoal();avSound();show(lvl.hit||"AV!",900);player.style.filter="brightness(1.5)";if(lvl.mode==="swim")x=Math.max(60,x-25);setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500);
-}
+function load(){lvl=levels[li];game.className=lvl.cls;document.getElementById("sun").textContent=li==3?"🎪":li==4?"🌙":li==5?"⛈️":"☀️";document.getElementById("flowers").textContent=li==0?"🌿 🧶 🌿 🐾 🌿 🧶 🌿 🐾 🌿":li==1?"🌸 🌼 🌷 🌸 🌻 🌼 🌸 🌷 🌼 🌸":li==2?"🌾 🌵 🌾 🌼 🌾 🌵 🌾 🌼 🌾":li==3?"🎈 🎪 🎟️ 🍦 🎈 🤹 🎪 🍧 🎈":li==4?"✨ 🌟 🪐 ⭐ 💫 🌟 ✨ 🪐 ⭐":"☀️ 🌧️ ⚡ 🌈 💧 ☁️ ⛈️ ☀️";player.textContent=lvl.player;document.getElementById("levelName").textContent=lvl.label;document.getElementById("who").textContent=diff.name;max=lvl.text.replace(/ /g,"").length;document.getElementById("max").textContent=max;score=0;document.getElementById("score").textContent=0;won=false;hitCd=false;castle.classList.add("hidden");x=W()*.18;y=H()*.58;tx=x;ty=y;buildLetters();itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];for(let i=0;i<diff.count;i++)spawnItem(W()*(.45+i*.2));lvl.hazards.forEach((h,i)=>spawnBad(h,W()+160+i*210));if(diff.name==="Edith"){lvl.hazards.forEach((h,i)=>spawnBad(h,W()+420+i*180));}updateLetters();show(lvl.label,1800);if(lvl.id==="space")setTimeout(()=>show("Flyv mellem stjernerne – pas på meteorregnen! ☄️",2300),1900)}
+function spawnItem(px){let e=document.createElement("div");e.className="thing";e.textContent=rand(lvl.items);itemsEl.appendChild(e);items.push({e,x:px,y:H()*(.24+Math.random()*.52),s:(1.15+Math.random()*.5)*diff.speed})}
+function spawnBad(h,px){let e=document.createElement("div");e.className="bad "+(h[1]=="car"?"car":h[1]=="bee"?"bee":"");e.textContent=h[0];badsEl.appendChild(e);bads.push({e,h,x:px,y:H()*(h[3]+Math.random()*(h[4]-h[3])),p:Math.random()*6.28,s:h[2]*diff.hazard})}
+function choose(n){diff=diffs[n];li=0;menu.classList.add("hidden");hud.classList.remove("hidden");started=true;startMusic();load();show("Styr med fingeren ✨",2200)}
+document.getElementById("willa").onclick=()=>choose("Willa");document.getElementById("edith").onclick=()=>choose("Edith");
+function setTarget(cx,cy){if(!started||!complete.classList.contains("hidden"))return;let r=game.getBoundingClientRect(),newTx=Math.max(42,Math.min(W()-42,cx-r.left));if(Math.abs(newTx-x)>8)facing=newTx>x?1:-1;tx=newTx;ty=Math.max(H()*.18,Math.min(H()*.84,cy-r.top))}
+game.addEventListener("touchstart",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});game.addEventListener("touchmove",e=>{e.preventDefault();setTarget(e.touches[0].clientX,e.touches[0].clientY)},{passive:false});game.addEventListener("mousedown",e=>setTarget(e.clientX,e.clientY));game.addEventListener("mousemove",e=>{if(e.buttons)setTarget(e.clientX,e.clientY)});
+function collect(o){if(won)return;score=Math.min(max,score+1);document.getElementById("score").textContent=score;updateLetters();pop(o.x,o.y,o.e.textContent);o.x=W()+90+Math.random()*220;o.y=H()*(.24+Math.random()*.52);if(score==1)show("Et bogstav kom frem! ✨")}
+function hit(){if(hitCd||won)return;hitCd=true;score=Math.max(0,score-diff.loss);document.getElementById("score").textContent=score;updateLetters();avSound();show("AV!",900);player.style.filter="brightness(1.5)";setTimeout(()=>player.style.filter="",330);setTimeout(()=>hitCd=false,1500)}
 function pop(x,y,emoji){for(let i=0;i<8;i++){let p=document.createElement("div");p.style.cssText=`position:absolute;left:${x+Math.random()*50-25}px;top:${y+Math.random()*40-20}px;z-index:90;font-size:24px;animation:boom .8s ease-out forwards`;p.textContent=i%2?emoji:"✨";game.appendChild(p);setTimeout(()=>p.remove(),850)}}
-function fireworks(bursts=7,particles=22){
-  const colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#fff"];
-  for(let b=0;b<bursts;b++)effectTimers.push(setTimeout(()=>{
-    let cx=Math.random()*W(),cy=H()*(.12+Math.random()*.38);
-    for(let i=0;i<particles;i++){
-      let p=document.createElement("div");p.className="firework";p.style.left=cx+"px";p.style.top=cy+"px";p.style.background=colors[i%colors.length];
-      let a=Math.random()*Math.PI*2,d=55+Math.random()*110;p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");game.appendChild(p);setTimeout(()=>p.remove(),950);
-    }
-  },b*300));
-}
-function win(){
-  won=true;
-  renderProgress(true);
-  saveCards(lvl.unlocks);
-  completeSpark();
-  fireworks();
-  document.getElementById("doneTitle").textContent=lvl.win;
-  document.getElementById("doneText").textContent=li<playLevels.length-1?"Du har låst nye ting op i dyrebogen.":"Du har klaret eventyret!";
-  document.getElementById("next").textContent=li<playLevels.length-1?"Næste bane":"Se eventyrslottet";
-  effectTimers.push(setTimeout(()=>complete.classList.remove("hidden"),1100));
-}
-function showFinale(){
-  clearEffectTimers();
-  started=false;won=true;stageLocked=true;
-  game.className="finale";
-  hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");player.classList.remove("torchOn");
-  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];sceneFx.innerHTML="";foreground.innerHTML="";stageIntro.className="hidden";
-  document.getElementById("sun").textContent="✨";
-  document.getElementById("flowers").textContent="🌸 💖 🌼 ⭐ 🌷 💜 🌸 🩷 🌼 💖";
-  goal.className="";
-  goal.innerHTML='<span class="letter" style="color:white;text-shadow:0 4px 0 #ff91deaa,0 8px 18px #5a2a9a66">❤️ Mor&nbsp;&nbsp;❤️ Far<br>💜 Edith&nbsp;&nbsp;🩷 Willa</span>';
-  castle.classList.remove("hidden");
-  for(let i=0;i<7;i++){let b=document.createElement("div");b.className="lightBeam";b.style.setProperty("--rot",(-45+i*15)+"deg");game.appendChild(b);setTimeout(()=>b.remove(),7000)}
-  fireworks(8,24);effectTimers.push(setTimeout(()=>fireworks(6,20),1200));effectTimers.push(setTimeout(()=>fireworks(6,20),2400));
-  show("Mor og far elsker Edith og Willa ❤️",4200);
-  finaleTimer=setTimeout(showMovie,5200);
-}
-document.getElementById("next").onclick=()=>{
-  complete.classList.add("hidden");
-  if(li<playLevels.length-1){li++;load();show(lvl.mode==="swim"?"Styr svømmeren med fingeren 🫧":"Ny bane! ✨",2200)}else showFinale();
-};
-async function playPrizeVideo(){
-  stopMusicForPrize();
-  if(!prizeVideo||!videoAvailable)return false;
-  try{
-    movieStatus.classList.add("hidden");
-    prizeVideo.currentTime=0;prizeVideo.volume=.9;
-    await prizeVideo.play();
-    movie.classList.add("hasVideo");
-    moviePlay.classList.add("hidden");
-    return true;
-  }catch(e){
-    movie.classList.remove("hasVideo");
-    movieStatus.textContent="Filmen kunne ikke starte. Den animerede præmie vises i stedet.";
-    movieStatus.classList.remove("hidden");
-    return false;
-  }
-}
-if(prizeVideo){
-  prizeVideo.addEventListener("loadedmetadata",()=>{videoAvailable=true});
-  prizeVideo.addEventListener("error",()=>{videoAvailable=false;movie.classList.remove("hasVideo");moviePlay.classList.add("hidden");movieStatus.textContent="Præmiefilmen blev ikke fundet. Den animerede præmie vises i stedet.";movieStatus.classList.remove("hidden")});
-}
-function showMovie(){
-  clearTimeout(finaleTimer);finaleTimer=0;stopMusicForPrize();
-  movie.classList.remove("hidden","hasVideo");
-  if(prizeVideo){prizeVideo.pause();try{prizeVideo.currentTime=0}catch(e){}}
-  moviePlay.classList.toggle("hidden",!videoAvailable);
-  movieStatus.classList.toggle("hidden",videoAvailable);
-  fireworks(5,18);
-}
-moviePlay.onclick=playPrizeVideo;
-document.getElementById("movieAgain").onclick=()=>{if(videoAvailable){playPrizeVideo()}else{movie.classList.add("hidden");void movie.offsetWidth;movie.classList.remove("hidden");fireworks(4,16)}};
-function goToMenu(){
-  clearTimeout(finaleTimer);finaleTimer=0;clearEffectTimers();
-  if(prizeVideo){prizeVideo.pause();try{prizeVideo.currentTime=0}catch(e){}}
-  stopMusicForPrize();started=false;won=true;paused=false;stageLocked=false;game.classList.remove("paused");
-  movie.classList.add("hidden");complete.classList.add("hidden");book.classList.add("hidden");modeMenu.classList.add("hidden");pauseMenu.classList.add("hidden");testMenu.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");shieldState.classList.add("hidden");swimTip.classList.add("hidden");darkness.classList.add("hidden");player.classList.add("hidden");
-  itemsEl.innerHTML="";badsEl.innerHTML="";items=[];bads=[];
-}
-document.getElementById("movieMenu").onclick=goToMenu;
-document.getElementById("menuBtn").onclick=goToMenu;
-document.getElementById("bookBtn").onclick=()=>{let s=loadProgress(),g=document.getElementById("bookGrid");g.innerHTML="";cards.forEach(c=>{let d=document.createElement("div");d.innerHTML=(s.cards.includes(c[0])?c[0]:"❔")+`<small>${s.cards.includes(c[0])?c[1]:"Ikke fundet"}</small>`;g.appendChild(d)});menu.classList.add("hidden");book.classList.remove("hidden")};
+function fireworks(){let colors=["#ff5a7a","#ffb347","#fff45a","#77dd77","#6ec6ff","#b284ff","#fff"];for(let b=0;b<12;b++)setTimeout(()=>{let cx=Math.random()*W(),cy=H()*(.12+Math.random()*.38);for(let i=0;i<38;i++){let p=document.createElement("div");p.className="firework";p.style.left=cx+"px";p.style.top=cy+"px";p.style.background=colors[i%colors.length];let a=Math.random()*Math.PI*2,d=55+Math.random()*110;p.style.setProperty("--dx",Math.cos(a)*d+"px");p.style.setProperty("--dy",Math.sin(a)*d+"px");game.appendChild(p);setTimeout(()=>p.remove(),950)}},b*330)}
+function win(){won=true;saveCard(lvl.unlock);fireworks();document.getElementById("doneTitle").textContent=lvl.win;document.getElementById("doneText").textContent=li<levels.length-1?"Du har låst et dyr op i dyrebogen.":"Du har klaret alle baner!";document.getElementById("next").textContent=li<levels.length-1?"Næste bane":"Se regnbueslottet";setTimeout(()=>complete.classList.remove("hidden"),1100)}
+document.getElementById("next").onclick=()=>{complete.classList.add("hidden");if(li<levels.length-1){li++;load();show("Ny bane! ✨",1800)}else{goal.innerHTML='<span class="letter">❤️ Mor&nbsp;&nbsp;❤️ Far<br>💜 Edith&nbsp;&nbsp;🩷 Willa</span>';castle.classList.remove("hidden");for(let i=0;i<7;i++){let b=document.createElement("div");b.className="lightBeam";b.style.setProperty("--rot",(-45+i*15)+"deg");game.appendChild(b);setTimeout(()=>b.remove(),7000)}fireworks();setTimeout(fireworks,1200);setTimeout(fireworks,2400);show("Mor og far elsker Edith og Willa ❤️",5000);setTimeout(showPrizeVideo,5200)}};
+document.getElementById("menuBtn").onclick=()=>{complete.classList.add("hidden");menu.classList.remove("hidden");hud.classList.add("hidden");started=false};
+document.getElementById("bookBtn").onclick=()=>{let s=JSON.parse(localStorage.getItem("ew2")||'{"cards":[]}'),g=document.getElementById("bookGrid");g.innerHTML="";cards.forEach(c=>{let d=document.createElement("div");d.innerHTML=(s.cards.includes(c[0])?c[0]:"❔")+`<small>${s.cards.includes(c[0])?c[1]:"Ikke fundet"}</small>`;g.appendChild(d)});menu.classList.add("hidden");book.classList.remove("hidden")};
 document.getElementById("back").onclick=()=>{book.classList.add("hidden");menu.classList.remove("hidden")};
-function buildTestMenu(){
-  const grid=document.getElementById("testGrid");grid.innerHTML="";
-  levels.forEach(level=>{let b=document.createElement("button");b.className="btn";b.textContent=level.label;b.onclick=()=>startTestLevel(level.id);grid.appendChild(b)});
-}
-function startTestLevel(id){
-  const level=levels.find(l=>l.id===id);if(!level)return;
-  diff=diffs[selectedPlayer]||diffs.Willa;playLevels=[level];gameLength="test";li=0;
-  menu.classList.add("hidden");testMenu.classList.add("hidden");hud.classList.remove("hidden");progressEl.classList.remove("hidden");controls.classList.remove("hidden");
-  started=true;won=false;paused=false;game.classList.remove("paused");unlockAudio();startMusic();load();show(`Test: ${levelTitle(level)} ⚙️`,1800);
-}
-document.getElementById("parentBtn").onclick=()=>{buildTestMenu();document.getElementById("testStatus").textContent="";menu.classList.add("hidden");testMenu.classList.remove("hidden")};
-document.getElementById("testBack").onclick=()=>{testMenu.classList.add("hidden");menu.classList.remove("hidden")};
-document.getElementById("testFinale").onclick=()=>{testMenu.classList.add("hidden");menu.classList.add("hidden");showFinale()};
-document.getElementById("testMovie").onclick=()=>{testMenu.classList.add("hidden");menu.classList.add("hidden");hud.classList.add("hidden");progressEl.classList.add("hidden");controls.classList.add("hidden");player.classList.add("hidden");game.className="finale";started=false;won=true;showMovie()};
-document.getElementById("unlockBook").onclick=()=>{saveCards(cards.map(c=>c[0]));document.getElementById("testStatus").textContent="Hele dyrebogen er låst op ✓"};
-document.getElementById("resetBook").onclick=()=>{let s=loadProgress();s.cards=[];saveProgress(s);document.getElementById("testStatus").textContent="Dyrebogen er nulstillet ✓"};
-function updatePlayer(){if(started&&!won){let ease=lvl&&lvl.mode==="swim"?.14:.10;x+=(tx-x)*ease;y+=(ty-y)*ease;y=Math.max(H()*.16,Math.min(H()*.84,y))}}
-function ensureLoop(){if(!rafId&&started&&!won&&!paused)rafId=requestAnimationFrame(loop)}
-function loop(){
-  rafId=0;
-  if(!started||won||paused)return;
-  if(!stageLocked){
-    updatePlayer();waterBubbles();
-    items.forEach(o=>{
-      o.x-=o.s;
-      if(o.x<-60)recycleItem(o);
-      o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";
-      if(touching(o))collect(o);
-    });
-    bads.forEach(o=>{
-      o.p+=.035;o.x-=o.s;
-      if(o.h[1]==="bee"||o.h[1]==="fly")o.y+=Math.sin(o.p)*(lvl.id==="circus"?2.4:lvl.mode==="swim"?1.8:1.1);
-      if(lvl.id==="circus")o.x+=Math.sin(o.p*.7)*.8;
-      if(o.x<-90){o.x=W()+120+Math.random()*260;o.y=H()*(o.h[3]+Math.random()*(o.h[4]-o.h[3]))}
-      o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";
-      if(touching(o,3))hit();
-    });
+
+function showPrizeVideo(){
+  try{
+    music.pause();
+    prizeVideo.currentTime=0;
+    prizeVideoOverlay.classList.remove("hidden");
+    const promise=prizeVideo.play();
+    if(promise&&promise.catch){
+      promise.catch(()=>show("Tryk på filmen for at starte ▶️",2200));
+    }
+  }catch(e){
+    show("Kunne ikke starte præmiefilmen",2200);
   }
-  if(Math.abs(x-lastX)>.4)facing=x>lastX?1:-1;lastX=x;
-  player.style.left=x+"px";player.style.top=y+"px";
-  if(lvl&&lvl.id==="night"){darkness.style.setProperty("--lx",(x+(facing>0?24:-24))+"px");darkness.style.setProperty("--ly",(y-6)+"px")}
-  player.style.transform="translate(-50%,-50%) scaleX("+facing+")";
-  if(started&&!won&&!paused)rafId=requestAnimationFrame(loop);
 }
-function clampWorld(){
-  const minX=42,maxX=Math.max(minX,W()-42),minY=H()*.16,maxY=H()*.84;
-  x=Math.max(minX,Math.min(maxX,x));tx=Math.max(minX,Math.min(maxX,tx));y=Math.max(minY,Math.min(maxY,y));ty=Math.max(minY,Math.min(maxY,ty));
-  if(!player.classList.contains("hidden"))playerRadius=(parseFloat(getComputedStyle(player).fontSize)||80)*.34;
-  items.forEach(o=>{o.y=Math.max(minY,Math.min(maxY,o.y));if(o.x>W()+600)o.x=W()+120+Math.random()*220});
-  bads.forEach(o=>{o.y=Math.max(minY,Math.min(maxY,o.y));if(o.x>W()+800)o.x=W()+180+Math.random()*240});
-  ensureLoop();
+function closePrizeVideo(){
+  try{prizeVideo.pause()}catch(e){}
+  prizeVideoOverlay.classList.add("hidden");
+  menu.classList.remove("hidden");
+  hud.classList.add("hidden");
+  started=false;
 }
-window.addEventListener("resize",clampWorld);
-window.addEventListener("orientationchange",()=>setTimeout(clampWorld,120));
+closeVideo.addEventListener("click",closePrizeVideo);
+closeVideo.addEventListener("touchend",e=>{
+  e.preventDefault();
+  e.stopPropagation();
+  closePrizeVideo();
+},{passive:false});
+prizeVideo.addEventListener("ended",closePrizeVideo);
+prizeVideo.addEventListener("click",()=>{
+  if(prizeVideo.paused)prizeVideo.play();
+});
+
+function loop(){if(started&&!won){x+=(tx-x)*.10;y+=(ty-y)*.10;items.forEach(o=>{o.x-=o.s;if(o.x<-60){o.x=W()+90+Math.random()*240;o.y=H()*(.24+Math.random()*.52);o.e.textContent=rand(lvl.items)}o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";if(Math.abs(o.x-x)<55&&Math.abs(o.y-y)<55)collect(o)});bads.forEach(o=>{o.p+=.035;o.x-=o.s;if(o.h[1]=="bee"||o.h[1]=="fly")o.y+=Math.sin(o.p)*(lvl.id==="circus"?2.4:lvl.id==="space"?2.0:1.1);if(lvl.id==="circus")o.x+=Math.sin(o.p*0.7)*0.8;if(lvl.id==="space")o.x+=Math.cos(o.p*.55)*1.05;if(o.x<-90){o.x=W()+120+Math.random()*260;o.y=H()*(o.h[3]+Math.random()*(o.h[4]-o.h[3]))}o.e.style.left=o.x+"px";o.e.style.top=o.y+"px";if(Math.abs(o.x-x)<58&&Math.abs(o.y-y)<58)hit()})}if(Math.abs(x-lastX)>.4)facing=x>lastX?1:-1;lastX=x;player.style.left=x+"px";player.style.top=y+"px";player.style.transform="translate(-50%,-50%) scaleX("+facing+")";requestAnimationFrame(loop)}loop();
 </script>
 </body>
 </html>
